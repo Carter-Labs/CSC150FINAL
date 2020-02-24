@@ -1,4 +1,6 @@
-package model;
+package model.entities;
+
+import model.objects.Weapon;
 
 import java.util.Objects;
 
@@ -49,6 +51,13 @@ public class Entity {
     }
 
     /*
+     * Other methods
+     */
+    public void movement() {
+        //move
+    }
+
+    /*
      * Equals and Hash
      */
     @Override public boolean equals(Object o) {
@@ -66,7 +75,7 @@ public class Entity {
      * To String
      */
     @Override public String toString() {
-        return "model.Entity{" +
+        return "model.entities.Entity{" +
                 "health=" + health +
                 ", speed=" + speed +
                 '}';

@@ -1,8 +1,8 @@
-package model;
+package model.entities;
 
-import java.util.Objects;
+import model.objects.Weapon;
 
-public class BatonGuard  extends Entity {
+public class BatonGuard  extends Entity implements Attack {
     /*
      * Constructors
      */
@@ -15,5 +15,9 @@ public class BatonGuard  extends Entity {
      */
     @Override public String toString() {
         return super.toString();
+    }
+
+    @Override public void attack() {
+       //do something
     }
 }
