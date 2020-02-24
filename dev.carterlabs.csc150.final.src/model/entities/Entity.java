@@ -1,6 +1,6 @@
 package model.entities;
 
-import model.Weapon;
+import model.objects.Weapon;
 
 import java.util.Objects;
 
@@ -48,6 +48,13 @@ public class Entity {
     }
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    /*
+     * Other methods
+     */
+    public void movement() {
+        //move
     }
 
     /*

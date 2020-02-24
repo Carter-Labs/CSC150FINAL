@@ -1,6 +1,6 @@
 package model.entities;
 
-import model.Gun;
+import model.objects.Gun;
 
 public class Player extends Entity implements Attack {
     /*

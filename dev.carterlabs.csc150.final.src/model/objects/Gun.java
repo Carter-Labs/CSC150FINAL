@@ -1,4 +1,4 @@
-package model;
+package model.objects;
 
 import java.util.Objects;
 
@@ -75,7 +75,7 @@ public class Gun extends Weapon {
      *To String
      */
     @Override public String toString() {
-        return "model.Gun{" +
+        return "model.objects.Gun{" +
                 "reloadSpeed=" + reloadSpeed +
                 ", damage=" + damage +
                 ", projectTileCount=" + projectTileCount +

@@ -1,6 +1,6 @@
 package model.entities;
 
-import model.Weapon;
+import model.objects.Weapon;
 
 public class Boss extends Entity implements Attack {
     /*

@@ -1,4 +1,4 @@
-package model;
+package model.objects;
 
 import java.util.Objects;
 
@@ -55,7 +55,7 @@ public class Weapon {
      * To String
      */
     @Override public String toString() {
-        return "model.Weapon{" +
+        return "model.objects.Weapon{" +
                 "damage=" + damage +
                 ", weaponType=" + weaponType +
                 '}';

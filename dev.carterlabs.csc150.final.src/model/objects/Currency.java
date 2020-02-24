@@ -1,4 +1,4 @@
-package model;
+package model.objects;
 
 public class Currency {
     /*
@@ -30,7 +30,7 @@ public class Currency {
      * To String
      */
     @Override public String toString() {
-        return "model.Currency{" +
+        return "model.objects.Currency{" +
                 "value=" + value +
                 '}';
     }
