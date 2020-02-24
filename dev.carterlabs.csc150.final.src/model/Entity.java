@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Objects;
 
 public class Entity {
@@ -35,7 +37,7 @@ public class Entity {
     }
     public void setSpeed(double speed) {
         if(speed < 0){
-            throw new IllegalArgumentException("spped must be greater than 0.");
+            throw new IllegalArgumentException("speed must be greater than 0.");
         }
         this.speed = speed;
     }
@@ -64,7 +66,7 @@ public class Entity {
      * To String
      */
     @Override public String toString() {
-        return "Entity{" +
+        return "model.Entity{" +
                 "health=" + health +
                 ", speed=" + speed +
                 '}';

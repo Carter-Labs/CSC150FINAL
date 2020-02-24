@@ -1,12 +1,15 @@
+package model;
+
 import java.util.Objects;
 
-public class Player extends Entity{
+public class ArmedOfficer extends Entity {
     /*
      * Constructors
      */
-    public Player(){}
-    public Player(int health,int speed, Gun weapon){
+    public ArmedOfficer() { }
+    public ArmedOfficer(int health,int speed, Gun weapon) {
         super(health, speed, weapon);
+        this.setWeapon(weapon);
     }
 
     /*

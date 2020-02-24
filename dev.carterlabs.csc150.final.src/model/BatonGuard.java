@@ -1,6 +1,8 @@
+package model;
+
 import java.util.Objects;
 
-public class BatonGuard  extends Entity{
+public class BatonGuard  extends Entity {
     /*
      * Constructors
      */

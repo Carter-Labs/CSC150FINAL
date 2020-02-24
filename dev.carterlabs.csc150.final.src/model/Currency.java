@@ -1,3 +1,5 @@
+package model;
+
 public class Currency {
     /*
      * Variables
@@ -28,7 +30,7 @@ public class Currency {
      * To String
      */
     @Override public String toString() {
-        return "Currency{" +
+        return "model.Currency{" +
                 "value=" + value +
                 '}';
     }

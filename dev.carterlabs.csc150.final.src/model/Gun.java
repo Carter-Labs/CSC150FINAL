@@ -1,6 +1,8 @@
+package model;
+
 import java.util.Objects;
 
-public class Gun extends Weapon{
+public class Gun extends Weapon {
     /*
      * Variables for the specific instance
      */
@@ -73,7 +75,7 @@ public class Gun extends Weapon{
      *To String
      */
     @Override public String toString() {
-        return "Gun{" +
+        return "model.Gun{" +
                 "reloadSpeed=" + reloadSpeed +
                 ", damage=" + damage +
                 ", projectTileCount=" + projectTileCount +

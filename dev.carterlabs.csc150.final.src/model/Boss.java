@@ -1,4 +1,6 @@
-public class Boss extends Entity{
+package model;
+
+public class Boss extends Entity {
     /*
      * Constructors
      */
