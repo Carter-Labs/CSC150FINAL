@@ -1,4 +1,6 @@
-package model;
+package model.entities;
+
+import model.Weapon;
 
 import java.util.Objects;
 
@@ -66,7 +68,7 @@ public class Entity {
      * To String
      */
     @Override public String toString() {
-        return "model.Entity{" +
+        return "model.entities.Entity{" +
                 "health=" + health +
                 ", speed=" + speed +
                 '}';

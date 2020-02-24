@@ -1,8 +1,8 @@
-package model;
+package model.entities;
 
-import java.util.Objects;
+import model.Gun;
 
-public class Player extends Entity {
+public class Player extends Entity implements Attack {
     /*
      * Constructors
      */
@@ -16,5 +16,9 @@ public class Player extends Entity {
      */
     @Override public String toString() {
         return super.toString();
+    }
+
+    @Override public void attack() {
+        //do something
     }
 }

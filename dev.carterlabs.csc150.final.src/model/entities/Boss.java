@@ -1,6 +1,8 @@
-package model;
+package model.entities;
 
-public class Boss extends Entity {
+import model.Weapon;
+
+public class Boss extends Entity implements Attack {
     /*
      * Constructors
      */
@@ -14,5 +16,9 @@ public class Boss extends Entity {
      */
     @Override public String toString() {
         return super.toString();
+    }
+
+    @Override public void attack() {
+        //do something
     }
 }
