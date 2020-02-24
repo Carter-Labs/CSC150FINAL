@@ -6,8 +6,7 @@ public class Chamber implements Generate {
     private GameObject[] objects;
     private Entity[] entities;
 
-    @Override
-    public void generate() {
+    @Override public void generate() {
         //do something
     }
 }

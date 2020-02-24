@@ -19,6 +19,7 @@ public class Level implements Generate {
      */
     @Override public void generate() {
         //do Something
+        
     }
 
     /*
