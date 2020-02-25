@@ -24,8 +24,7 @@ public class Globals {
      * Array of players weapons *needs to be build on first load
      */
     public static Gun[] playerGuns;
-
-
+    
     /**
      * Info for Chamber.java
      */
@@ -41,7 +40,13 @@ public class Globals {
         //load file
         //if(file is null) {
             //firstLoadSaveData();
-        //}
+        //}else {
+        //list of guns set here
+        amountOfCurrency = 0;
+        levelNumber = 1;
+        playerHealth = 100;
+        playerSpeed = 1;
+        // }
     }
 
     /**
@@ -63,6 +68,10 @@ public class Globals {
         Gun rayGun = new Gun(25, WeaponType.RAY_GUN);
         playerGuns = new Gun[]{ar,smg,shotgun,sniper,rocketLauncher,rayGun};
         amountOfCurrency = 0;
+        levelNumber = 1;
+        playerHealth = 100;
+        playerSpeed = 1;
+        //create new file and save
         saveData();
     }
 }
