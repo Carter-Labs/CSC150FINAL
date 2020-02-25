@@ -16,6 +16,8 @@ public class Globals {
      */
     public static int amountOfCurrency;
     public static int levelNumber;
+    public static int playerHealth;
+    public static int playerSpeed;
 
     /**
      * Array of players weapons *needs to be build on first load
