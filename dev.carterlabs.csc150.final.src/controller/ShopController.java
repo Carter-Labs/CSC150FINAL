@@ -20,7 +20,7 @@ public class ShopController {
     }
 
     public void updateCurrency(int cost) {
-        Globals.amountOfCurrency -= cost;
+        Globals.avaliableCurrency -= cost;
         Globals.saveData();
     }
 
