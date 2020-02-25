@@ -33,7 +33,7 @@ public class ShopController {
      * @param cost Amount of currency spent
      */
     public void updateCurrency(int cost) {
-        Globals.avaliableCurrency -= cost;
+        Globals.availableCurrency -= cost;
         Globals.saveData();
     }
 
