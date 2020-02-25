@@ -7,7 +7,6 @@ public class Gun extends Weapon {
      * Variables for the specific instance
      */
     private double reloadSpeed;
-    private int damage;
     private int projectTileCount;
     private int magSize;
 
@@ -23,6 +22,20 @@ public class Gun extends Weapon {
         this.setReloadSpeed(reloadSpeed);
         this.setProjectTileCount(projectTileCount);
         this.setMagSize(magSize);
+    }
+    /*
+     * for the randomly generated entities
+     */
+    public Gun(int damage, WeaponType weaponType){
+        super(damage, weaponType);
+        switch (weaponType) {
+            case AR: this.setReloadSpeed(10); this.setProjectTileCount(1); this.setMagSize(30);break;
+            case SHOTGUN: this.setReloadSpeed(50); this.setProjectTileCount(3); this.setMagSize(3);break;
+            case SMG: this.setReloadSpeed(10); this.setProjectTileCount(1); this.setMagSize(50); break;
+            case SNIPER: this.setReloadSpeed(8); this.setProjectTileCount(1); this.setMagSize(10);break;
+            case RAY_GUN: this.setReloadSpeed(20); this.setProjectTileCount(1); this.setMagSize(25);break;
+            case ROCKET_LAUNCHER:this.setReloadSpeed(75); this.setProjectTileCount(1); this.setMagSize(3);break;
+        }
     }
 
     /*
@@ -61,14 +74,15 @@ public class Gun extends Weapon {
     @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Gun gun = (Gun) o;
         return Double.compare(gun.reloadSpeed, reloadSpeed) == 0 &&
-                damage == gun.damage &&
                 projectTileCount == gun.projectTileCount &&
                 magSize == gun.magSize;
     }
+
     @Override public int hashCode() {
-        return Objects.hash(reloadSpeed, damage, projectTileCount, magSize);
+        return Objects.hash(super.hashCode(), reloadSpeed, projectTileCount, magSize);
     }
 
     /*
@@ -77,7 +91,6 @@ public class Gun extends Weapon {
     @Override public String toString() {
         return "model.objects.Gun{" +
                 "reloadSpeed=" + reloadSpeed +
-                ", damage=" + damage +
                 ", projectTileCount=" + projectTileCount +
                 ", magSize=" + magSize +
                 '}';

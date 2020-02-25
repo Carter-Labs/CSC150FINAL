@@ -71,7 +71,7 @@ public class Chamber implements Generate {
             List<Entity> newArr = new ArrayList<>(this.getEntities());
             WeaponType randomWeapon = WeaponType.values()[Globals.rand.nextInt(WeaponType.values().length - 1)];
             if (randomWeapon == WeaponType.BATON) {randomWeapon = WeaponType.AR;}
-            newArr.add(new ArmedOfficer(100,100, (Gun) new Weapon(100, randomWeapon)));
+            newArr.add(new ArmedOfficer(100,100,new Gun(20, randomWeapon)));
         }
     }
 
