@@ -3,7 +3,7 @@ package controller;
 import model.Globals;
 
 public class ShopController {
-    
+
     /**
      * Updates and saves the player health
      */
