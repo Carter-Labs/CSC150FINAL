@@ -3,7 +3,6 @@ package model.level;
 import model.Globals;
 import model.entities.Player;
 import model.objects.Gun;
-import model.objects.Weapon;
 
 import java.util.Arrays;
 
