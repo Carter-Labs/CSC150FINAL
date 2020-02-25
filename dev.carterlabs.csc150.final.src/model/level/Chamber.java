@@ -1,9 +1,11 @@
 package model.level;
 
 import model.Globals;
+import model.entities.ArmedOfficer;
 import model.entities.BatonGuard;
 import model.entities.Boss;
 import model.entities.Entity;
+import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 
@@ -28,7 +30,7 @@ public class Chamber implements Generate {
         //add boss if in range to list of entities
         isBossInChamber();
         //add num of enemies to list of entities
-
+        addOfficersAndGuards();
     }
 
     public void draw() {
@@ -55,12 +57,18 @@ public class Chamber implements Generate {
      * adds random amount of armed officers and baton guards
      */
     private void addOfficersAndGuards() {
-//        int numOfGuards = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards - 2) + 1;
-//        int numOfOfficers = Globals.maxNumOfOfficersAndGuards - numOfGuards;
-//        for (int i = 1; i < numOfGuards; i++) {
-//            List<Entity> newArr = new ArrayList<>(this.getEntities());
-//            newArr.add(new BatonGuard(110,100,));
-//        }
+        int numOfGuards = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards - 2) + 1;
+        int numOfOfficers = Globals.maxNumOfOfficersAndGuards - numOfGuards;
+        for (int i = 1; i < numOfGuards; i++) {
+            List<Entity> newArr = new ArrayList<>(this.getEntities());
+            newArr.add(new BatonGuard(110,100,new Weapon(100, WeaponType.BATON)));
+        }
+        for (int i = 0; i < numOfOfficers; i++) {
+            List<Entity> newArr = new ArrayList<>(this.getEntities());
+            WeaponType randomWeapon = WeaponType.values()[Globals.rand.nextInt(WeaponType.values().length - 1)];
+            if (randomWeapon == WeaponType.BATON) {randomWeapon = WeaponType.AR;}
+            newArr.add(new ArmedOfficer(100,100, (Gun) new Weapon(100, randomWeapon)));
+        }
     }
     /*
      * Getters and Setters
