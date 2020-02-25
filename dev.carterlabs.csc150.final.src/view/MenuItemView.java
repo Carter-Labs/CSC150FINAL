@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MenuItemView extends JComponent implements MouseListener {
+public class MenuItemView extends JComponent {
     BufferedImage DefaultImage, HoverImage, CurrentImage, ItemImage;
-    private boolean isClicked;
+    private boolean isActive;
 
     public MenuItemView(String ItemIconPath){
         DefaultImage = loadImage("./Resources/ItemUIBackground.png");
@@ -21,8 +21,7 @@ public class MenuItemView extends JComponent implements MouseListener {
         ItemImage = scaleImage(loadImage(ItemIconPath), .90);
         CurrentImage = DefaultImage;
         setBounds(getX(), getX(), DefaultImage.getWidth(), DefaultImage.getHeight());
-        addMouseListener(this);
-        setIsClicked(false);
+        setIsActive(false);
     }
 
     private BufferedImage scaleImage(BufferedImage image, double factor){
@@ -45,44 +44,20 @@ public class MenuItemView extends JComponent implements MouseListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        CurrentImage = getIsActive() ? HoverImage : DefaultImage;
         g.drawImage(CurrentImage, 0, 0, null);
         g.drawImage(ItemImage, 3, 3, null);
         paintChildren(g);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(e.getButton() == MouseEvent.BUTTON1) {
-            setIsClicked(!getIsClicked());
-            if(getIsClicked()){
-                CurrentImage = HoverImage;
-            } else {
-                CurrentImage = DefaultImage;
-            }
-            repaint();
-        }
-    }
-
-    public void setIsClicked(boolean clicked) {
-        isClicked = clicked;
+    public void setIsActive(boolean active) {
+        isActive = active;
         repaint();
     }
 
-    public boolean getIsClicked() {
-        return isClicked;
+    public boolean getIsActive() {
+        return isActive;
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) { }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("MenuItemView Test");
@@ -97,5 +72,13 @@ public class MenuItemView extends JComponent implements MouseListener {
         item2.setLocation(item.getWidth(), 0);
         frame.add(item2);
         frame.setVisible(true);
+        while (true) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            item2.setIsActive(!item2.getIsActive());
+        }
     }
 }
