@@ -7,5 +7,7 @@ Level.java
  -Player gun damage constant in generate()
 Gun.java
  Gun default values in constructor for randomly generated entities.
+Globals.java
+ -Defaut values for starting guns in firstLoadSaveData().
 
 -in MenuItemView.java, make sure to load data using Globals.loadData();
