@@ -5,12 +5,16 @@ import model.objects.Currency;
 import model.objects.Weapon;
 
 public class BatonGuard  extends Entity implements Attack, Die {
-    /*
+    /**
      * Variables
      */
     private Currency[] currencyToDrop;
-    /*
-     * Constructors
+
+    /**
+     * Baton Guard constructor
+     * @param health Baton Guard health
+     * @param speed Baton Guard speed
+     * @param baton Baton Guard baton
      */
     public BatonGuard(int health,int speed, Weapon baton) {
         super(health, speed, baton);
@@ -20,18 +24,24 @@ public class BatonGuard  extends Entity implements Attack, Die {
             currencyToDrop[i] = new Currency(Globals.rand.nextInt(5)+ 1);
         }
     }
-    /*
-     * To String
-     */
-    @Override public String toString() {
-        return super.toString();
-    }
 
+    /**
+     * Attack
+     */
     @Override public void attack() {
        //do something
     }
 
+    /**
+     * Die
+     */
     @Override public void die() {
         //do something (loop through currencyToDrop and emmit it from node)
+    }
+    /**
+     * @return Baton Guard description
+     */
+    @Override public String toString() {
+        return super.toString();
     }
 }

@@ -1,23 +1,27 @@
 package model.level;
 
 import model.Globals;
+import model.entities.Player;
+import model.objects.Gun;
+
 import java.util.Arrays;
 
 public class Level implements Generate {
-    /*
-     *Variables
+    /**
+     * Variables
      */
     private Chamber[] chambers;
+    private Player player;
 
-    /*
+    /**
      * Constructor - automatically generates chamber array and number of bosses.
      */
     public Level(){
         this.generate();
     }
 
-    /*
-     * Implementation Methods
+    /**
+     * Generates the level and adds the player with its saved values
      */
     @Override public void generate() {
         //create array of chambers
@@ -26,17 +30,19 @@ public class Level implements Generate {
         for (int i = 0; i < chambers.length - 1; i++) {
             chambers[i] = new Chamber();
         }
+        //add the player to this level
+        player = new Player(Globals.playerHealth, Globals.playerSpeed, new Gun(Globals.playerReloadSpeed, 25, Globals.playerProjectileCount, Globals.playerMagSize, Globals.weaponType));
     }
 
-    /*
-     * Getters and Setters
+    /**
+     * @return Chambers in the level
      */
     public Chamber[] getChambers() {
         return chambers;
     }
 
-    /*
-     * To String
+    /**
+     * @return Level description
      */
     @Override public String toString() {
         return "Level{" +
