@@ -14,7 +14,13 @@ public class Globals {
     public static double playerReloadSpeed;
     public static int playerProjectileCount;
     public static int playerMagSize;
+    public static int avaliableCurrency;
 
+    /*
+     * UIController.java
+     */
+    public static int amountOfCurrency;
+    
     /*
      * Info for Chamber.java
      */
@@ -27,6 +33,6 @@ public class Globals {
     }
 
     public static void saveData() {
-        //Saves every value in this file
+        //Saves every value in this file except the generals
     }
 }
