@@ -5,21 +5,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class MenuItemView extends JComponent implements MouseListener {
-    BufferedImage DefaultImage, HoverImage;
-    BufferedImage CurrentImage;
-    boolean isClicked;
-    public MenuItemView(){
+    BufferedImage DefaultImage, HoverImage, CurrentImage, ItemImage;
+    private boolean isClicked;
+
+    public MenuItemView(String ItemIconPath){
         DefaultImage = loadImage("./Resources/ItemUIBackground.png");
         HoverImage = loadImage("./Resources/ItemUIBackgroundHover.png");
+        ItemImage = scaleImage(loadImage(ItemIconPath), .90);
         CurrentImage = DefaultImage;
         setBounds(getX(), getX(), DefaultImage.getWidth(), DefaultImage.getHeight());
         addMouseListener(this);
         isClicked = false;
+    }
+
+    private BufferedImage scaleImage(BufferedImage image, double factor){
+        BufferedImage scaledImage = new BufferedImage((int)(image.getWidth() / factor), (int)(image.getHeight() / factor), BufferedImage.TYPE_INT_ARGB);
+        AffineTransform transform = AffineTransform.getScaleInstance(factor, factor);
+        AffineTransformOp transformOp = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        return transformOp.filter(image, scaledImage);
     }
 
     private BufferedImage loadImage(String path) {
@@ -36,18 +46,28 @@ public class MenuItemView extends JComponent implements MouseListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(CurrentImage, 0, 0, null);
+        g.drawImage(ItemImage, 3, 3, null);
         paintChildren(g);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        isClicked = !isClicked;
-        if(isClicked){
+        setIsClicked(!getIsClicked());
+        if(getIsClicked()){
             CurrentImage = HoverImage;
         } else {
             CurrentImage = DefaultImage;
         }
         repaint();
+    }
+
+    public void setIsClicked(boolean clicked) {
+        isClicked = clicked;
+        repaint();
+    }
+
+    public boolean getIsClicked() {
+        return isClicked;
     }
 
     @Override
@@ -68,10 +88,10 @@ public class MenuItemView extends JComponent implements MouseListener {
         frame.setBounds(100, 100, 500, 500);
         frame.getContentPane().setBackground(Color.RED);
         frame.setLayout(null);
-        MenuItemView item = new MenuItemView();
+        MenuItemView item = new MenuItemView("./Resources/TestPistolIcon.png");
         item.setLocation(0, 0);
         frame.add(item);
-        MenuItemView item2 = new MenuItemView();
+        MenuItemView item2 = new MenuItemView("./Resources/TestPistolIcon.png");
         item2.setLocation(item.getWidth(), 0);
         frame.add(item2);
         frame.setVisible(true);
