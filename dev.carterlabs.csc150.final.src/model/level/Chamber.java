@@ -10,6 +10,7 @@ import model.objects.Weapon;
 import model.objects.WeaponType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Chamber implements Generate {
@@ -70,6 +71,7 @@ public class Chamber implements Generate {
             newArr.add(new ArmedOfficer(100,100, (Gun) new Weapon(100, randomWeapon)));
         }
     }
+
     /*
      * Getters and Setters
      */
@@ -84,5 +86,15 @@ public class Chamber implements Generate {
     }
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
+    }
+
+    /*
+     * To String
+     */
+    @Override public String toString() {
+        return "Chamber{" +
+                "objects=" + Arrays.toString(objects) +
+                ", entities=" + entities +
+                '}';
     }
 }
