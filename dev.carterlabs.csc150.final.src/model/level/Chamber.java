@@ -14,23 +14,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Chamber implements Generate {
-    /*
+    /**
      * Variables
      */
     private GameObject[] objects;
     private List<Entity> entities = new ArrayList<>();
     private ChamberDoorOptions[] doors;
 
-    /*
-     * Constructor - automatically generates
+    /**
+     * Default Constructor
      */
     public Chamber(){
         this.generate();
         doors = new ChamberDoorOptions[4];
     }
 
-    /*
-     * Generates Chamber
+    /**
+     * Generates chamber and it's entities
      */
     @Override public void generate() {
         //add boss if in range to list of entities
@@ -40,6 +40,9 @@ public class Chamber implements Generate {
         addOfficersAndGuards();
     }
 
+    /**
+     * Generates the side location of the doors
+     */
     private void generateDoors() {
         int doors = Globals.rand.nextInt(4);
         for (int i = 0; i < doors; i++) {
@@ -75,6 +78,11 @@ public class Chamber implements Generate {
         }
     }
 
+    /**
+     * @param option What option the door is at
+     * @param array The array of door options
+     * @return If the option was contained in the array
+     */
     private boolean contained(ChamberDoorOptions option, ChamberDoorOptions[] array) {
         for (ChamberDoorOptions opt: array) {
             return opt.equals(option);
@@ -82,12 +90,15 @@ public class Chamber implements Generate {
         return false;
     }
 
+    /**
+     * Draws the chamber in the view
+     */
     public void draw() {
         //Draws the chamber in the view
     }
 
-    /*
-     * Determines the chance of a boss spawning in a chamber
+    /**
+     * Determines the chances a boss spawning in the chamber
      */
     private void isBossInChamber() {
         int num = Globals.rand.nextInt(100) + 1;
@@ -102,8 +113,8 @@ public class Chamber implements Generate {
         }
     }
 
-    /*
-     * adds random amount of armed officers and baton guards
+    /**
+     * Adds random amount of armed officers and baton guards
      */
     private void addOfficersAndGuards() {
         int numOfGuards = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards - 2) + 1;
@@ -120,24 +131,38 @@ public class Chamber implements Generate {
         }
     }
 
-    /*
-     * Getters and Setters
+    /**
+     * @return Array of GameObjects
      */
     public GameObject[] getObjects() {
         return objects;
     }
+
+    /**
+     * Sets the array of GameObjects
+     * @param objects
+     */
     public void setObjects(GameObject[] objects) {
         this.objects = objects;
     }
+
+    /**
+     * @return List of entities
+     */
     public List<Entity> getEntities() {
         return entities;
     }
+
+    /**
+     * Sets the list of entities
+     * @param entities
+     */
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
 
-    /*
-     * To String
+    /**
+     * @return Chamber description
      */
     @Override public String toString() {
         return "Chamber{" +
