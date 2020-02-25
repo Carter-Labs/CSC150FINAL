@@ -1,13 +1,16 @@
 package model.level;
 
 import model.Globals;
+import model.entities.ArmedOfficer;
 import model.entities.BatonGuard;
 import model.entities.Boss;
 import model.entities.Entity;
+import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Chamber implements Generate {
@@ -18,6 +21,9 @@ public class Chamber implements Generate {
     private List<Entity> entities = new ArrayList<>();
     private ChamberDoorOptions[] doors;
 
+    /*
+     * Constructor - automatically generates
+     */
     public Chamber(){
         this.generate();
         doors = new ChamberDoorOptions[4];
@@ -31,7 +37,7 @@ public class Chamber implements Generate {
         generateDoors();
         isBossInChamber();
         //add num of enemies to list of entities
-
+        addOfficersAndGuards();
     }
 
     private void generateDoors() {
@@ -100,13 +106,20 @@ public class Chamber implements Generate {
      * adds random amount of armed officers and baton guards
      */
     private void addOfficersAndGuards() {
-//        int numOfGuards = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards - 2) + 1;
-//        int numOfOfficers = Globals.maxNumOfOfficersAndGuards - numOfGuards;
-//        for (int i = 1; i < numOfGuards; i++) {
-//            List<Entity> newArr = new ArrayList<>(this.getEntities());
-//            newArr.add(new BatonGuard(110,100,));
-//        }
+        int numOfGuards = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards - 2) + 1;
+        int numOfOfficers = Globals.maxNumOfOfficersAndGuards - numOfGuards;
+        for (int i = 1; i < numOfGuards; i++) {
+            List<Entity> newArr = new ArrayList<>(this.getEntities());
+            newArr.add(new BatonGuard(110,100,new Weapon(100, WeaponType.BATON)));
+        }
+        for (int i = 0; i < numOfOfficers; i++) {
+            List<Entity> newArr = new ArrayList<>(this.getEntities());
+            WeaponType randomWeapon = WeaponType.values()[Globals.rand.nextInt(WeaponType.values().length - 1)];
+            if (randomWeapon == WeaponType.BATON) {randomWeapon = WeaponType.AR;}
+            newArr.add(new ArmedOfficer(100,100,new Gun(20, randomWeapon)));
+        }
     }
+
     /*
      * Getters and Setters
      */
@@ -121,5 +134,15 @@ public class Chamber implements Generate {
     }
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
+    }
+
+    /*
+     * To String
+     */
+    @Override public String toString() {
+        return "Chamber{" +
+                "objects=" + Arrays.toString(objects) +
+                ", entities=" + entities +
+                '}';
     }
 }
