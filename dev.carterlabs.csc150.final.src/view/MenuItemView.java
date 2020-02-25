@@ -22,7 +22,7 @@ public class MenuItemView extends JComponent implements MouseListener {
         CurrentImage = DefaultImage;
         setBounds(getX(), getX(), DefaultImage.getWidth(), DefaultImage.getHeight());
         addMouseListener(this);
-        isClicked = false;
+        setIsClicked(false);
     }
 
     private BufferedImage scaleImage(BufferedImage image, double factor){
