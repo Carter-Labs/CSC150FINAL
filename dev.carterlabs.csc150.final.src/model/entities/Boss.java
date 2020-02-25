@@ -5,12 +5,16 @@ import model.objects.Currency;
 import model.objects.Weapon;
 
 public class Boss extends Entity implements Attack, Die {
-    /*
+    /**
      * Variables
      */
     private Currency[] currencyToDrop;
-    /*
-     * Constructors
+
+    /**
+     * Boss Constructor
+     * @param health Boss health
+     * @param speed Boss speed
+     * @param weapon Boss weapon
      */
     public Boss(int health,int speed, Weapon weapon){
         super(health,speed,weapon);
@@ -21,18 +25,24 @@ public class Boss extends Entity implements Attack, Die {
         }
     }
 
-    /*
-     * To String
+    /**
+     * Attack
+     */
+    @Override public void attack() {
+        //do something
+    }
+
+    /**
+     * Die
+     */
+    @Override public void die() {
+        //do something (loop through currencyToDrop and emmit it from node)
+    }
+    /**
+     * @return Boss description
      */
     @Override public String toString() {
         return super.toString();
     }
 
-    @Override public void attack() {
-        //do something
-    }
-
-    @Override public void die() {
-        //do something (loop through currencyToDrop and emmit it from node)
-    }
 }
