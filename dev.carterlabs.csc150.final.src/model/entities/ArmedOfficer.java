@@ -5,12 +5,16 @@ import model.objects.Currency;
 import model.objects.Gun;
 
 public class ArmedOfficer extends Entity implements Attack, Die {
-    /*
+    /**
      * Variables
      */
     private Currency[] currencyToDrop;
-    /*
-     * Constructors
+
+    /**
+     * Armed Officer Constructor
+     * @param health Armed Officer health
+     * @param speed Armed Officer speed
+     * @param weapon Armed Officer weapon
      */
     public ArmedOfficer(int health,int speed, Gun weapon) {
         super(health, speed, weapon);
@@ -22,24 +26,23 @@ public class ArmedOfficer extends Entity implements Attack, Die {
         }
     }
 
-    /*
-     * To String
-     */
-    @Override public String toString() {
-        return super.toString();
-    }
-
-    /*
-     * attacks enemy
+    /**
+     * Attack
      */
     @Override public void attack() {
         // do something
     }
 
-    /*
-     * dies and drops currency
+    /**
+     * Die
      */
     @Override public void die() {
         //do something (loop through currencyToDrop and emmit it from node)
+    }
+    /**
+     * @return Armed Officer description
+     */
+    @Override public String toString() {
+        return super.toString();
     }
 }
