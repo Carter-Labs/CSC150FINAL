@@ -10,14 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chamber implements Generate {
+    /*
+     * Variables
+     */
     private GameObject[] objects;
     private List<Entity> entities = new ArrayList<>();
 
+    public Chamber(){
+        this.generate();
+    }
+
+    /*
+     * Generates Chamber
+     */
     @Override public void generate() {
         //add boss if in range to list of entities
         isBossInChamber();
         //add num of enemies to list of entities
-
+        
     }
 
     /*
@@ -36,18 +46,18 @@ public class Chamber implements Generate {
         }
     }
 
+    /*
+     * Getters and Setters
+     */
     public GameObject[] getObjects() {
         return objects;
     }
-
     public void setObjects(GameObject[] objects) {
         this.objects = objects;
     }
-
     public List<Entity> getEntities() {
         return entities;
     }
-
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
