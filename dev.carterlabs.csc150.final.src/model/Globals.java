@@ -16,7 +16,7 @@ public class Globals {
     public static double playerReloadSpeed;
     public static int playerProjectileCount;
     public static int playerMagSize;
-    public static int avaliableCurrency;
+    public static int availableCurrency;
     public static int playerHealth;
     public static int playerSpeed;
 
