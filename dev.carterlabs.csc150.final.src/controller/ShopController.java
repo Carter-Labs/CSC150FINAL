@@ -24,7 +24,15 @@ public class ShopController {
         Globals.saveData();
     }
 
+    public void upgradePlayerHealth() {
+        Globals.playerHealth += 1;
+        Globals.saveData();
+    }
 
+    public void upgradePlayerSpeed() {
+        Globals.playerSpeed += 1;
+        Globals.saveData();
+    }
 
 
 }
