@@ -29,7 +29,7 @@ public class Entity {
         return health;
     }
     public void setHealth(int health) {
-        if(health < 0 || health > 100) {
+        if(health < 0 || health > 300) {
             throw new IllegalArgumentException("health must be between 0 and 100.");
         }
         this.health = health;
