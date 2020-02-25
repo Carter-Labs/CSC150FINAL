@@ -102,7 +102,7 @@ public class Chamber implements Generate {
      */
     private void isBossInChamber() {
         int num = Globals.rand.nextInt(100) + 1;
-        if (num < Globals.inintalBossSpanPerc * 100) {
+        if (num < Globals.bossSpanPerc * 100) {
             Globals.isBossInChamber = true;
             List<Entity> newArr = new ArrayList<>(this.getEntities());
             newArr.add(new Boss(300,100, new Weapon(20, WeaponType.SHOTGUN)));
