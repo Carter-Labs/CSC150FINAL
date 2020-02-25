@@ -18,11 +18,13 @@ public class Globals {
     public static int levelNumber;
     public static int playerHealth;
     public static int playerSpeed;
+    public static Gun selectedGun;
 
     /**
      * Array of players weapons *needs to be build on first load
      */
     public static Gun[] playerGuns;
+
 
     /**
      * Info for Chamber.java

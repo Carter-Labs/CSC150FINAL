@@ -31,7 +31,7 @@ public class Level implements Generate {
             chambers[i] = new Chamber();
         }
         //add the player to this level
-        player = new Player(Globals.playerHealth, Globals.playerSpeed, new Gun(Globals.playerReloadSpeed, 25, Globals.playerProjectileCount, Globals.playerMagSize, Globals.weaponType));
+        player = new Player(Globals.playerHealth, Globals.playerSpeed, Globals.selectedGun);
     }
 
     /**
