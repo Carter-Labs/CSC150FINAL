@@ -3,18 +3,20 @@ package model.objects;
 import java.util.Objects;
 
 public class Gun extends Weapon {
-    /*
-     * Variables for the specific instance
+    /**
+     * Variables
      */
     private double reloadSpeed;
     private int projectTileCount;
     private int magSize;
 
-    /*
-     * Constructors
-     */
-    /*
-     * for the gun with projectiles
+    /**
+     * Gun constructor
+     * @param reloadSpeed Gun reload speed
+     * @param damage Gun damage
+     * @param projectTileCount Gun projectile count
+     * @param magSize Gun magazine size
+     * @param weaponType Gun type
      */
     public Gun(double reloadSpeed, int damage, int projectTileCount, int magSize, WeaponType weaponType) {
         super(damage, weaponType);
@@ -22,8 +24,11 @@ public class Gun extends Weapon {
         this.setProjectTileCount(projectTileCount);
         this.setMagSize(magSize);
     }
-    /*
-     * for the randomly generated entities
+
+    /**
+     * Contructor for randomly generated guns
+     * @param damage Gun damage
+     * @param weaponType Gun type
      */
     public Gun(int damage, WeaponType weaponType){
         super(damage, weaponType);
@@ -37,38 +42,63 @@ public class Gun extends Weapon {
         }
     }
 
-    /*
-     * getters and setter for the specific instance of the gun
+    /**
+     * @return Gun reload speed
      */
     public double getReloadSpeed() {
         return reloadSpeed;
     }
+    /**
+     * Sets gun reload speed
+     * @param reloadSpeed Gun reload speed
+     */
     public void setReloadSpeed(double reloadSpeed) {
         if(reloadSpeed < 0) {
             throw new IllegalArgumentException("reloadSpeed must be greater than 0.");
         }
         this.reloadSpeed = reloadSpeed;
     }
+
+    /**
+     * @return Gun projectile count
+     */
     public int getProjectTileCount() {
         return projectTileCount;
     }
+
+    /**
+     * Sets gun projectile count
+     * @param projectTileCount Gun projectile count
+     */
     public void setProjectTileCount(int projectTileCount) {
         if(projectTileCount < 0) {
             throw new IllegalArgumentException("projectileCount must be greater than 0.");
         }
         this.projectTileCount = projectTileCount;
     }
+
+    /**
+     * @return Gun mag size
+     */
     public int getMagSize() {
         return magSize;
     }
+
+    /**
+     * Sets gun magazine size
+     * @param magSize Gun magazine size
+     */
     public void setMagSize(int magSize) {
         if(magSize < 0) {
             throw new IllegalArgumentException("magSize must be greater than 0.");
         }
         this.magSize = magSize;
     }
-    /*
-     * Equals and Hash
+
+    /**
+     * Compares guns
+     * @param o Weapon or Gun object
+     * @return If the guns are equal
      */
     @Override public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,12 +110,15 @@ public class Gun extends Weapon {
                 magSize == gun.magSize;
     }
 
+    /**
+     * @return Hash of guns
+     */
     @Override public int hashCode() {
         return Objects.hash(super.hashCode(), reloadSpeed, projectTileCount, magSize);
     }
 
-    /*
-     *To String
+    /**
+     * @return Gun description
      */
     @Override public String toString() {
         return "model.objects.Gun{" +
