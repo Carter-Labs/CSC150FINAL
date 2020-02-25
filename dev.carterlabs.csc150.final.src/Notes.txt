@@ -1,3 +1,11 @@
 Values that need to be reviewed for balancing:
+ShopController.java
+ -all save method increment amounts.
+Chamber.java
+ -Armed Officer and Baton Guard default values in addOfficersAndGuards()
+Level.java
+ -Player gun damage constant in generate()
+Gun.java
+ Gun default values in constructor for randomly generated entities.
 
 -in MenuItemView.java, make sure to load data using Globals.loadData();
