@@ -20,6 +20,9 @@ public class Chamber implements Generate {
     private GameObject[] objects;
     private List<Entity> entities = new ArrayList<>();
 
+    /*
+     * Constructor - automatically generates
+     */
     public Chamber(){
         this.generate();
     }
