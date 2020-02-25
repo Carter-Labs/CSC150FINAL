@@ -20,7 +20,7 @@ public class Globals {
      * UIController.java
      */
     public static int amountOfCurrency;
-    
+
     /*
      * Info for Chamber.java
      */
