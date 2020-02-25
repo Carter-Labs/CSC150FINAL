@@ -52,13 +52,15 @@ public class MenuItemView extends JComponent implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        setIsClicked(!getIsClicked());
-        if(getIsClicked()){
-            CurrentImage = HoverImage;
-        } else {
-            CurrentImage = DefaultImage;
+        if(e.getButton() == MouseEvent.BUTTON1) {
+            setIsClicked(!getIsClicked());
+            if(getIsClicked()){
+                CurrentImage = HoverImage;
+            } else {
+                CurrentImage = DefaultImage;
+            }
+            repaint();
         }
-        repaint();
     }
 
     public void setIsClicked(boolean clicked) {
