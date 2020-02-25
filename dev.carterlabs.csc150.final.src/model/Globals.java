@@ -1,5 +1,7 @@
 package model;
 
+import model.objects.WeaponType;
+
 import java.util.Random;
 
 public class Globals {
@@ -15,11 +17,18 @@ public class Globals {
     public static int playerProjectileCount;
     public static int playerMagSize;
     public static int avaliableCurrency;
+    public static int playerHealth;
+    public static int playerSpeed;
 
     /*
      * UIController.java
      */
     public static int amountOfCurrency;
+
+    /*
+     * Gun Selection
+     */
+    public static WeaponType weaponType;
 
     /*
      * Info for Chamber.java

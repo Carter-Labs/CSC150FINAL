@@ -6,7 +6,6 @@ public class Player extends Entity implements Attack {
     /*
      * Constructors
      */
-    public Player(){}
     public Player(int health,int speed, Gun weapon){
         super(health, speed, weapon);
     }

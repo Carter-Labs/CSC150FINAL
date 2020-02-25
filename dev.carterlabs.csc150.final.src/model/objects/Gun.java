@@ -13,7 +13,6 @@ public class Gun extends Weapon {
     /*
      * Constructors
      */
-    public Gun() {}
     /*
      * for the gun with projectiles
      */
