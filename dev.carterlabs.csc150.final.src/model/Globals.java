@@ -7,8 +7,9 @@ public class Globals {
 
     public static double inintalBossSpanPerc = 0.05;
     public static boolean isBossInChamber;
+    public static int maxNumOfOfficersAndGuards = 5;
 
-    public void loadData()  {
+    public static void loadData()  {
         //load saved data
     }
 }

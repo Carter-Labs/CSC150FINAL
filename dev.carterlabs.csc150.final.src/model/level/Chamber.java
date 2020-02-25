@@ -1,6 +1,7 @@
 package model.level;
 
 import model.Globals;
+import model.entities.BatonGuard;
 import model.entities.Boss;
 import model.entities.Entity;
 import model.objects.Weapon;
@@ -27,7 +28,11 @@ public class Chamber implements Generate {
         //add boss if in range to list of entities
         isBossInChamber();
         //add num of enemies to list of entities
-        
+
+    }
+
+    public void draw() {
+        //Draws the chamber in the view
     }
 
     /*
@@ -46,6 +51,17 @@ public class Chamber implements Generate {
         }
     }
 
+    /*
+     * adds random amount of armed officers and baton guards
+     */
+    private void addOfficersAndGuards() {
+//        int numOfGuards = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards - 2) + 1;
+//        int numOfOfficers = Globals.maxNumOfOfficersAndGuards - numOfGuards;
+//        for (int i = 1; i < numOfGuards; i++) {
+//            List<Entity> newArr = new ArrayList<>(this.getEntities());
+//            newArr.add(new BatonGuard(110,100,));
+//        }
+    }
     /*
      * Getters and Setters
      */
