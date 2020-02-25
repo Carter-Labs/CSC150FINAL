@@ -29,9 +29,9 @@ public class Globals {
     /**
      * Info for Chamber.java
      */
-    public static double bossSpanPerc;//////////////
-    public static boolean isBossInChamber; //found from level number in level.java
-    public static int maxNumOfOfficersAndGuards; //found from level number in level.java
+    public static double bossSpanPerc = 0.05;
+    public static boolean isBossInChamber;
+    public static int maxNumOfOfficersAndGuards;
 
     /**
      * Loads all the saved variables in this file and set them directly
