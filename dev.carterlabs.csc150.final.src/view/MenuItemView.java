@@ -1,5 +1,8 @@
 package view;
 
+import controller.ApplicationController;
+import model.events.Rendered;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MenuItemView extends JComponent {
+public class MenuItemView extends JComponent implements Rendered {
     /**
      * Images are 64px x 64px
      */
@@ -31,6 +34,7 @@ public class MenuItemView extends JComponent {
         CurrentImage = DefaultImage;
         setBounds(getX(), getX(), DefaultImage.getWidth(), DefaultImage.getHeight());
         setIsActive(false);
+        ApplicationController.renderEvents.add(this);
     }
 
     /**
@@ -68,6 +72,11 @@ public class MenuItemView extends JComponent {
         g.drawImage(CurrentImage, 0, 0, null);
         g.drawImage(ItemImage, 3, 3, null);
         paintChildren(g);
+    }
+
+    @Override
+    public void Render(JFrame g) {
+        this.repaint();
     }
 
     public void setIsActive(boolean active) {
