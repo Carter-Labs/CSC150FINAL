@@ -19,7 +19,7 @@ public class ApplicationController extends JFrame implements Runnable {
     public static UIController uiController;
 
     public ApplicationController() {
-        uiController = new UIController();
+        uiController = new UIController(this);
     }
 
     @Override
@@ -64,10 +64,6 @@ public class ApplicationController extends JFrame implements Runnable {
             }
             if (shouldRender) {
                 frames++;
-                Graphics g = this.getGraphics();
-                if (g != null) {
-                    update(g);
-                }
             }
 
             if (System.currentTimeMillis() - lastTimer > 1000) {
@@ -83,20 +79,5 @@ public class ApplicationController extends JFrame implements Runnable {
         ApplicationController app = new ApplicationController();
         Thread thread = new Thread(app);
         thread.start();
-        int i = 0;
-        while(!Globals.hasExited) {
-            try {
-                Thread.sleep(1000);
-                Globals.player.setActiveGun(Globals.player.getGuns().get(i));
-                uiController.menuController.setActiveItem(Globals.player.getActiveGun());
-                if(i < Globals.player.getGuns().size() - 1) {
-                    i++;
-                } else {
-                    i = 0;
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
