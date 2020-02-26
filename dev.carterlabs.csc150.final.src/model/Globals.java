@@ -27,6 +27,12 @@ public class Globals {
      */
     public static Random rand = new Random();
     public static String saveFilePath = "./save.xml";
+
+    /**
+     *  Window Settings
+     */
+    public static int WIDTH = 1280;
+    public static int HEIGHT = 720;
     /**
      * UIController.java used variables
      */
@@ -38,6 +44,7 @@ public class Globals {
     public static double bossSpawnPerc = 0.05;
     public static boolean isBossInChamber;
     public static int maxNumOfOfficersAndGuards;
+    public static boolean hasExited = false;
 
     /**
      * Loads all the saved variables in this file and set them directly

@@ -1,8 +1,11 @@
 package model.entities;
 
 import model.Globals;
+import model.events.Attack;
 import model.objects.Currency;
 import model.objects.Weapon;
+
+import java.awt.*;
 
 public class Boss extends Entity implements Attack, Die {
     /**
@@ -45,4 +48,18 @@ public class Boss extends Entity implements Attack, Die {
         return super.toString();
     }
 
+    @Override
+    public void Render(Graphics g) {
+
+    }
+
+    @Override
+    public void Start() {
+
+    }
+
+    @Override
+    public void Update() {
+
+    }
 }

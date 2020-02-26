@@ -1,8 +1,12 @@
 package model.entities;
 
+import model.events.Rendered;
+import model.events.Started;
+import model.events.Updated;
+
 import java.util.Objects;
 
-public class Entity {
+public abstract class Entity implements Updated, Started, Rendered {
     /**
      * Variables
      */
