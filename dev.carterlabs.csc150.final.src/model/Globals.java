@@ -44,8 +44,6 @@ public class Globals {
      */
     public static void loadData() {
         //load saved data
-        //load file
-        //if(file is null) {
         File file = new File(saveFilePath);
         if(!file.exists()){
             firstLoadSaveData();
@@ -53,6 +51,10 @@ public class Globals {
         player = LoadXMLObject();
     }
 
+    /**
+     * loads the XML object from the file
+     * @return the XML object
+     */
     private static Player LoadXMLObject() {
         Player player = null;
         try {
@@ -158,6 +160,10 @@ public class Globals {
         saveData();
     }
 
+    /**
+     * For testing purposes
+     * @param args
+     */
     public static void main(String[] args) {
         Player p1 = new Player(100, 1, 0, 1);
         SaveXMLObject(p1);
