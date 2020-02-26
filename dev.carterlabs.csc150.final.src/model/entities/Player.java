@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Player extends Entity implements Attack {
     /**
-     * Array of players weapons *needs to be build on first load
+     * Array of players weapons
      */
     private List<Gun> guns;
     private Gun ActiveGun;

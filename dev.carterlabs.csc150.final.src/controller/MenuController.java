@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.util.Pair;
+import model.Globals;
 import model.events.Rendered;
 import model.objects.Weapon;
 import model.objects.WeaponType;
@@ -121,7 +122,20 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        //To cycle through gun selection
+        int index = 0;
+        if(e.getKeyCode() == KeyEvent.VK_Q) {
+            index --;
+            if(index < 0) index = 0;
+            Globals.player.setActiveGun(Globals.player.getGuns().get(index));
+        }
+        if(e.getKeyCode() == KeyEvent.VK_E){
+            index ++;
+            if(index > Globals.player.getGuns().size() - 1){
+                index = Globals.player.getGuns().size() - 1;
+            }
+            Globals.player.setActiveGun(Globals.player.getGuns().get(index));
+        }
     }
 
     @Override
