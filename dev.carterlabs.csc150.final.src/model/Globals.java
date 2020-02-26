@@ -23,7 +23,7 @@ public class Globals {
      * Generals
      */
     public static Random rand = new Random();
-
+    public static String saveFilePath = "./save.xml";
     /**
      * UIController.java used variables
      */
@@ -52,16 +52,14 @@ public class Globals {
         //load saved data
         //load file
         //if(file is null) {
-        firstLoadSaveData();
-        //}else {
-        //list of guns set here
         amountOfCurrency = 0;
         levelNumber = 1;
         playerHealth = 100;
         playerSpeed = 1;
-        // }
-        //}
-        SaveXMLObject();
+        File file = new File(saveFilePath);
+        if(!file.exists()){
+            firstLoadSaveData();
+        }
         LoadXMLObject();
     }
 
@@ -69,7 +67,7 @@ public class Globals {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(LoadFile("./Test.xml"));
+            Document document = builder.parse(LoadFile(saveFilePath ));
             Element elm = document.getDocumentElement();
             playerHealth = Integer.parseInt(elm.getAttribute("Health"));
             playerSpeed = Integer.parseInt(elm.getAttribute("Speed"));
@@ -145,6 +143,7 @@ public class Globals {
      */
     public static void saveData() {
         //Saves every value in this file except the generals
+        SaveXMLObject();
     }
 
     /**
