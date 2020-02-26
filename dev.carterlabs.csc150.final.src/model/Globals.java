@@ -41,7 +41,7 @@ public class Globals {
     /**
      * Info for Chamber.java
      */
-    public static double bossSpanPerc = 0.05;
+    public static double bossSpawnPerc = 0.05;
     public static boolean isBossInChamber;
     public static int maxNumOfOfficersAndGuards;
 
