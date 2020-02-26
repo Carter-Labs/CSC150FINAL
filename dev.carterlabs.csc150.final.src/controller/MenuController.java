@@ -9,16 +9,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuController implements ComponentListener {
-    JFrame frame;
-    List<Pair<Weapon, MenuItemView>> weapons;
-    private int x = 0, y = 0;
+    private JFrame frame; //The frame that will have MenuItemView's added to
+    private List<Pair<Weapon, MenuItemView>> weapons;// Every Weapon shall have a view with it.
+    private int x = 0, y = 0; // The x, y for where the menus will started being placed at
 
+    /**
+     * Creates a Menu Component
+     * @param frame the frame the component will be added to
+     * @param x where it will be placed on the horizontal axis
+     * @param y where it will be placed on the vertical axis
+     */
     public MenuController(JFrame frame, int x, int y) {
         setFrame(frame);
         weapons = new ArrayList<>();
@@ -27,6 +31,10 @@ public class MenuController implements ComponentListener {
         setY(y);
     }
 
+    /**
+     * Adds a weapon to the Menu and displays it to the component
+     * @param weapon the weapon to be added
+     */
     public void AddItem(Weapon weapon) {
         weapons.add(new Pair<>(weapon, new MenuItemView("./Resources/TestPistolIcon.png")));
         int x = 0 + getX();
@@ -38,12 +46,19 @@ public class MenuController implements ComponentListener {
         }
     }
 
+    /**
+     * This will invoke the repaint of the component when a component is resized
+     */
     private void drawMenu() {
         for (Pair<Weapon, MenuItemView> pair: weapons) {
             pair.getValue().repaint();
         }
     }
 
+    /**
+     * Set's what weapon in the menu is active
+     * @param weapon the weapon that is active
+     */
     private void SetActiveItem(Weapon weapon) {
         for (Pair<Weapon, MenuItemView> item: weapons) {
             MenuItemView view = item.getValue();
@@ -55,50 +70,46 @@ public class MenuController implements ComponentListener {
         }
     }
 
-    public JFrame getFrame() {
-        return frame;
+    /**
+     * Sets the active item based off an index
+     * @param index what index should be active
+     */
+    private void SetActiveItem(int index) {
+        for (Pair<Weapon, MenuItemView> item: weapons) {
+            MenuItemView view = item.getValue();
+            view.setIsActive(false);
+        }
+        weapons.get(index).getValue().setIsActive(true);
     }
 
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
-    }
+    public JFrame getFrame() { return frame; }
 
-    public int getX() {
-        return x;
-    }
+    public void setFrame(JFrame frame) { this.frame = frame; }
 
-    public void setX(int x) {
-        this.x = x;
-    }
+    public int getX() { return x; }
 
-    public int getY() {
-        return y;
-    }
+    public void setX(int x) { this.x = x; }
 
-    public void setY(int y) {
-        this.y = y;
-    }
+    public int getY() { return y; }
 
-    @Override
-    public void componentResized(ComponentEvent e) {
-        drawMenu();
-    }
+    public void setY(int y) { this.y = y; }
 
     @Override
-    public void componentMoved(ComponentEvent e) {
-        drawMenu();
-    }
+    public void componentResized(ComponentEvent e) { drawMenu(); }
 
     @Override
-    public void componentShown(ComponentEvent e) {
-        drawMenu();
-    }
+    public void componentMoved(ComponentEvent e) { drawMenu(); }
 
     @Override
-    public void componentHidden(ComponentEvent e) {
-        drawMenu();
-    }
+    public void componentShown(ComponentEvent e) { drawMenu(); }
 
+    @Override
+    public void componentHidden(ComponentEvent e) { drawMenu(); }
+
+    /**
+     * Test method for MenuController
+     * @param args
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("MenuItemView Test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

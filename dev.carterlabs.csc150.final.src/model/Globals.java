@@ -2,8 +2,10 @@ package model;
 
 import model.objects.Gun;
 import model.objects.WeaponType;
-import org.w3c.dom.*;
-import org.xml.sax.Attributes;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -83,7 +85,6 @@ public class Globals {
                         (int)Double.parseDouble(attr.getNamedItem("MagSize").getNodeValue()),
                         WeaponType.valueOf((attr.getNamedItem("Type").getNodeValue()))
                 );
-                System.out.println();
             }
         } catch (ParserConfigurationException te) {
             te.printStackTrace();
@@ -94,6 +95,11 @@ public class Globals {
         }
     }
 
+    /**
+     * Loads a file for an XML document
+     * @param path Where the XML document is
+     * @return The input source for the XML document parser
+     */
     private static InputSource LoadFile(String path){
         String data = "";
         try(BufferedReader reader = new BufferedReader(new InputStreamReader( new FileInputStream(new File(path))))) {
@@ -106,6 +112,9 @@ public class Globals {
         return new InputSource(new StringReader(data));
     }
 
+    /**
+     * SaveXMLObject should fulfill the requirements of saving the player's state to a parsable XML document
+     */
     private static void SaveXMLObject() {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
