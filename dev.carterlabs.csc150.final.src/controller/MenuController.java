@@ -18,7 +18,7 @@ import java.util.List;
 public class MenuController implements ComponentListener, KeyListener {
     private JFrame frame; //The frame that will have MenuItemView's added to
     private List<Pair<Weapon, MenuItemView>> weapons;// Every Weapon shall have a view with it.
-    private int x = 0, y = 0; // The x, y for where the menus will started being placed at
+    private int x = 0, y = 0, index = 0; // The x, y for where the menus will started being placed at
 
     /**
      * Creates a Menu Component
@@ -112,19 +112,20 @@ public class MenuController implements ComponentListener, KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
         //To cycle through gun selection
-        int index = 0;
-        if(e.getKeyCode() == KeyEvent.VK_Q) {
+        char key = e.getKeyChar();
+        if(key == 'q') {
             index --;
             if(index < 0) index = 0;
             Globals.player.setActiveGun(Globals.player.getGuns().get(index));
         }
-        if(e.getKeyCode() == KeyEvent.VK_E){
+        if(key == 'e'){
             index ++;
             if(index > Globals.player.getGuns().size() - 1){
                 index = Globals.player.getGuns().size() - 1;
             }
             Globals.player.setActiveGun(Globals.player.getGuns().get(index));
         }
+        setActiveItem(Globals.player.getActiveGun());
     }
 
     @Override
@@ -148,6 +149,7 @@ public class MenuController implements ComponentListener, KeyListener {
         frame.getContentPane().setBackground(Color.BLUE);
         frame.setLayout(null);
         MenuController controller = new MenuController(frame, 0, 0);
+        frame.addKeyListener(controller);
         Weapon weapon = new Weapon(5, WeaponType.AR);
         controller.addItem(weapon);
         controller.addItem(new Weapon(5, WeaponType.SHOTGUN));
