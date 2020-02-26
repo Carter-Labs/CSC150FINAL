@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.util.Pair;
+import model.events.Rendered;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 import view.MenuItemView;
@@ -12,7 +13,7 @@ import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuController implements ComponentListener {
+public class MenuController implements ComponentListener, Rendered {
     private JFrame frame; //The frame that will have MenuItemView's added to
     private List<Pair<Weapon, MenuItemView>> weapons;// Every Weapon shall have a view with it.
     private int x = 0, y = 0; // The x, y for where the menus will started being placed at
@@ -29,13 +30,14 @@ public class MenuController implements ComponentListener {
         getFrame().addComponentListener(this);
         setX(x);
         setY(y);
+        ApplicationController.renderEvents.add(this);
     }
 
     /**
      * Adds a weapon to the Menu and displays it to the component
      * @param weapon the weapon to be added
      */
-    public void AddItem(Weapon weapon) {
+    public void addItem(Weapon weapon) {
         weapons.add(new Pair<>(weapon, new MenuItemView("./Resources/TestPistolIcon.png")));
         int x = 0 + getX();
         for (Pair<Weapon, MenuItemView> item: weapons) {
@@ -59,7 +61,7 @@ public class MenuController implements ComponentListener {
      * Set's what weapon in the menu is active
      * @param weapon the weapon that is active
      */
-    private void SetActiveItem(Weapon weapon) {
+    public void setActiveItem(Weapon weapon) {
         for (Pair<Weapon, MenuItemView> item: weapons) {
             MenuItemView view = item.getValue();
             if(item.getKey() == weapon) {
@@ -74,7 +76,7 @@ public class MenuController implements ComponentListener {
      * Sets the active item based off an index
      * @param index what index should be active
      */
-    private void SetActiveItem(int index) {
+    public void setActiveItem(int index) {
         for (Pair<Weapon, MenuItemView> item: weapons) {
             MenuItemView view = item.getValue();
             view.setIsActive(false);
@@ -93,6 +95,14 @@ public class MenuController implements ComponentListener {
     public int getY() { return y; }
 
     public void setY(int y) { this.y = y; }
+
+    @Override
+    public void Render(Graphics g) {
+        drawMenu();
+        for (Pair<Weapon, MenuItemView> pair: weapons) {
+            pair.getValue().paint(g);
+        }
+    }
 
     @Override
     public void componentResized(ComponentEvent e) { drawMenu(); }
@@ -118,12 +128,12 @@ public class MenuController implements ComponentListener {
         frame.setLayout(null);
         MenuController controller = new MenuController(frame, 0, 0);
         Weapon weapon = new Weapon(5, WeaponType.AR);
-        controller.AddItem(weapon);
-        controller.AddItem(new Weapon(5, WeaponType.SHOTGUN));
-        controller.AddItem(new Weapon(5, WeaponType.SMG));
-        controller.AddItem(new Weapon(5, WeaponType.SNIPER));
-        controller.AddItem(new Weapon(5, WeaponType.RAY_GUN));
-        controller.SetActiveItem(weapon);
+        controller.addItem(weapon);
+        controller.addItem(new Weapon(5, WeaponType.SHOTGUN));
+        controller.addItem(new Weapon(5, WeaponType.SMG));
+        controller.addItem(new Weapon(5, WeaponType.SNIPER));
+        controller.addItem(new Weapon(5, WeaponType.RAY_GUN));
+        controller.setActiveItem(weapon);
         frame.setVisible(true);
     }
 }

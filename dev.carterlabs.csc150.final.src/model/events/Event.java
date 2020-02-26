@@ -1,4 +1,4 @@
-package model;
+package model.events;
 
 public interface Event {
     void event();

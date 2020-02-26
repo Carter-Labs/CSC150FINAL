@@ -1,8 +1,11 @@
 package model.entities;
 
 import model.Globals;
+import model.events.Attack;
 import model.objects.Currency;
 import model.objects.Weapon;
+
+import java.awt.*;
 
 public class BatonGuard  extends Entity implements Attack, Die {
     /**
@@ -44,4 +47,17 @@ public class BatonGuard  extends Entity implements Attack, Die {
     @Override public String toString() {
         return super.toString();
     }
+
+    @Override
+    public void Render(Graphics g) {
+
+    }
+
+    @Override
+    public void Start() {
+
+    }
+
+    @Override
+    public void Update() { }
 }

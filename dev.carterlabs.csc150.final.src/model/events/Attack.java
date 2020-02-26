@@ -1,4 +1,4 @@
-package model.entities;
+package model.events;
 
 public interface Attack {
     /**
