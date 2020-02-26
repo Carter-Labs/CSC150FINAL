@@ -1,5 +1,6 @@
 package model;
 
+import model.entities.Player;
 import model.objects.Gun;
 import model.objects.WeaponType;
 import org.w3c.dom.Document;
@@ -29,16 +30,7 @@ public class Globals {
     /**
      * UIController.java used variables
      */
-    public static int amountOfCurrency;
-    public static int levelNumber;
-    public static int playerHealth;
-    public static int playerSpeed;
-    public static Gun selectedGun;
-
-    /**
-     * Array of players weapons *needs to be build on first load
-     */
-    public static Gun[] playerGuns;
+    public static Player player = new Player(100, 1);
 
     /**
      * Info for Chamber.java
@@ -54,37 +46,37 @@ public class Globals {
         //load saved data
         //load file
         //if(file is null) {
-        amountOfCurrency = 0;
-        levelNumber = 1;
-        playerHealth = 100;
-        playerSpeed = 1;
         File file = new File(saveFilePath);
         if(!file.exists()){
             firstLoadSaveData();
         }
-        LoadXMLObject();
+        player = LoadXMLObject();
     }
 
-    private static void LoadXMLObject() {
+    private static Player LoadXMLObject() {
+        Player player = null;
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(LoadFile(saveFilePath ));
             Element elm = document.getDocumentElement();
-            playerHealth = Integer.parseInt(elm.getAttribute("Health"));
-            playerSpeed = Integer.parseInt(elm.getAttribute("Speed"));
-            levelNumber = Integer.parseInt(elm.getAttribute("Level"));
-            for (int i = 0; i < playerGuns.length; i++) {
+            player = new Player(
+                    (int)Double.parseDouble(elm.getAttribute("Health")),
+                    (int)Double.parseDouble(elm.getAttribute("Speed")),
+                    (int)Double.parseDouble(elm.getAttribute("Currency")),
+                    (int)Double.parseDouble(elm.getAttribute("Level"))
+            );
+            for (int i = 0; i < elm.getChildNodes().getLength(); i++) {
                 Node node = elm.getChildNodes().item(i);
                 NamedNodeMap attr = node.getAttributes();
 
-                playerGuns[i] = new Gun(
+                player.getGuns().add(new Gun(
                         (int)Double.parseDouble(attr.getNamedItem("ReloadSpeed").getNodeValue()),
                         (int)Double.parseDouble(attr.getNamedItem("Damage").getNodeValue()),
                         (int)Double.parseDouble(attr.getNamedItem("Projectiles").getNodeValue()),
                         (int)Double.parseDouble(attr.getNamedItem("MagSize").getNodeValue()),
                         WeaponType.valueOf((attr.getNamedItem("Type").getNodeValue()))
-                );
+                ));
             }
         } catch (ParserConfigurationException te) {
             te.printStackTrace();
@@ -93,6 +85,7 @@ public class Globals {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return player;
     }
 
     /**
@@ -115,19 +108,19 @@ public class Globals {
     /**
      * SaveXMLObject should fulfill the requirements of saving the player's state to a parsable XML document
      */
-    private static void SaveXMLObject() {
+    private static void SaveXMLObject(Player player) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.newDocument();
 
             Element root = document.createElement("player");
-            root.setAttribute("Health", String.valueOf(playerHealth));
-            root.setAttribute("Speed", String.valueOf(playerSpeed));
-            root.setAttribute("Level", String.valueOf(levelNumber));
-            root.setAttribute("Currency", String.valueOf(amountOfCurrency));
+            root.setAttribute("Health", String.valueOf(player.getHealth()));
+            root.setAttribute("Speed", String.valueOf(player.getSpeed()));
+            root.setAttribute("Level", String.valueOf(player.getCurrentLevel()));
+            root.setAttribute("Currency", String.valueOf(player.getCurrency()));
             document.appendChild(root);
-            for (Gun gun : playerGuns) {
+            for (Gun gun : player.getGuns()) {
                 Element gunElem = document.createElement("gun");
                 gunElem.setAttribute("Damage", String.valueOf(gun.getDamage()));
                 gunElem.setAttribute("ReloadSpeed", String.valueOf(gun.getReloadSpeed()));
@@ -140,7 +133,7 @@ public class Globals {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
-            StreamResult result = new StreamResult(new File("./Test.xml"));
+            StreamResult result = new StreamResult(new File(saveFilePath));
             transformer.transform(domSource, result);
         } catch (TransformerException | ParserConfigurationException te) {
             te.printStackTrace();
@@ -152,25 +145,22 @@ public class Globals {
      */
     public static void saveData() {
         //Saves every value in this file except the generals
-        SaveXMLObject();
+        SaveXMLObject(player);
     }
 
     /**
      * Called only once, used to set values on first load
      */
     public static void firstLoadSaveData() {
-        Gun ar = new Gun(25, WeaponType.AR);
-        Gun smg = new Gun(25, WeaponType.SMG);
-        Gun shotgun = new Gun(25, WeaponType.SHOTGUN);
-        Gun sniper = new Gun(25, WeaponType.SNIPER);
-        Gun rocketLauncher = new Gun(75, WeaponType.ROCKET_LAUNCHER);
-        Gun rayGun = new Gun(25, WeaponType.RAY_GUN);
-        playerGuns = new Gun[]{ar, smg, shotgun, sniper, rocketLauncher, rayGun};
-        amountOfCurrency = 0;
-        levelNumber = 1;
-        playerHealth = 100;
-        playerSpeed = 1;
+        player = new Player(100, 1, 0, 1);
+        SaveXMLObject(player);
         //create new file and save
         saveData();
+    }
+
+    public static void main(String[] args) {
+        Player p1 = new Player(100, 1, 0, 1);
+        SaveXMLObject(p1);
+        Player p = LoadXMLObject();
     }
 }

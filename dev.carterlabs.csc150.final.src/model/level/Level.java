@@ -2,7 +2,6 @@ package model.level;
 
 import model.Globals;
 import model.entities.Player;
-import model.objects.Gun;
 
 import java.util.Arrays;
 
@@ -31,7 +30,7 @@ public class Level implements Generate {
             chambers[i] = new Chamber();
         }
         //add the player to this level
-        player = new Player(Globals.playerHealth, Globals.playerSpeed, Globals.selectedGun);
+        player = Globals.player;
     }
 
     /**

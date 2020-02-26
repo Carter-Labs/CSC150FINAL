@@ -17,7 +17,7 @@ public class BatonGuard  extends Entity implements Attack, Die {
      * @param baton Baton Guard baton
      */
     public BatonGuard(int health,int speed, Weapon baton) {
-        super(health, speed, baton);
+        super(health, speed);
         int numberOfCoins = Globals.rand.nextInt(5) + 1;
         currencyToDrop = new Currency[numberOfCoins];
         for (int i = 0; i < currencyToDrop.length - 1; i++) {

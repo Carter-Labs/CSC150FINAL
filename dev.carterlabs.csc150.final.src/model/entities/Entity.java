@@ -1,7 +1,5 @@
 package model.entities;
 
-import model.objects.Weapon;
-
 import java.util.Objects;
 
 public class Entity {
@@ -10,18 +8,15 @@ public class Entity {
      */
     private int health;
     private double speed;
-    private Weapon weapon;
 
     /**
      * Constructor of the entity
      * @param health Heath of the entity
      * @param speed Speed of the entity
-     * @param weapon Weapon of the entity
      */
-    public Entity(int health,int speed, Weapon weapon) {
+    public Entity(int health,int speed) {
         this.setHealth(health);
         this.setSpeed(speed);
-        this.setWeapon(weapon);
     }
 
     /**
@@ -37,7 +32,7 @@ public class Entity {
      */
     public void setHealth(int health) {
         if(health < 0 || health > 300) {
-            throw new IllegalArgumentException("health must be between 0 and 100.");
+            throw new IllegalArgumentException("health must be between 0 and 300.");
         }
         this.health = health;
     }
@@ -58,21 +53,6 @@ public class Entity {
             throw new IllegalArgumentException("speed must be greater than 0.");
         }
         this.speed = speed;
-    }
-
-    /**
-     * @return Entity weapon
-     */
-    public Weapon getWeapon() {
-        return weapon;
-    }
-
-    /**
-     * Sets the entity weapon
-     * @param weapon Entity weapon
-     */
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
     }
 
     /**

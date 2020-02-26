@@ -102,7 +102,7 @@ public class Chamber implements Generate {
      */
     private void isBossInChamber() {
         int num = Globals.rand.nextInt(100) + 1;
-        if (num < (Globals.bossSpawnPerc + (Globals.levelNumber / 100)) * 100) {
+        if (num < (Globals.bossSpawnPerc + (Globals.player.getCurrentLevel() / 100)) * 100) {
             Globals.isBossInChamber = true;
             List<Entity> newArr = new ArrayList<>(this.getEntities());
             newArr.add(new Boss(300,100, new Weapon(20, WeaponType.SHOTGUN)));
@@ -117,8 +117,8 @@ public class Chamber implements Generate {
      * Adds random amount of armed officers and baton guards
      */
     private void addOfficersAndGuards() {
-        int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.levelNumber) - 2) + 1;
-        int numOfOfficers = (Globals.maxNumOfOfficersAndGuards + Globals.levelNumber) - numOfGuards;
+        int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 2) + 1;
+        int numOfOfficers = (Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - numOfGuards;
         for (int i = 1; i < numOfGuards; i++) {
             List<Entity> newArr = new ArrayList<>(this.getEntities());
             newArr.add(new BatonGuard(110,100,new Weapon(100, WeaponType.BATON)));

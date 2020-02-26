@@ -8,7 +8,7 @@ public class ShopController {
      * Updates and saves the player health
      */
     public void upgradePlayerHealth() {
-        Globals.playerHealth += 1;
+        Globals.player.setHealth(Globals.player.getHealth() + 1);
         Globals.saveData();
     }
 
@@ -16,7 +16,7 @@ public class ShopController {
      * Updates ans saves the player speed
      */
     public void upgradePlayerSpeed() {
-        Globals.playerSpeed += 1;
+        Globals.player.setHealth(Globals.player.getHealth() + 1);
         Globals.saveData();
     }
 
