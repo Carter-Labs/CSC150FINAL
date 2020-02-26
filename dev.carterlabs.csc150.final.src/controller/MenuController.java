@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.util.Pair;
+import model.Globals;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 import view.MenuItemView;
@@ -31,14 +32,13 @@ public class MenuController implements ComponentListener, KeyListener {
         getFrame().addComponentListener(this);
         setX(x);
         setY(y);
-        getFrame().addKeyListener(this);
     }
 
     /**
      * Adds a weapon to the Menu and displays it to the component
      * @param weapon the weapon to be added
      */
-    public void AddItem(Weapon weapon) {
+    public void addItem(Weapon weapon) {
         weapons.add(new Pair<>(weapon, new MenuItemView("./Resources/TestPistolIcon.png")));
         int x = 0 + getX();
         for (Pair<Weapon, MenuItemView> item: weapons) {
@@ -62,7 +62,7 @@ public class MenuController implements ComponentListener, KeyListener {
      * Set's what weapon in the menu is active
      * @param weapon the weapon that is active
      */
-    private void SetActiveItem(Weapon weapon) {
+    public void setActiveItem(Weapon weapon) {
         for (Pair<Weapon, MenuItemView> item: weapons) {
             MenuItemView view = item.getValue();
             if(item.getKey() == weapon) {
@@ -77,22 +77,13 @@ public class MenuController implements ComponentListener, KeyListener {
      * Sets the active item based off an index
      * @param index what index should be active
      */
-    private void SetActiveItem(int index) {
+    public void setActiveItem(int index) {
         for (Pair<Weapon, MenuItemView> item: weapons) {
             MenuItemView view = item.getValue();
             view.setIsActive(false);
         }
         weapons.get(index).getValue().setIsActive(true);
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) { }
-
-    @Override
-    public void keyPressed(KeyEvent e) { }
-
-    @Override
-    public void keyReleased(KeyEvent e) { }
 
     public JFrame getFrame() { return frame; }
 
@@ -118,6 +109,34 @@ public class MenuController implements ComponentListener, KeyListener {
     @Override
     public void componentHidden(ComponentEvent e) { drawMenu(); }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //To cycle through gun selection
+        int index = 0;
+        if(e.getKeyCode() == KeyEvent.VK_Q) {
+            index --;
+            if(index < 0) index = 0;
+            Globals.player.setActiveGun(Globals.player.getGuns().get(index));
+        }
+        if(e.getKeyCode() == KeyEvent.VK_E){
+            index ++;
+            if(index > Globals.player.getGuns().size() - 1){
+                index = Globals.player.getGuns().size() - 1;
+            }
+            Globals.player.setActiveGun(Globals.player.getGuns().get(index));
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
     /**
      * Test method for MenuController
      * @param args
@@ -130,12 +149,12 @@ public class MenuController implements ComponentListener, KeyListener {
         frame.setLayout(null);
         MenuController controller = new MenuController(frame, 0, 0);
         Weapon weapon = new Weapon(5, WeaponType.AR);
-        controller.AddItem(weapon);
-        controller.AddItem(new Weapon(5, WeaponType.SHOTGUN));
-        controller.AddItem(new Weapon(5, WeaponType.SMG));
-        controller.AddItem(new Weapon(5, WeaponType.SNIPER));
-        controller.AddItem(new Weapon(5, WeaponType.RAY_GUN));
-        controller.SetActiveItem(weapon);
+        controller.addItem(weapon);
+        controller.addItem(new Weapon(5, WeaponType.SHOTGUN));
+        controller.addItem(new Weapon(5, WeaponType.SMG));
+        controller.addItem(new Weapon(5, WeaponType.SNIPER));
+        controller.addItem(new Weapon(5, WeaponType.RAY_GUN));
+        controller.setActiveItem(weapon);
         frame.setVisible(true);
     }
 }

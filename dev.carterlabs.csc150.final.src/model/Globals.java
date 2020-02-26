@@ -27,6 +27,12 @@ public class Globals {
      */
     public static Random rand = new Random();
     public static String saveFilePath = "./save.xml";
+
+    /**
+     *  Window Settings
+     */
+    public static int WIDTH = 1280;
+    public static int HEIGHT = 720;
     /**
      * UIController.java used variables
      */
@@ -38,14 +44,13 @@ public class Globals {
     public static double bossSpawnPerc = 0.05;
     public static boolean isBossInChamber;
     public static int maxNumOfOfficersAndGuards;
+    public static boolean hasExited = false;
 
     /**
      * Loads all the saved variables in this file and set them directly
      */
     public static void loadData() {
         //load saved data
-        //load file
-        //if(file is null) {
         File file = new File(saveFilePath);
         if(!file.exists()){
             firstLoadSaveData();
@@ -53,6 +58,10 @@ public class Globals {
         player = LoadXMLObject();
     }
 
+    /**
+     * loads the XML object from the file
+     * @return the XML object
+     */
     private static Player LoadXMLObject() {
         Player player = null;
         try {
@@ -158,6 +167,10 @@ public class Globals {
         saveData();
     }
 
+    /**
+     * For testing purposes
+     * @param args
+     */
     public static void main(String[] args) {
         Player p1 = new Player(100, 1, 0, 1);
         SaveXMLObject(p1);

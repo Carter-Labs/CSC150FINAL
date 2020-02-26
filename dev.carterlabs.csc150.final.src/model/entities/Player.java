@@ -1,14 +1,17 @@
 package model.entities;
 
+import controller.ApplicationController;
+import model.events.Attack;
 import model.objects.Gun;
 import model.objects.WeaponType;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Entity implements Attack {
     /**
-     * Array of players weapons *needs to be build on first load
+     * Array of players weapons
      */
     private List<Gun> guns;
     private Gun ActiveGun;
@@ -23,6 +26,10 @@ public class Player extends Entity implements Attack {
         super(health, speed);
         guns = initGuns();
         setCurrency(0);
+        ApplicationController.attackEvents.add(this);
+        ApplicationController.updateEvents.add(this);
+        ApplicationController.renderEvents.add(this);
+        ApplicationController.startEvents.add(this);
     }
 
     /**
@@ -37,15 +44,17 @@ public class Player extends Entity implements Attack {
         guns = initGuns();
         setCurrency(currency);
         setCurrentLevel(level);
+        ApplicationController.updateEvents.add(this::Update);
     }
 
-    private ArrayList<Gun> initGuns() {
-        ArrayList<Gun> guns = new ArrayList<>();
+    private List<Gun> initGuns() {
+        List<Gun> guns = new ArrayList<>();
         for (WeaponType weaponType: WeaponType.values()) {
             if(weaponType != WeaponType.BATON){
                 guns.add(new Gun(25, weaponType));
             }
         }
+        setActiveGun(guns.get(0));
         return guns;
     }
 
@@ -54,6 +63,10 @@ public class Player extends Entity implements Attack {
      */
     @Override public void attack() {
         //do something
+    }
+
+    @Override
+    public void Start() {
     }
 
     public int getCurrentLevel() {
@@ -95,4 +108,11 @@ public class Player extends Entity implements Attack {
         return super.toString();
     }
 
+    @Override
+    public void Render(Graphics g) {
+    }
+
+    @Override
+    public void Update() {
+    }
 }
