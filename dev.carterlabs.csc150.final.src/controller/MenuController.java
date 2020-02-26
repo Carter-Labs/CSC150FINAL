@@ -10,10 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuController implements ComponentListener, Rendered {
+public class MenuController implements ComponentListener, Rendered, KeyListener {
     private JFrame frame; //The frame that will have MenuItemView's added to
     private List<Pair<Weapon, MenuItemView>> weapons;// Every Weapon shall have a view with it.
     private int x = 0, y = 0; // The x, y for where the menus will started being placed at
@@ -31,6 +33,7 @@ public class MenuController implements ComponentListener, Rendered {
         setX(x);
         setY(y);
         ApplicationController.renderEvents.add(this);
+        frame.addKeyListener(this);
     }
 
     /**
@@ -115,6 +118,21 @@ public class MenuController implements ComponentListener, Rendered {
 
     @Override
     public void componentHidden(ComponentEvent e) { drawMenu(); }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 
     /**
      * Test method for MenuController
