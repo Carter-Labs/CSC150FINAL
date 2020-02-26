@@ -1,7 +1,7 @@
 package model.events;
 
-import java.awt.*;
+import javax.swing.*;
 
 public interface Rendered {
-    void Render(Graphics g);
+    void Render(JFrame g);
 }

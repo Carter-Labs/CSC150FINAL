@@ -5,7 +5,7 @@ import model.events.Attack;
 import model.objects.Gun;
 import model.objects.WeaponType;
 
-import java.awt.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +109,7 @@ public class Player extends Entity implements Attack {
     }
 
     @Override
-    public void Render(Graphics g) {
+    public void Render(JFrame g) {
     }
 
     @Override

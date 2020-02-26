@@ -5,7 +5,7 @@ import model.events.Attack;
 import model.objects.Currency;
 import model.objects.Gun;
 
-import java.awt.*;
+import javax.swing.*;
 
 public class ArmedOfficer extends Entity implements Attack, Die {
     /**
@@ -49,8 +49,7 @@ public class ArmedOfficer extends Entity implements Attack, Die {
     }
 
     @Override
-    public void Render(Graphics g) {
-
+    public void Render(JFrame g) {
     }
 
     @Override

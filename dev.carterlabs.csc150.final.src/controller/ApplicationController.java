@@ -25,9 +25,6 @@ public class ApplicationController extends JFrame implements Runnable {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        for (Rendered re : renderEvents) {
-            re.Render(g);
-        }
     }
 
     @Override
@@ -63,6 +60,9 @@ public class ApplicationController extends JFrame implements Runnable {
                 e.printStackTrace();
             }
             if (shouldRender) {
+                for (Rendered re: renderEvents) {
+                    re.Render(this);
+                }
                 frames++;
             }
 

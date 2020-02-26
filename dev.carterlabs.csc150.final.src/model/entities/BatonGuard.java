@@ -5,7 +5,7 @@ import model.events.Attack;
 import model.objects.Currency;
 import model.objects.Weapon;
 
-import java.awt.*;
+import javax.swing.*;
 
 public class BatonGuard  extends Entity implements Attack, Die {
     /**
@@ -49,7 +49,7 @@ public class BatonGuard  extends Entity implements Attack, Die {
     }
 
     @Override
-    public void Render(Graphics g) {
+    public void Render(JFrame g) {
 
     }
 
