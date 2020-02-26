@@ -2,6 +2,7 @@ package view;
 
 import controller.ApplicationController;
 import model.events.Rendered;
+import model.objects.WeaponType;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,11 +31,20 @@ public class MenuItemView extends JComponent implements Rendered {
     public MenuItemView(String ItemIconPath){
         DefaultImage = loadImage("./Resources/ItemUIBackground.png");
         HoverImage = loadImage("./Resources/ItemUIBackgroundHover.png");
-        ItemImage = scaleImage(loadImage(ItemIconPath), .90);
+        ItemImage = loadImage(ItemIconPath);
+        ItemImage = scaleImage(ItemImage, calcImageScale(ItemImage));
         CurrentImage = DefaultImage;
         setBounds(getX(), getX(), DefaultImage.getWidth(), DefaultImage.getHeight());
         setIsActive(false);
         ApplicationController.renderEvents.add(this);
+    }
+
+    private double calcImageScale(BufferedImage itemImage) {
+        if(itemImage.getWidth() <= DefaultImage.getWidth()){
+            return itemImage.getWidth() / DefaultImage.getWidth() - .10;
+        } else {
+            return (((itemImage.getWidth() / DefaultImage.getWidth())*.01) + .02);
+        }
     }
 
     /**
@@ -98,10 +108,10 @@ public class MenuItemView extends JComponent implements Rendered {
         frame.setBounds(100, 100, 500, 500);
         frame.getContentPane().setBackground(Color.RED);
         frame.setLayout(null);
-        MenuItemView item = new MenuItemView("./Resources/TestPistolIcon.png");
+        MenuItemView item = new MenuItemView("./Resources/Guns/" + WeaponType.AR + ".png");
         item.setLocation(0, 0);
         frame.add(item);
-        MenuItemView item2 = new MenuItemView("./Resources/TestPistolIcon.png");
+        MenuItemView item2 = new MenuItemView("./Resources/Guns/" + WeaponType.SMG + ".png");
         item2.setLocation(item.getWidth(), 0);
         frame.add(item2);
         frame.setVisible(true);

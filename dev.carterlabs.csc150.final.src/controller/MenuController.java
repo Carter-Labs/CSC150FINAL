@@ -42,7 +42,7 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
      * @param weapon the weapon to be added
      */
     public void addItem(Weapon weapon) {
-        weapons.add(new Pair<>(weapon, new MenuItemView("./Resources/TestPistolIcon.png")));
+        weapons.add(new Pair<>(weapon, new MenuItemView("./Resources/Guns/" + weapon.getWeaponType() + ".png")));
         int x = 0 + getX();
         for (Pair<Weapon, MenuItemView> item: weapons) {
             MenuItemView view = item.getValue();
