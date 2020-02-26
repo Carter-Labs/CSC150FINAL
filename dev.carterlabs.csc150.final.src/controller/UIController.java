@@ -31,7 +31,6 @@ public class UIController {
             menuController.addItem(gun);
         }
         menuController.setActiveItem(Globals.player.getActiveGun());
-        frame.addKeyListener(menuController);
     }
 
     public static void main(String[] args) {
