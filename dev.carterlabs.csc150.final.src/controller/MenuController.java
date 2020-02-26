@@ -20,7 +20,6 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
     private JFrame frame; //The frame that will have MenuItemView's added to
     private List<Pair<Weapon, MenuItemView>> weapons;// Every Weapon shall have a view with it.
     private int x = 0, y = 0; // The x, y for where the menus will started being placed at
-
     /**
      * Creates a Menu Component
      * @param frame the frame the component will be added to
@@ -126,13 +125,13 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
         int index = 0;
         if(e.getKeyCode() == KeyEvent.VK_Q) {
             index --;
-            if(index < 0) index = 0;
+            if(index < 0) index = Globals.player.getGuns().size() - 1;
             Globals.player.setActiveGun(Globals.player.getGuns().get(index));
         }
         if(e.getKeyCode() == KeyEvent.VK_E){
             index ++;
             if(index > Globals.player.getGuns().size() - 1){
-                index = Globals.player.getGuns().size() - 1;
+                index = 0;
             }
             Globals.player.setActiveGun(Globals.player.getGuns().get(index));
         }
