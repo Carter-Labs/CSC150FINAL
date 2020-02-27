@@ -36,6 +36,11 @@ public class MenuItemView extends ImageView implements Rendered {
         ApplicationController.renderEvents.add(this);
     }
 
+    /**
+     * Calculates how large the image should be to fit with in the item frame
+     * @param itemImage The image to scale
+     * @return the factor to scale the image by
+     */
     private double calcImageScale(BufferedImage itemImage) {
         if(itemImage.getWidth() <= DefaultImage.getWidth()){
             return itemImage.getWidth() / DefaultImage.getWidth() - .10;
@@ -60,10 +65,9 @@ public class MenuItemView extends ImageView implements Rendered {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
         CurrentImage = getIsActive() ? HoverImage : DefaultImage;
-        g2d.drawImage(CurrentImage, 0, 0, null);
-        g2d.drawImage(ItemImage, 3, 3, null);
+        g.drawImage(CurrentImage, 0, 0, null);
+        g.drawImage(ItemImage, 3, 3, null);
         paintChildren(g);
     }
 

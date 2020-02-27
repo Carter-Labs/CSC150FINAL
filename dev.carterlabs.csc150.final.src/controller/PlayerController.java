@@ -7,9 +7,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class PlayerController implements KeyListener {
-    Player player;
-    PlayerView view;
+    Player player; //The player model
+    PlayerView view; // The player view
 
+    /**
+     * This class shall control the player.
+     * @param player The player that is controlled
+     */
     public PlayerController(Player player) {
         view = new PlayerView();
         setPlayer(player);
