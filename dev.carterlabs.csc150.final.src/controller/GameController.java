@@ -18,6 +18,7 @@ public class GameController extends JFrame implements Runnable {
     public static List<Started> startEvents = new ArrayList<>();
     public static List<Attack> attackEvents = new ArrayList<>();
     public static UIController uiController;
+    private Level level;
 
     public GameController() {
         this.setBounds(0,0,Globals.WIDTH, Globals.HEIGHT);
@@ -26,9 +27,11 @@ public class GameController extends JFrame implements Runnable {
     }
 
     public void buildNewLevel() {
-        Level level = new Level(this);
+        level = new Level(this);
         level.loadChamber(0);
     }
+
+
 
     @Override
     public void paint(Graphics g) {
