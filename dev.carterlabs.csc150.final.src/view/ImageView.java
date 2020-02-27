@@ -12,9 +12,12 @@ import java.io.IOException;
 public class ImageView extends JComponent {
     BufferedImage image;
 
-    public ImageView(){}
+    public ImageView(){
+        setBounds(getX(), getX(), image.getWidth(), image.getHeight());
+    }
     public ImageView(String s) {
         this.image = loadImage(s);
+        setBounds(getX(), getX(), image.getWidth(), image.getHeight());
     }
     /**
      * Makes loading images easier.
@@ -46,7 +49,7 @@ public class ImageView extends JComponent {
 
     @Override protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, getX(), getY(), image.getWidth(), image.getHeight(), null);
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         paintChildren(g);
     }
 
@@ -56,5 +59,17 @@ public class ImageView extends JComponent {
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    public static void main(String[] args) {
+        ImageView imageView = new ImageView("./Resources/LevelAssets/floor_01.png");
+        imageView.setLocation(100,0);
+        JFrame frame = new JFrame("ImageViewTest Test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100, 100, 500, 500);
+        frame.getContentPane().setBackground(Color.MAGENTA);
+        frame.setLayout(null);
+        frame.add(imageView);
+        frame.setVisible(true);
     }
 }

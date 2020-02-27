@@ -32,7 +32,7 @@ public class MenuItemView extends ImageView implements Rendered {
         ItemImage = loadImage(ItemIconPath);
         ItemImage = scaleImage(ItemImage, calcImageScale(ItemImage));
         CurrentImage = DefaultImage;
-        setBounds(getX(), getX(), DefaultImage.getWidth(), DefaultImage.getHeight());
+        setBounds(getX(), getY(), DefaultImage.getWidth(), DefaultImage.getHeight());
         setIsActive(false);
         ApplicationController.renderEvents.add(this);
     }
