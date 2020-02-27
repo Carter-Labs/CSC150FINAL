@@ -30,7 +30,7 @@ public class UIController {
     }
 
     private void initMenu() {
-        menuController = new MenuController(frame, Globals.WIDTH / 2 - (384 / 2), Globals.HEIGHT - 100);
+        menuController = new MenuController(frame, Globals.WIDTH / 2 - (384 / 2) - 4, Globals.HEIGHT - 100);
         for (Gun gun: Globals.player.getGuns()) {
             menuController.addItem(gun);
         }

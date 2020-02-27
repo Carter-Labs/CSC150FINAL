@@ -28,14 +28,12 @@ public class Chamber implements Generate, Rendered {
     private GameObject[] objects;
     private List<Entity> entities = new ArrayList<>();
     private ChamberDoorOptions[] doors;
+    private JFrame jFrame;
     /**
      * Default Constructor
      */
     public Chamber(JFrame g){
-//        this.generate();
-        generateFloor(g);
-        doors = new ChamberDoorOptions[4];
-        ApplicationController.renderEvents.add(this::Render);
+        this.jFrame = g;
     }
 
     /**
@@ -43,10 +41,13 @@ public class Chamber implements Generate, Rendered {
      */
     @Override public void generate() {
         //add boss if in range to list of entities
-        generateDoors();
+//        generateDoors();
         isBossInChamber();
+        doors = new ChamberDoorOptions[4];
+        ApplicationController.renderEvents.add(this::Render);
         //add num of enemies to list of entities
         addOfficersAndGuards();
+        generateFloor(this.jFrame);
     }
 
     /**
@@ -175,6 +176,9 @@ public class Chamber implements Generate, Rendered {
         g.repaint();
     }
 
+    public void setjFrame(JFrame jFrame) {
+        this.jFrame = jFrame;
+    }
 
     /**
      * @return Array of GameObjects

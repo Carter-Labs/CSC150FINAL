@@ -3,6 +3,7 @@ package model.level;
 import model.Globals;
 import model.entities.Player;
 
+import javax.swing.*;
 import java.util.Arrays;
 
 public class Level implements Generate {
@@ -11,12 +12,14 @@ public class Level implements Generate {
      */
     private Chamber[] chambers;
     private Player player;
+    private JFrame jFrame;
 
     /**
      * Constructor - automatically generates chamber array and number of bosses.
      */
-    public Level(){
+    public Level(JFrame jFrame){
         this.generate();
+        this.jFrame = jFrame;
     }
 
     /**
@@ -27,10 +30,20 @@ public class Level implements Generate {
         int numOfChambers = (Globals.rand.nextInt(4) + 1) * 2;
         chambers = new Chamber[numOfChambers];
         for (int i = 0; i < chambers.length - 1; i++) {
-//            chambers[i] = new Chamber();
+            chambers[i] = new Chamber(this.jFrame);
         }
         //add the player to this level
         player = Globals.player;
+    }
+
+    /**
+     * Loads the chamber at an index and loads the view
+     * @param index index to load
+     */
+    public void loadChamber(int index) {
+        Chamber chamber = this.getChambers()[index];
+        chamber.setjFrame(this.jFrame);
+        chamber.generate();
     }
 
     /**

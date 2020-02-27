@@ -43,7 +43,7 @@ public class Globals {
      */
     public static double bossSpawnPerc = 0.05;
     public static boolean isBossInChamber;
-    public static int maxNumOfOfficersAndGuards;
+    public static int maxNumOfOfficersAndGuards = 3;
     public static boolean hasExited = false;
 
     /**
