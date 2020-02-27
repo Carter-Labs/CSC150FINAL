@@ -17,16 +17,17 @@ public class UIController {
     }
 
     private void initFrame() {
+        frame.setTitle("Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(0, 0, Globals.WIDTH, Globals.HEIGHT);
         frame.setResizable(false);
-        frame.getContentPane().setBackground(Color.RED);
+        frame.getContentPane().setBackground(Color.BLACK);
         frame.setLayout(null);
         frame.setVisible(true);
     }
 
     private void initMenu() {
-        menuController = new MenuController(frame, 0, 0);
+        menuController = new MenuController(frame, Globals.WIDTH / 2 - (384 / 2), Globals.HEIGHT - 100);
         for (Gun gun: Globals.player.getGuns()) {
             menuController.addItem(gun);
         }

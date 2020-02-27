@@ -145,7 +145,25 @@ public class Chamber implements Generate, Rendered {
      */
     private void generateFloor(JFrame g) {
         System.out.println("Called");
-//        image.setImage(image.scaleImage(image.getImage(), 0.125));
+        String[] walls = new String[]{"./Resources/LevelAssets/Wall_01.png","./Resources/LevelAssets/Wall_02.png","./Resources/LevelAssets/Wall_03.png"};
+        ImageView wall = new ImageView(walls[Globals.rand.nextInt(3)]);
+        for (int i = 0; i <=Globals.HEIGHT / wall.getHeight() ; i++) {
+            for (int j = 0; j <=Globals.WIDTH / wall.getWidth() ; j++) {
+                if(i == 0 || i == Globals.HEIGHT / wall.getHeight() - 1) {
+                    wall = new ImageView(walls[Globals.rand.nextInt(3)]);
+                    wall.setLocation((j * wall.getWidth()),(i * wall.getHeight()));
+                    g.add(wall);
+                }
+                else  {
+                    wall = new ImageView(walls[Globals.rand.nextInt(3)]);
+                    wall.setLocation(0,wall.getHeight() * i); //
+                    g.add(wall);
+                    wall = new ImageView(walls[Globals.rand.nextInt(3)]);
+                    wall.setLocation( Globals.WIDTH - wall.getWidth() - 7,wall.getHeight() * i); //
+                    g.add(wall);
+                }
+            }
+        }
         ImageView image = new ImageView("./Resources/LevelAssets/floor_01.png");
         for (int i = 0; i <=Globals.HEIGHT / image.getHeight(); i++) {
             for (int j = 0; j <=Globals.WIDTH / image.getWidth() ; j++) {
@@ -155,7 +173,6 @@ public class Chamber implements Generate, Rendered {
             }
         }
         g.repaint();
-        System.out.println(g.getContentPane().getComponents().length);
     }
 
 

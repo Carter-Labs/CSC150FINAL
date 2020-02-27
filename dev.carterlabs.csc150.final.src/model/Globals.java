@@ -31,8 +31,8 @@ public class Globals {
     /**
      *  Window Settings
      */
-    public static int WIDTH = 1280;
-    public static int HEIGHT = 720;
+    public static int WIDTH = 1286;
+    public static int HEIGHT = 733;
     /**
      * UIController.java used variables
      */
