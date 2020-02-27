@@ -2,6 +2,7 @@ package controller;
 
 import model.Globals;
 import model.objects.Gun;
+import view.ImageView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,8 @@ public class UIController {
 
     private void initFrame() {
         frame.setTitle("Game");
+        ImageView image = new ImageView("./Resources/Guns/SNIPER.png");
+        frame.setIconImage(image.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(0, 0, Globals.WIDTH, Globals.HEIGHT);
         frame.setResizable(false);
