@@ -4,16 +4,13 @@ import controller.ApplicationController;
 import model.events.Rendered;
 import model.objects.WeaponType;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-public class MenuItemView extends JComponent implements Rendered {
+public class MenuItemView extends ImageView implements Rendered {
     /**
      * Images are 64px x 64px
      */
@@ -60,27 +57,13 @@ public class MenuItemView extends JComponent implements Rendered {
         return transformOp.filter(image, scaledImage);
     }
 
-    /**
-     * Makes loading images easier.
-     * @param path Where the image is located
-     * @return The loaded image
-     */
-    private BufferedImage loadImage(String path) {
-        File file = new File(path);
-        try {
-            return ImageIO.read(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(String.format("Attempted to load an image named %s in %s and failed!", file.getAbsolutePath(), getClass()));
-        }
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
         CurrentImage = getIsActive() ? HoverImage : DefaultImage;
-        g.drawImage(CurrentImage, 0, 0, null);
-        g.drawImage(ItemImage, 3, 3, null);
+        g2d.drawImage(CurrentImage, 0, 0, null);
+        g2d.drawImage(ItemImage, 3, 3, null);
         paintChildren(g);
     }
 
