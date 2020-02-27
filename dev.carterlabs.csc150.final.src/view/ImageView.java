@@ -4,11 +4,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class ImageView extends JComponent {
+    BufferedImage image;
+
+    public ImageView(){}
+    public ImageView(String s) {
+        this.image = loadImage(s);
+    }
     /**
      * Makes loading images easier.
      * @param path Where the image is located
@@ -35,5 +42,19 @@ public class ImageView extends JComponent {
         AffineTransform transform = AffineTransform.getScaleInstance(factor, factor);
         AffineTransformOp transformOp = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         return transformOp.filter(image, scaledImage);
+    }
+
+    @Override protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, getX(), getY(), image.getWidth(), image.getHeight(), null);
+        paintChildren(g);
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 }

@@ -1,19 +1,27 @@
 package model.level;
 
+import com.sun.javaws.util.JfxHelper;
+import controller.ApplicationController;
 import model.Globals;
 import model.entities.ArmedOfficer;
 import model.entities.BatonGuard;
 import model.entities.Boss;
 import model.entities.Entity;
+import model.events.Rendered;
+import model.events.Updated;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
+import view.ImageView;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Chamber implements Generate {
+public class Chamber implements Generate, Rendered {
     /**
      * Variables
      */
@@ -27,6 +35,7 @@ public class Chamber implements Generate {
     public Chamber(){
         this.generate();
         doors = new ChamberDoorOptions[4];
+        ApplicationController.renderEvents.add(this::Render);
     }
 
     /**
@@ -93,8 +102,8 @@ public class Chamber implements Generate {
     /**
      * Draws the chamber in the view
      */
-    public void draw() {
-        //Draws the chamber in the view
+    @Override public void Render(JFrame g) {
+        generateFloor(g);
     }
 
     /**
@@ -130,6 +139,22 @@ public class Chamber implements Generate {
             newArr.add(new ArmedOfficer(100,100,new Gun(20, randomWeapon)));
         }
     }
+
+    /**
+     * Generates the floor to draw it.
+     */
+    private void generateFloor(JFrame g) {
+        System.out.println("Called");
+        ImageView image = new ImageView("./Resources/LevelAssets/floor_01.png");
+        image.setImage(image.scaleImage(image.getImage(), 0.125));
+        for (int i = 0; i <Globals.HEIGHT ; i+= 11) {
+            for (int j = 0; j <Globals.WIDTH ; j+= 20) {
+                image.setLocation((i * 64),(j * 64));
+                g.add(image);
+            }
+        }
+    }
+
 
     /**
      * @return Array of GameObjects
@@ -170,4 +195,5 @@ public class Chamber implements Generate {
                 ", entities=" + entities +
                 '}';
     }
+
 }

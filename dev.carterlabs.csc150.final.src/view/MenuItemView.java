@@ -26,6 +26,7 @@ public class MenuItemView extends ImageView implements Rendered {
      * @param ItemIconPath Is the path for the icon that will be displayed in the menu
      */
     public MenuItemView(String ItemIconPath){
+        super(ItemIconPath);
         DefaultImage = loadImage("./Resources/ItemUIBackground.png");
         HoverImage = loadImage("./Resources/ItemUIBackgroundHover.png");
         ItemImage = loadImage(ItemIconPath);
@@ -49,18 +50,6 @@ public class MenuItemView extends ImageView implements Rendered {
         }
     }
 
-    /**
-     * This will scale an image used to make sure the item fits in the menu
-     * @param image The image to be scaled
-     * @param factor How much it will be scaled on both axises
-     * @return the scaled image.
-     */
-    private BufferedImage scaleImage(BufferedImage image, double factor){
-        BufferedImage scaledImage = new BufferedImage((int)(image.getWidth() / factor), (int)(image.getHeight() / factor), BufferedImage.TYPE_INT_ARGB);
-        AffineTransform transform = AffineTransform.getScaleInstance(factor, factor);
-        AffineTransformOp transformOp = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-        return transformOp.filter(image, scaledImage);
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
