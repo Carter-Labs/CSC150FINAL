@@ -1,22 +1,18 @@
 package model.level;
 
-import com.sun.javaws.util.JfxHelper;
-import controller.ApplicationController;
+import controller.GameController;
 import model.Globals;
 import model.entities.ArmedOfficer;
 import model.entities.BatonGuard;
 import model.entities.Boss;
 import model.entities.Entity;
 import model.events.Rendered;
-import model.events.Updated;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 import view.ImageView;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +40,7 @@ public class Chamber implements Generate, Rendered {
 //        generateDoors();
         isBossInChamber();
         doors = new ChamberDoorOptions[4];
-        ApplicationController.renderEvents.add(this::Render);
+        GameController.renderEvents.add(this::Render);
         //add num of enemies to list of entities
         addOfficersAndGuards();
         generateFloor(this.jFrame);

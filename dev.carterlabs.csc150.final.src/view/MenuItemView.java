@@ -1,13 +1,11 @@
 package view;
 
-import controller.ApplicationController;
+import controller.GameController;
 import model.events.Rendered;
 import model.objects.WeaponType;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class MenuItemView extends ImageView implements Rendered {
@@ -33,7 +31,7 @@ public class MenuItemView extends ImageView implements Rendered {
         CurrentImage = DefaultImage;
         setBounds(getX(), getY(), DefaultImage.getWidth(), DefaultImage.getHeight());
         setIsActive(false);
-        ApplicationController.renderEvents.add(this);
+        GameController.renderEvents.add(this);
     }
 
     /**

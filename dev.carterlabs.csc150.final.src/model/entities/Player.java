@@ -1,6 +1,6 @@
 package model.entities;
 
-import controller.ApplicationController;
+import controller.GameController;
 import model.events.Attack;
 import model.objects.Gun;
 import model.objects.WeaponType;
@@ -26,10 +26,10 @@ public class Player extends Entity implements Attack {
         super(health, speed);
         guns = initGuns();
         setCurrency(0);
-        ApplicationController.attackEvents.add(this);
-        ApplicationController.updateEvents.add(this);
-        ApplicationController.renderEvents.add(this);
-        ApplicationController.startEvents.add(this);
+        GameController.attackEvents.add(this);
+        GameController.updateEvents.add(this);
+        GameController.renderEvents.add(this);
+        GameController.startEvents.add(this);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Player extends Entity implements Attack {
         guns = initGuns();
         setCurrency(currency);
         setCurrentLevel(level);
-        ApplicationController.updateEvents.add(this::Update);
+        GameController.updateEvents.add(this::Update);
     }
 
     private List<Gun> initGuns() {

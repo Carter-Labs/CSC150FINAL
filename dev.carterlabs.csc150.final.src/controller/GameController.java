@@ -5,7 +5,6 @@ import model.events.Attack;
 import model.events.Rendered;
 import model.events.Started;
 import model.events.Updated;
-import model.level.Chamber;
 import model.level.Level;
 
 import javax.swing.*;
@@ -13,14 +12,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicationController extends JFrame implements Runnable {
+public class GameController extends JFrame implements Runnable {
     public static List<Rendered> renderEvents = new ArrayList<>();
     public static List<Updated> updateEvents = new ArrayList<>();
     public static List<Started> startEvents = new ArrayList<>();
     public static List<Attack> attackEvents = new ArrayList<>();
     public static UIController uiController;
 
-    public ApplicationController() {
+    public GameController() {
         this.setBounds(0,0,Globals.WIDTH, Globals.HEIGHT);
         uiController = new UIController(this);
         buildNewLevel();
@@ -85,7 +84,7 @@ public class ApplicationController extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) {
-        ApplicationController app = new ApplicationController();
+        GameController app = new GameController();
         Thread thread = new Thread(app);
         thread.start();
     }

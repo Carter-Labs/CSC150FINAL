@@ -33,7 +33,7 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
         getFrame().addComponentListener(this);
         setX(x);
         setY(y);
-        ApplicationController.renderEvents.add(this);
+        GameController.renderEvents.add(this);
         frame.addKeyListener(this);
     }
 
