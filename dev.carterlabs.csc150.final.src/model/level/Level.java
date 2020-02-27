@@ -27,7 +27,7 @@ public class Level implements Generate {
         int numOfChambers = (Globals.rand.nextInt(4) + 1) * 2;
         chambers = new Chamber[numOfChambers];
         for (int i = 0; i < chambers.length - 1; i++) {
-            chambers[i] = new Chamber();
+//            chambers[i] = new Chamber();
         }
         //add the player to this level
         player = Globals.player;

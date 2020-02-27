@@ -28,12 +28,12 @@ public class Chamber implements Generate, Rendered {
     private GameObject[] objects;
     private List<Entity> entities = new ArrayList<>();
     private ChamberDoorOptions[] doors;
-
     /**
      * Default Constructor
      */
-    public Chamber(){
-        this.generate();
+    public Chamber(JFrame g){
+//        this.generate();
+        generateFloor(g);
         doors = new ChamberDoorOptions[4];
         ApplicationController.renderEvents.add(this::Render);
     }
@@ -103,7 +103,7 @@ public class Chamber implements Generate, Rendered {
      * Draws the chamber in the view
      */
     @Override public void Render(JFrame g) {
-        generateFloor(g);
+
     }
 
     /**
@@ -145,14 +145,17 @@ public class Chamber implements Generate, Rendered {
      */
     private void generateFloor(JFrame g) {
         System.out.println("Called");
+//        image.setImage(image.scaleImage(image.getImage(), 0.125));
         ImageView image = new ImageView("./Resources/LevelAssets/floor_01.png");
-        image.setImage(image.scaleImage(image.getImage(), 0.125));
-        for (int i = 0; i <Globals.HEIGHT ; i+= 11) {
-            for (int j = 0; j <Globals.WIDTH ; j+= 20) {
-                image.setLocation((i * 64),(j * 64));
+        for (int i = 0; i <=Globals.HEIGHT / image.getHeight(); i++) {
+            for (int j = 0; j <=Globals.WIDTH / image.getWidth() ; j++) {
+                image = new ImageView("./Resources/LevelAssets/floor_01.png");
+                image.setLocation((j * image.getWidth()),(i * image.getHeight()));
                 g.add(image);
             }
         }
+        g.repaint();
+        System.out.println(g.getContentPane().getComponents().length);
     }
 
 

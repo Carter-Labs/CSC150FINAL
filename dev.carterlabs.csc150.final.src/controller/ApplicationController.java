@@ -5,6 +5,7 @@ import model.events.Attack;
 import model.events.Rendered;
 import model.events.Started;
 import model.events.Updated;
+import model.level.Chamber;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,9 @@ public class ApplicationController extends JFrame implements Runnable {
     public static UIController uiController;
 
     public ApplicationController() {
+        this.setBounds(0,0,Globals.WIDTH, Globals.HEIGHT);
         uiController = new UIController(this);
+        Chamber chamber = new Chamber(this);
     }
 
     @Override

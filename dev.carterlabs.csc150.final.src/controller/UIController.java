@@ -18,7 +18,7 @@ public class UIController {
 
     private void initFrame() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, Globals.WIDTH, Globals.HEIGHT);
+        frame.setBounds(0, 0, Globals.WIDTH, Globals.HEIGHT);
         frame.setResizable(false);
         frame.getContentPane().setBackground(Color.RED);
         frame.setLayout(null);

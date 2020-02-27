@@ -13,7 +13,7 @@ public class ImageView extends JComponent {
     BufferedImage image;
 
     public ImageView(){
-        setBounds(getX(), getX(), image.getWidth(), image.getHeight());
+        setBounds(getX(), getX(), getWidth(), getHeight());
     }
     public ImageView(String s) {
         this.image = loadImage(s);

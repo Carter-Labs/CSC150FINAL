@@ -26,7 +26,6 @@ public class MenuItemView extends ImageView implements Rendered {
      * @param ItemIconPath Is the path for the icon that will be displayed in the menu
      */
     public MenuItemView(String ItemIconPath){
-        super(ItemIconPath);
         DefaultImage = loadImage("./Resources/ItemUIBackground.png");
         HoverImage = loadImage("./Resources/ItemUIBackgroundHover.png");
         ItemImage = loadImage(ItemIconPath);
@@ -57,7 +56,7 @@ public class MenuItemView extends ImageView implements Rendered {
         CurrentImage = getIsActive() ? HoverImage : DefaultImage;
         g.drawImage(CurrentImage, 0, 0, null);
         g.drawImage(ItemImage, 3, 3, null);
-        paintChildren(g);
+//        paintChildren(g);
     }
 
     @Override
