@@ -132,6 +132,12 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
             }
             Globals.player.setActiveGun(Globals.player.getGuns().get(index));
         }
+        if(key == '1') Globals.player.setActiveGun(Globals.player.getGuns().get(0));
+        if(key == '2') Globals.player.setActiveGun(Globals.player.getGuns().get(1));
+        if(key == '3') Globals.player.setActiveGun(Globals.player.getGuns().get(2));
+        if(key == '4') Globals.player.setActiveGun(Globals.player.getGuns().get(3));
+        if(key == '5') Globals.player.setActiveGun(Globals.player.getGuns().get(4));
+        if(key == '6') Globals.player.setActiveGun(Globals.player.getGuns().get(5));
         setActiveItem(Globals.player.getActiveGun());
     }
 
