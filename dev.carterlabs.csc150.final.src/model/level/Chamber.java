@@ -14,12 +14,14 @@ import view.ImageView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Chamber implements Generate, Rendered {
+public class Chamber implements Generate, Rendered, KeyListener {
     /**
      * Variables
      */
@@ -51,6 +53,7 @@ public class Chamber implements Generate, Rendered {
         //add num of enemies to list of entities
         addOfficersAndGuards();
         generateFloor(this.jFrame);
+        jFrame.addKeyListener(this);
     }
 
     /**
@@ -110,10 +113,30 @@ public class Chamber implements Generate, Rendered {
 
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        char key = e.getKeyChar();
+        if(key == 'w') {Globals.PLAYER_Y -= 10; Chamber.removeAndUpdateGun(jFrame);}
+        if(key == 's') {Globals.PLAYER_Y += 10; Chamber.removeAndUpdateGun(jFrame);}
+        if(key == 'a') {Globals.PLAYER_X -= 10; Chamber.removeAndUpdateGun(jFrame);}
+        if(key == 'd') {Globals.PLAYER_X += 10; Chamber.removeAndUpdateGun(jFrame);}
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+
     public static void removeAndUpdateGun(JFrame g){
         g.remove(player);
         player = new ImageView("./Resources/PLayer/PLAYER_"+Globals.player.getActiveGun().getWeaponType().toString()+".png");
-        player.setLocation(Globals.WIDTH / 2 - 30, Globals.HEIGHT / 2 - 10);
+        player.setLocation(Globals.PLAYER_X, Globals.PLAYER_Y);
         player.setName("Player");
         g.add(player);
         g.getContentPane().setComponentZOrder(player, 3);
@@ -233,5 +256,4 @@ public class Chamber implements Generate, Rendered {
                 ", entities=" + entities +
                 '}';
     }
-
 }

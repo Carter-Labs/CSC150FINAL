@@ -34,9 +34,11 @@ public class Globals {
     public static int WIDTH = 1286;
     public static int HEIGHT = 733;
     /**
-     * UIController.java used variables
+     * Player used variables
      */
     public static Player player = new Player(100, 1);
+    public static int PLAYER_X = (WIDTH / 2 - 30);
+    public static int PLAYER_Y = (HEIGHT / 2 - 10);
 
     /**
      * Info for Chamber.java
