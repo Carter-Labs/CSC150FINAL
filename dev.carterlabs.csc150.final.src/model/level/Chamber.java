@@ -13,8 +13,10 @@ import model.objects.WeaponType;
 import view.ImageView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Chamber implements Generate, Rendered {
@@ -25,11 +27,16 @@ public class Chamber implements Generate, Rendered {
     private List<Entity> entities = new ArrayList<>();
     private ChamberDoorOptions[] doors;
     private JFrame jFrame;
+    private static ImageView player = new ImageView("./Resources/PLayer/PLAYER_"+Globals.player.getActiveGun().getWeaponType().toString()+".png");
+    private HashMap componentMap;
     /**
      * Default Constructor
      */
     public Chamber(JFrame g){
         this.jFrame = g;
+        player = new ImageView("./Resources/PLayer/PLAYER_"+Globals.player.getActiveGun().getWeaponType().toString()+".png");
+        player.setLocation(Globals.WIDTH / 2 - 30, Globals.HEIGHT / 2 - 10);
+        player.setName("Player");
     }
 
     /**
@@ -103,6 +110,16 @@ public class Chamber implements Generate, Rendered {
 
     }
 
+    public static void removeAndUpdateGun(JFrame g){
+        g.remove(player);
+        player = new ImageView("./Resources/PLayer/PLAYER_"+Globals.player.getActiveGun().getWeaponType().toString()+".png");
+        player.setLocation(Globals.WIDTH / 2 - 30, Globals.HEIGHT / 2 - 10);
+        player.setName("Player");
+        g.add(player);
+        g.getContentPane().setComponentZOrder(player, 3);
+        g.repaint();
+    }
+
     /**
      * Determines the chances a boss spawning in the chamber
      */
@@ -141,7 +158,8 @@ public class Chamber implements Generate, Rendered {
      * Generates the floor to draw it.
      */
     private void generateFloor(JFrame g) {
-        System.out.println("Called");
+        g.add(player);
+        g.getContentPane().setComponentZOrder(player, 3);
         String[] walls = new String[]{"./Resources/LevelAssets/Wall_01.png","./Resources/LevelAssets/Wall_02.png","./Resources/LevelAssets/Wall_03.png"};
         ImageView wall = new ImageView(walls[Globals.rand.nextInt(3)]);
         for (int i = 0; i <=Globals.HEIGHT / wall.getHeight() ; i++) {
