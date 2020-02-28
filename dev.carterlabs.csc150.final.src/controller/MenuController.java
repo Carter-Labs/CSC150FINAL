@@ -139,6 +139,7 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
         if(key == '5') Globals.player.setActiveGun(Globals.player.getGuns().get(4));
         if(key == '6') Globals.player.setActiveGun(Globals.player.getGuns().get(5));
         setActiveItem(Globals.player.getActiveGun());
+        System.out.println(Globals.player.getActiveGun().getWeaponType().toString());
     }
 
     @Override
