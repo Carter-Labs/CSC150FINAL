@@ -121,10 +121,10 @@ public class Chamber implements Generate, Rendered, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         char key = e.getKeyChar();
-        if(key == 'w') {Globals.PLAYER_Y -= 10; Chamber.removeAndUpdateGun(jFrame);}
-        if(key == 's') {Globals.PLAYER_Y += 10; Chamber.removeAndUpdateGun(jFrame);}
-        if(key == 'a') {Globals.PLAYER_X -= 10; Chamber.removeAndUpdateGun(jFrame);}
-        if(key == 'd') {Globals.PLAYER_X += 10; Chamber.removeAndUpdateGun(jFrame);}
+        if(key == 'w') {Globals.PLAYER_Y -= Globals.player.getSpeed(); Chamber.removeAndUpdateGun(jFrame);}
+        if(key == 's') {Globals.PLAYER_Y += Globals.player.getSpeed(); Chamber.removeAndUpdateGun(jFrame);}
+        if(key == 'a') {Globals.PLAYER_X -= Globals.player.getSpeed(); Chamber.removeAndUpdateGun(jFrame);}
+        if(key == 'd') {Globals.PLAYER_X += Globals.player.getSpeed(); Chamber.removeAndUpdateGun(jFrame);}
     }
 
     @Override
