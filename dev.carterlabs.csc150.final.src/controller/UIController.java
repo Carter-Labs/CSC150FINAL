@@ -19,7 +19,7 @@ public class UIController {
 
     private void initFrame() {
         frame.setTitle("Game");
-        ImageView image = new ImageView("./Resources/Guns/SNIPER.png");
+        ImageView image = new ImageView("./Resources/ICON.png");
         frame.setIconImage(image.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(0, 0, Globals.WIDTH, Globals.HEIGHT);
