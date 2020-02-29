@@ -8,7 +8,7 @@ import java.awt.*;
 public class PlayerView extends ImageView implements Updated {
     public PlayerView() {
         super.setLayout(null);
-        setBounds(0, 0, 500, 500);
+        setBounds(getX(), getY(), image.getHeight(), image.getHeight());
     }
 
     @Override
