@@ -37,8 +37,6 @@ public class Globals {
      * Player used variables
      */
     public static Player player = new Player(100, 10);
-    public static int PLAYER_X = (WIDTH / 2 - 30);
-    public static int PLAYER_Y = (HEIGHT / 2 - 10);
 
     /**
      * Info for Chamber.java

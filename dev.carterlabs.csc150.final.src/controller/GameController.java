@@ -21,9 +21,10 @@ public class GameController extends JFrame implements Runnable {
     private Level level;
 
     public GameController() {
-        this.setBounds(0,0,Globals.WIDTH, Globals.HEIGHT);
         uiController = new UIController(this);
-        buildNewLevel();
+        this.setBounds(0,0,Globals.WIDTH, Globals.HEIGHT);
+        Thread t = new Thread(this::buildNewLevel);
+        t.start();
     }
 
     public void buildNewLevel() {

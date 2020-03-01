@@ -3,7 +3,6 @@ package controller;
 import javafx.util.Pair;
 import model.Globals;
 import model.events.Rendered;
-import model.level.Chamber;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 import view.MenuItemView;
@@ -140,7 +139,6 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
         if(key == '5') Globals.player.setActiveGun(Globals.player.getGuns().get(4));
         if(key == '6') Globals.player.setActiveGun(Globals.player.getGuns().get(5));
         setActiveItem(Globals.player.getActiveGun());
-        Chamber.removeAndUpdateGun(frame);
     }
 
     @Override

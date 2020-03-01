@@ -1,5 +1,9 @@
 package model.level;
 
-public class GameObject {
+import view.ImageView;
 
+public class GameObject extends ImageView {
+    public GameObject(String imagePath) {
+        super(imagePath);
+    }
 }

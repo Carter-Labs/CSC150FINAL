@@ -16,12 +16,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Chamber implements Generate, Rendered, KeyListener {
+public class Chamber implements Generate, Rendered, KeyListener, MouseMotionListener {
     /**
      * Variables
      */
@@ -29,16 +31,13 @@ public class Chamber implements Generate, Rendered, KeyListener {
     private List<Entity> entities = new ArrayList<>();
     private ChamberDoorOptions[] doors;
     private JFrame jFrame;
-    private static ImageView player = new ImageView("./Resources/PLayer/PLAYER_"+Globals.player.getActiveGun().getWeaponType().toString()+".png");
     private HashMap componentMap;
     /**
      * Default Constructor
      */
     public Chamber(JFrame g){
         this.jFrame = g;
-        player = new ImageView("./Resources/PLayer/PLAYER_"+Globals.player.getActiveGun().getWeaponType().toString()+".png");
-        player.setLocation(Globals.WIDTH / 2 - 30, Globals.HEIGHT / 2 - 10);
-        player.setName("Player");
+        Globals.player.setLocation(Globals.WIDTH / 2 - 30, Globals.HEIGHT / 2 - 10);
     }
 
     /**
@@ -51,9 +50,10 @@ public class Chamber implements Generate, Rendered, KeyListener {
         doors = new ChamberDoorOptions[4];
         GameController.renderEvents.add(this::Render);
         //add num of enemies to list of entities
-        addOfficersAndGuards();
+//        addOfficersAndGuards();
         generateFloor(this.jFrame);
         jFrame.addKeyListener(this);
+        jFrame.addMouseMotionListener(this);
     }
 
     /**
@@ -121,10 +121,22 @@ public class Chamber implements Generate, Rendered, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         char key = e.getKeyChar();
-        if(key == 'w') {Globals.PLAYER_Y -= Globals.player.getSpeed(); Chamber.removeAndUpdateGun(jFrame);}
-        if(key == 's') {Globals.PLAYER_Y += Globals.player.getSpeed(); Chamber.removeAndUpdateGun(jFrame);}
-        if(key == 'a') {Globals.PLAYER_X -= Globals.player.getSpeed(); Chamber.removeAndUpdateGun(jFrame);}
-        if(key == 'd') {Globals.PLAYER_X += Globals.player.getSpeed(); Chamber.removeAndUpdateGun(jFrame);}
+        int speed = (int) Globals.player.getSpeed();
+        if (key == 'a') {
+            Globals.player.setLocation(Globals.player.getX() - speed, Globals.player.getY());
+        }
+
+        if (key == 'd') {
+            Globals.player.setLocation(Globals.player.getX() + speed, Globals.player.getY());
+        }
+
+        if (key == 'w') {
+            Globals.player.setLocation(Globals.player.getX(), Globals.player.getY() - speed);
+        }
+
+        if (key == 's') {
+            Globals.player.setLocation(Globals.player.getX(), Globals.player.getY() + speed);
+        }
     }
 
     @Override
@@ -132,15 +144,29 @@ public class Chamber implements Generate, Rendered, KeyListener {
 
     }
 
+    @Override
+    public void mouseDragged(MouseEvent e) { }
 
-    public static void removeAndUpdateGun(JFrame g){
-        g.remove(player);
-        player = new ImageView("./Resources/PLayer/PLAYER_"+Globals.player.getActiveGun().getWeaponType().toString()+".png");
-        player.setLocation(Globals.PLAYER_X, Globals.PLAYER_Y);
-        player.setName("Player");
-        g.add(player);
-        g.getContentPane().setComponentZOrder(player, 3);
-        g.repaint();
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        Globals.player.setRotation(calcRotation(e.getPoint()));
+        Globals.player.repaint();
+    }
+
+    private int calcRotation(Point point) {
+        double dx = point.getX() - Globals.player.getX() + (Globals.player.getWidth() / 2);
+        double dy = point.getY() - Globals.player.getY() + (Globals.player.getHealth() / 2);
+        return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)));
+    }
+
+    private double toPositiveAngle(double angle)
+    {
+        angle = angle % 360;
+        while(angle < 0) {
+            angle += 360.0;
+        }
+
+        return angle;
     }
 
     /**
@@ -181,8 +207,8 @@ public class Chamber implements Generate, Rendered, KeyListener {
      * Generates the floor to draw it.
      */
     private void generateFloor(JFrame g) {
-        g.add(player);
-        g.getContentPane().setComponentZOrder(player, 3);
+        g.add(Globals.player);
+        g.getContentPane().setComponentZOrder(Globals.player, 3);
         String[] walls = new String[]{"./Resources/LevelAssets/Wall_01.png","./Resources/LevelAssets/Wall_02.png","./Resources/LevelAssets/Wall_03.png"};
         ImageView wall = new ImageView(walls[Globals.rand.nextInt(3)]);
         for (int i = 0; i <=Globals.HEIGHT / wall.getHeight() ; i++) {

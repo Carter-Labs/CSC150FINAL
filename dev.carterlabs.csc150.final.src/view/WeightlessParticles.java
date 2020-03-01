@@ -11,9 +11,22 @@ import java.util.List;
 
 public class WeightlessParticles extends JComponent implements Updated {
     private List<OpaqueImageView> particles;
+    /**
+     * How many ticks the particle will live for
+     */
     private int lifetime;
+    /**
+     * How many ticks have passed
+     */
     private int time;
 
+    /**
+     * Creates a element that can be added to have a 'weightless' particle
+     * with an image, lifetime, and the amount.
+     * @param particleCount How many particles
+     * @param lifetime How long the particle will last
+     * @param particlePath The path to the particles image
+     */
     public WeightlessParticles(int particleCount, int lifetime, String particlePath) {
         GameController.updateEvents.add(this::Update);
         this.lifetime = lifetime;
@@ -28,6 +41,10 @@ public class WeightlessParticles extends JComponent implements Updated {
         setBounds(0, 0, Globals.WIDTH, Globals.HEIGHT);
     }
 
+    /**
+     * finds the area that the particles take up
+     * @return
+     */
     private Rectangle findBounds() {
         int smallestX = Integer.MAX_VALUE, smallestY = Integer.MAX_VALUE;
         int largestX = Integer.MIN_VALUE, largestY = Integer.MIN_VALUE;

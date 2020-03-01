@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PlayerView extends ImageView implements Updated {
+    
     public PlayerView() {
         super.setLayout(null);
         setBounds(getX(), getY(), image.getHeight(), image.getHeight());
