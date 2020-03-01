@@ -9,14 +9,11 @@ import view.MenuItemView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuController implements ComponentListener, Rendered, KeyListener {
+public class MenuController implements ComponentListener, Rendered, KeyListener, MouseWheelListener {
     private JFrame frame; //The frame that will have MenuItemView's added to
     private List<Pair<Weapon, MenuItemView>> weapons;// Every Weapon shall have a view with it.
     private int x = 0, y = 0, index = 0; // The x, y for where the menus will started being placed at
@@ -30,11 +27,12 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
     public MenuController(JFrame frame, int x, int y) {
         setFrame(frame);
         weapons = new ArrayList<>();
-        getFrame().addComponentListener(this);
         setX(x);
         setY(y);
         GameController.renderEvents.add(this);
-        frame.addKeyListener(this);
+        getFrame().addKeyListener(this);
+        getFrame().addComponentListener(this);
+        getFrame().addMouseWheelListener(this);
     }
 
     /**
@@ -100,6 +98,18 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
 
     public void setY(int y) { this.y = y; }
 
+    private void nextWeapon() {
+        index ++;
+        if(index > Globals.player.getGuns().size() - 1) index = 0;
+        Globals.player.setActiveGun(Globals.player.getGuns().get(index));
+    }
+
+    private void prevWeapon() {
+        index --;
+        if(index < 0) index = Globals.player.getGuns().size() - 1;
+        Globals.player.setActiveGun(Globals.player.getGuns().get(index));
+    }
+
     @Override
     public void Render(JFrame g) {
     }
@@ -120,18 +130,8 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
     public void keyTyped(KeyEvent e) {
         //To cycle through gun selection
         char key = e.getKeyChar();
-        if(key == 'q') {
-            index --;
-            if(index < 0) index = Globals.player.getGuns().size() - 1;
-            Globals.player.setActiveGun(Globals.player.getGuns().get(index));
-        }
-        if(key == 'e'){
-            index ++;
-            if(index > Globals.player.getGuns().size() - 1){
-                index = 0;
-            }
-            Globals.player.setActiveGun(Globals.player.getGuns().get(index));
-        }
+        if(key == 'q') prevWeapon();
+        if(key == 'e') nextWeapon();
         if(key == '1') Globals.player.setActiveGun(Globals.player.getGuns().get(0));
         if(key == '2') Globals.player.setActiveGun(Globals.player.getGuns().get(1));
         if(key == '3') Globals.player.setActiveGun(Globals.player.getGuns().get(2));
@@ -171,5 +171,13 @@ public class MenuController implements ComponentListener, Rendered, KeyListener 
         controller.addItem(new Weapon(5, WeaponType.RAY_GUN));
         controller.setActiveItem(weapon);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        int units = e.getUnitsToScroll();
+        if (units > 0) prevWeapon();
+        if (units < 0) nextWeapon();
+        setActiveItem(Globals.player.getActiveGun());
     }
 }
