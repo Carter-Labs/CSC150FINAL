@@ -2,10 +2,7 @@ package model.level;
 
 import controller.GameController;
 import model.Globals;
-import model.entities.ArmedOfficer;
-import model.entities.BatonGuard;
-import model.entities.Boss;
-import model.entities.Entity;
+import model.entities.*;
 import model.events.Rendered;
 import model.objects.Gun;
 import model.objects.Weapon;
@@ -13,7 +10,6 @@ import model.objects.WeaponType;
 import view.ImageView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -121,27 +117,43 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     @Override
     public void keyPressed(KeyEvent e) {
         char key = e.getKeyChar();
-        int speed = (int) Globals.player.getSpeed();
+        Player p = Globals.player;
         if (key == 'a') {
-            Globals.player.setLocation(Globals.player.getX() - speed, Globals.player.getY());
+            p.setMovingWest(true);
         }
 
         if (key == 'd') {
-            Globals.player.setLocation(Globals.player.getX() + speed, Globals.player.getY());
+            p.setMovingEast(true);
         }
 
         if (key == 'w') {
-            Globals.player.setLocation(Globals.player.getX(), Globals.player.getY() - speed);
+            p.setMovingNorth(true);
         }
 
         if (key == 's') {
-            Globals.player.setLocation(Globals.player.getX(), Globals.player.getY() + speed);
+            p.setMovingSouth(true);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        char key = e.getKeyChar();
+        Player p = Globals.player;
+        if (key == 'a') {
+            p.setMovingWest(false);
+        }
 
+        if (key == 'd') {
+            p.setMovingEast(false);
+        }
+
+        if (key == 'w') {
+            p.setMovingNorth(false);
+        }
+
+        if (key == 's') {
+            p.setMovingSouth(false);
+        }
     }
 
     @Override
@@ -149,24 +161,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Globals.player.setRotation(calcRotation(e.getPoint()));
-        Globals.player.repaint();
-    }
-
-    private int calcRotation(Point point) {
-        double dx = point.getX() - Globals.player.getX() + (Globals.player.getWidth() / 2);
-        double dy = point.getY() - Globals.player.getY() + (Globals.player.getHealth() / 2);
-        return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)));
-    }
-
-    private double toPositiveAngle(double angle)
-    {
-        angle = angle % 360;
-        while(angle < 0) {
-            angle += 360.0;
-        }
-
-        return angle;
     }
 
     /**

@@ -1,17 +1,21 @@
 package model.entities;
 
 import controller.GameController;
+import model.Globals;
 import model.events.Attack;
+import model.events.Moved;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends Entity implements Attack {
+public class Player extends Entity implements Attack, Moved, MouseMotionListener {
     /**
      * Array of players weapons
      */
@@ -20,6 +24,7 @@ public class Player extends Entity implements Attack {
     private int currency;
     private int currentLevel;
     private int rotation = 0;
+
     /**
      * Player constructor
      * @param health Player health
@@ -54,6 +59,7 @@ public class Player extends Entity implements Attack {
         GameController.updateEvents.add(this);
         GameController.renderEvents.add(this);
         GameController.startEvents.add(this);
+        GameController.moveEvents.add(this);
     }
 
     private List<Gun> initGuns() {
@@ -132,12 +138,41 @@ public class Player extends Entity implements Attack {
         this.rotation = rotation;
     }
 
-    /**
-     * @return Player description
-     */
-    @Override public String toString() {
-        return super.toString();
+    @Override
+    public void Move() {
+        Player p = this;
+        int s = p.getSpeed();
+        switch (getDirection()) {
+            case NORTH:
+                p.setLocation(p.getX(), p.getY() - s);
+                break;
+            case EAST:
+                p.setLocation(p.getX() + s, p.getY());
+                break;
+            case SOUTH:
+                p.setLocation(p.getX(), p.getY() + s);
+                break;
+            case WEST:
+                p.setLocation(p.getX() - s, p.getY());
+                break;
+            case NORTH_EAST:
+                p.setLocation(p.getX() + s, p.getY() - s);
+                break;
+            case NORTH_WEST:
+                p.setLocation(p.getX() - s, p.getY() - s);
+                break;
+            case SOUTH_EAST:
+                p.setLocation(p.getX() + s, p.getY() + s);
+                break;
+            case SOUTH_WEST:
+                p.setLocation(p.getX() - s, p.getY() + s);
+                break;
+        }
+        Point mouse = GameController.getFrames()[0].getMousePosition();
+        Globals.player.setRotation(calcRotation(mouse));
+        Globals.player.repaint();
     }
+
 
     @Override
     public void Render(JFrame g) {
@@ -145,5 +180,23 @@ public class Player extends Entity implements Attack {
 
     @Override
     public void Update() {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        this.setRotation(calcRotation(e.getPoint()));
+        this.repaint();
+    }
+
+    /**
+     * @return Player description
+     */
+    @Override public String toString() {
+        return super.toString();
     }
 }

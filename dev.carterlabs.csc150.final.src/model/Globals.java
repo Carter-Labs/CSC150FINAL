@@ -36,7 +36,7 @@ public class Globals {
     /**
      * Player used variables
      */
-    public static Player player = new Player(100, 10);
+    public static Player player = new Player(100, 5);
 
     /**
      * Info for Chamber.java

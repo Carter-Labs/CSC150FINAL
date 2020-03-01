@@ -1,10 +1,12 @@
 package model.entities;
 
+import model.Globals;
 import model.events.Rendered;
 import model.events.Started;
 import model.events.Updated;
 import model.level.GameObject;
 
+import java.awt.*;
 import java.util.Objects;
 
 public abstract class Entity extends GameObject implements Updated, Started, Rendered {
@@ -12,7 +14,15 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
      * Variables
      */
     private int health;
-    private double speed;
+    private int speed;
+
+    /**
+     * Directions of movement
+     */
+    private boolean isMovingNorth = false;
+    private boolean isMovingEast = false;
+    private boolean isMovingSouth = false;
+    private boolean isMovingWest = false;
 
     /**
      * Constructor of the entity
@@ -24,6 +34,26 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         super(image);
         this.setHealth(health);
         this.setSpeed(speed);
+    }
+
+    protected int calcRotation(Point point) {
+        if(point != null) {
+            double dx = point.getX() - Globals.player.getX() + (Globals.player.getWidth() / 2);
+            double dy = point.getY() - Globals.player.getY() + (Globals.player.getHealth() / 2);
+            return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)));
+        } else {
+            return 0;
+        }
+    }
+
+    private double toPositiveAngle(double angle)
+    {
+        angle = angle % 360;
+        while(angle < 0) {
+            angle += 360.0;
+        }
+
+        return angle;
     }
 
     /**
@@ -47,7 +77,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
     /**
      * @return Entity speed
      */
-    public double getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
@@ -55,11 +85,55 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
      * Sets the entity speed
      * @param speed Entity speed
      */
-    public void setSpeed(double speed) {
+    public void setSpeed(int speed) {
         if(speed < 0){
             throw new IllegalArgumentException("speed must be greater than 0.");
         }
         this.speed = speed;
+    }
+
+    public boolean isMovingNorth() {
+        return isMovingNorth;
+    }
+
+    public void setMovingNorth(boolean movingNorth) {
+        isMovingNorth = movingNorth;
+    }
+
+    public boolean isMovingEast() {
+        return isMovingEast;
+    }
+
+    public void setMovingEast(boolean movingEast) {
+        isMovingEast = movingEast;
+    }
+
+    public boolean isMovingSouth() {
+        return isMovingSouth;
+    }
+
+    public void setMovingSouth(boolean movingSouth) {
+        isMovingSouth = movingSouth;
+    }
+
+    public boolean isMovingWest() {
+        return isMovingWest;
+    }
+
+    public void setMovingWest(boolean movingWest) {
+        isMovingWest = movingWest;
+    }
+
+    public Direction getDirection() {
+        if (this.isMovingNorth() && this.isMovingEast()) return Direction.NORTH_EAST;
+        if (this.isMovingSouth() && this.isMovingEast()) return Direction.SOUTH_EAST;
+        if (this.isMovingSouth() && this.isMovingWest()) return Direction.SOUTH_WEST;
+        if (this.isMovingNorth() && this.isMovingWest()) return Direction.NORTH_WEST;
+        if (this.isMovingNorth()) return Direction.NORTH;
+        if (this.isMovingEast()) return Direction.EAST;
+        if (this.isMovingSouth()) return Direction.SOUTH;
+        if (this.isMovingWest()) return Direction.WEST;
+        else return Direction.NONE;
     }
 
     /**

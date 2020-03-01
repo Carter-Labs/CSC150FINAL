@@ -1,10 +1,7 @@
 package controller;
 
 import model.Globals;
-import model.events.Attack;
-import model.events.Rendered;
-import model.events.Started;
-import model.events.Updated;
+import model.events.*;
 import model.level.Level;
 
 import javax.swing.*;
@@ -16,6 +13,7 @@ public class GameController extends JFrame implements Runnable {
     public static List<Rendered> renderEvents = new ArrayList<>();
     public static List<Updated> updateEvents = new ArrayList<>();
     public static List<Started> startEvents = new ArrayList<>();
+    public static List<Moved> moveEvents = new ArrayList<>();
     public static List<Attack> attackEvents = new ArrayList<>();
     public static UIController uiController;
     private Level level;
@@ -57,6 +55,9 @@ public class GameController extends JFrame implements Runnable {
 
             while (delta >= 1) {
                 ticks++;
+                for (Moved me: moveEvents) {
+                    me.Move();
+                }
                 for (Updated ue: updateEvents) {
                     ue.Update();
                 }
