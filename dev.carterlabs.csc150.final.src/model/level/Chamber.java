@@ -10,16 +10,13 @@ import model.objects.WeaponType;
 import view.ImageView;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Chamber implements Generate, Rendered, KeyListener, MouseMotionListener {
+public class Chamber implements Generate, Rendered, KeyListener, MouseMotionListener, MouseListener {
     /**
      * Variables
      */
@@ -133,6 +130,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         if (key == 's') {
             p.setMovingSouth(true);
         }
+
     }
 
     @Override
@@ -161,6 +159,31 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        System.out.println("Mouse X:" + e.getX() + " Mouse Y:"+e.getY());
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //Shoot bullet
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
     /**
@@ -276,4 +299,5 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 ", entities=" + entities +
                 '}';
     }
+
 }

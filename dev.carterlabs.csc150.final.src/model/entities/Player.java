@@ -1,6 +1,7 @@
 package model.entities;
 
 import controller.GameController;
+import javafx.scene.canvas.GraphicsContext;
 import model.Globals;
 import model.events.Attack;
 import model.events.Moved;
@@ -142,18 +143,23 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
     public void Move() {
         Player p = this;
         int s = p.getSpeed();
+        int x, y;
         switch (getDirection()) {
             case NORTH:
-                p.setLocation(p.getX(), p.getY() - s);
+                if(p.getY() <= Globals.MAX_Y){y = p.getY();}else{y = p.getY() - s;}
+                p.setLocation(p.getX(), y);
                 break;
             case EAST:
-                p.setLocation(p.getX() + s, p.getY());
+                if(getX() >= Globals.MAX_X){x = p.getX();}else {x = p.getX() + s;}
+                p.setLocation(x, p.getY());
                 break;
             case SOUTH:
-                p.setLocation(p.getX(), p.getY() + s);
+                if(p.getY() >= Globals.MIN_Y){y = p.getY();}else {y = p.getY() + s;}
+                p.setLocation(p.getX(), y);
                 break;
             case WEST:
-                p.setLocation(p.getX() - s, p.getY());
+                if(p.getX() <= Globals.MIN_X){x = p.getX();}else {x = p.getX() - s;}
+                p.setLocation(x, p.getY());
                 break;
             case NORTH_EAST:
                 p.setLocation(p.getX() + s, p.getY() - s);
