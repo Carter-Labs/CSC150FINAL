@@ -153,30 +153,39 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
     @Override
     public void Move() {
         int s = this.getSpeed();
+        int x, y;
         switch (getDirection()) {
             case NORTH:
-                this.setLocation(this.getX(), this.getY() - s);
+                if(this.getY() <= Globals.MAX_Y){y = this.getY();}else{y = this.getY() - s;}
+                this.setLocation(this.getX(), y);
                 break;
             case EAST:
-                this.setLocation(this.getX() + s, this.getY());
+                if(this.getX() >= Globals.MAX_X){x = this.getX();}else {x = this.getX() + s;}
+                this.setLocation(x, this.getY());
                 break;
             case SOUTH:
-                this.setLocation(this.getX(), this.getY() + s);
+                if(this.getY() >= Globals.MIN_Y){y = this.getY();}else {y = this.getY() + s;}
+                this.setLocation(this.getX(), y);
                 break;
             case WEST:
-                this.setLocation(this.getX() - s, this.getY());
+                if(this.getX() <= Globals.MIN_X){x = this.getX();}else {x = this.getX() - s;}
+                this.setLocation(x, this.getY());
                 break;
             case NORTH_EAST:
-                this.setLocation(this.getX() + s, this.getY() - s);
+                if(this.getY() <= Globals.MAX_Y || this.getX() >= Globals.MAX_X){x = this.getX(); y = this.getY();}else {x = this.getX() + s; y = this.getY() - s;}
+                this.setLocation(x, y);
                 break;
             case NORTH_WEST:
-                this.setLocation(this.getX() - s, this.getY() - s);
+                if(this.getY() <= Globals.MAX_Y || this.getX() <= Globals.MIN_X){x = this.getX(); y = this.getY();}else {x = this.getX() - s; y = this.getY() - s;}
+                this.setLocation(x, y);
                 break;
             case SOUTH_EAST:
-                this.setLocation(this.getX() + s, this.getY() + s);
+                if(this.getY() >= Globals.MIN_Y || this.getX() >= Globals.MAX_X){x = this.getX(); y = this.getY();}else {x = this.getX() + s; y = this.getY() + s;}
+                this.setLocation(x, y);
                 break;
             case SOUTH_WEST:
-                this.setLocation(this.getX() - s, this.getY() + s);
+                if(this.getY() >= Globals.MIN_Y || this.getX() <= Globals.MIN_X){x = this.getX(); y = this.getY();}else {x = this.getX() - s; y = this.getY() + s;}
+                this.setLocation(x, y);
                 break;
         }
         Point mouse = GameController.getFrames()[0].getMousePosition();
