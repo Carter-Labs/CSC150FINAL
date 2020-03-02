@@ -55,7 +55,7 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
         initEvents();
     }
 
-    private void initEvents() {
+    protected void initEvents() {
         GameController.attackEvents.add(this);
         GameController.updateEvents.add(this);
         GameController.renderEvents.add(this);
@@ -150,7 +150,7 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
                 p.setLocation(p.getX(), y);
                 break;
             case EAST:
-                if(getX() >= Globals.MAX_X){x = p.getX();}else {x = p.getX() + s;}
+                if(p.getX() >= Globals.MAX_X){x = p.getX();}else {x = p.getX() + s;}
                 p.setLocation(x, p.getY());
                 break;
             case SOUTH:
@@ -162,16 +162,20 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
                 p.setLocation(x, p.getY());
                 break;
             case NORTH_EAST:
-                p.setLocation(p.getX() + s, p.getY() - s);
+                if(p.getY() <= Globals.MAX_Y || p.getX() >= Globals.MAX_X){x = p.getX(); y = p.getY();}else {x = p.getX() + s; y = p.getY() - s;}
+                p.setLocation(x, y);
                 break;
             case NORTH_WEST:
-                p.setLocation(p.getX() - s, p.getY() - s);
+                if(p.getY() <= Globals.MAX_Y || p.getX() <= Globals.MIN_X){x = p.getX(); y = p.getY();}else {x = p.getX() - s; y = p.getY() - s;}
+                p.setLocation(x, y);
                 break;
             case SOUTH_EAST:
-                p.setLocation(p.getX() + s, p.getY() + s);
+                if(p.getY() >= Globals.MIN_Y || p.getX() >= Globals.MAX_X){x = p.getX(); y = p.getY();}else {x = p.getX() + s; y = p.getY() + s;}
+                p.setLocation(x, y);
                 break;
             case SOUTH_WEST:
-                p.setLocation(p.getX() - s, p.getY() + s);
+                if(p.getY() >= Globals.MIN_Y || p.getX() <= Globals.MIN_X){x = p.getX(); y = p.getY();}else {x = p.getX() - s; y = p.getY() + s;}
+                p.setLocation(x, y);
                 break;
         }
         Point mouse = GameController.getFrames()[0].getMousePosition();
