@@ -1,15 +1,19 @@
 package model.entities;
 
+import controller.GameController;
 import model.Globals;
+import model.events.Moved;
 import model.events.Rendered;
 import model.events.Started;
 import model.events.Updated;
 import model.level.GameObject;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Objects;
 
-public abstract class Entity extends GameObject implements Updated, Started, Rendered {
+public abstract class Entity extends GameObject implements Updated, Started, Rendered, Moved, KeyListener {
     /**
      * Variables
      */
@@ -34,6 +38,13 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         super(image);
         this.setHealth(health);
         this.setSpeed(speed);
+    }
+
+    protected void initEvents() {
+        GameController.updateEvents.add(this);
+        GameController.renderEvents.add(this);
+        GameController.startEvents.add(this);
+        GameController.moveEvents.add(this);
     }
 
     protected int calcRotation(Point point) {
@@ -139,8 +150,83 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
     /**
      * Movement
      */
-    public void movement() {
-        //move
+    @Override
+    public void Move() {
+        int s = this.getSpeed();
+        switch (getDirection()) {
+            case NORTH:
+                this.setLocation(this.getX(), this.getY() - s);
+                break;
+            case EAST:
+                this.setLocation(this.getX() + s, this.getY());
+                break;
+            case SOUTH:
+                this.setLocation(this.getX(), this.getY() + s);
+                break;
+            case WEST:
+                this.setLocation(this.getX() - s, this.getY());
+                break;
+            case NORTH_EAST:
+                this.setLocation(this.getX() + s, this.getY() - s);
+                break;
+            case NORTH_WEST:
+                this.setLocation(this.getX() - s, this.getY() - s);
+                break;
+            case SOUTH_EAST:
+                this.setLocation(this.getX() + s, this.getY() + s);
+                break;
+            case SOUTH_WEST:
+                this.setLocation(this.getX() - s, this.getY() + s);
+                break;
+        }
+        Point mouse = GameController.getFrames()[0].getMousePosition();
+        Globals.player.setRotation(calcRotation(mouse));
+        Globals.player.repaint();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        char key = e.getKeyChar();
+        if (key == 'a') {
+            this.setMovingWest(true);
+        }
+
+        if (key == 'd') {
+            this.setMovingEast(true);
+        }
+
+        if (key == 'w') {
+            this.setMovingNorth(true);
+        }
+
+        if (key == 's') {
+            this.setMovingSouth(true);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        char key = e.getKeyChar();
+        if (key == 'a') {
+            this.setMovingWest(false);
+        }
+
+        if (key == 'd') {
+            this.setMovingEast(false);
+        }
+
+        if (key == 'w') {
+            this.setMovingNorth(false);
+        }
+
+        if (key == 's') {
+            this.setMovingSouth(false);
+        }
     }
 
     /**
@@ -172,4 +258,5 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
                 ", speed=" + speed +
                 '}';
     }
+
 }
