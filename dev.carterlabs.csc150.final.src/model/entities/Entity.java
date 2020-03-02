@@ -51,7 +51,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         if(point != null) {
             double dx = point.getX() - Globals.player.getX() + (Globals.player.getWidth() / 2);
             double dy = point.getY() - Globals.player.getY() + (Globals.player.getHealth() / 2);
-            return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)));
+            return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)) + 115);
         } else {
             return 0;
         }
@@ -63,7 +63,6 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         while(angle < 0) {
             angle += 360.0;
         }
-
         return angle;
     }
 

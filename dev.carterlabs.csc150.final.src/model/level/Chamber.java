@@ -159,7 +159,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("Mouse X:" + e.getX() + " Mouse Y:"+e.getY());
+
     }
     @Override
     public void mouseClicked(MouseEvent e) {
