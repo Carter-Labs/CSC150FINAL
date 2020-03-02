@@ -2,7 +2,10 @@ package model.level;
 
 import controller.GameController;
 import model.Globals;
-import model.entities.*;
+import model.entities.ArmedOfficer;
+import model.entities.BatonGuard;
+import model.entities.Boss;
+import model.entities.Entity;
 import model.events.Rendered;
 import model.objects.Gun;
 import model.objects.Weapon;
@@ -10,16 +13,12 @@ import model.objects.WeaponType;
 import view.ImageView;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Chamber implements Generate, Rendered, KeyListener, MouseMotionListener {
+public class Chamber implements Generate, Rendered {
     /**
      * Variables
      */
@@ -48,8 +47,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         //add num of enemies to list of entities
 //        addOfficersAndGuards();
         generateFloor(this.jFrame);
-        jFrame.addKeyListener(this);
-        jFrame.addMouseMotionListener(this);
+        jFrame.addKeyListener(Globals.player);
     }
 
     /**
@@ -108,61 +106,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     @Override public void Render(JFrame g) {
 
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        char key = e.getKeyChar();
-        Player p = Globals.player;
-        if (key == 'a') {
-            p.setMovingWest(true);
-        }
-
-        if (key == 'd') {
-            p.setMovingEast(true);
-        }
-
-        if (key == 'w') {
-            p.setMovingNorth(true);
-        }
-
-        if (key == 's') {
-            p.setMovingSouth(true);
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        char key = e.getKeyChar();
-        Player p = Globals.player;
-        if (key == 'a') {
-            p.setMovingWest(false);
-        }
-
-        if (key == 'd') {
-            p.setMovingEast(false);
-        }
-
-        if (key == 'w') {
-            p.setMovingNorth(false);
-        }
-
-        if (key == 's') {
-            p.setMovingSouth(false);
-        }
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) { }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-    }
-
     /**
      * Determines the chances a boss spawning in the chamber
      */
