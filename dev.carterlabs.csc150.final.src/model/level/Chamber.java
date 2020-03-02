@@ -299,5 +299,4 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 ", entities=" + entities +
                 '}';
     }
-
 }
