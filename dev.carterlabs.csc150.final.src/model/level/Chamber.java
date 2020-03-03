@@ -43,7 +43,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         doors = new ChamberDoorOptions[4];
         GameController.renderEvents.add(this::Render);
         //add num of enemies to list of entities
-//        addOfficersAndGuards();
+        addOfficersAndGuards();
         generateFloor(this.jFrame);
         jFrame.addKeyListener(this);
         jFrame.addMouseMotionListener(this);
