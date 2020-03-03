@@ -7,10 +7,13 @@ import model.events.Rendered;
 import model.events.Started;
 import model.events.Updated;
 import model.level.GameObject;
+import sun.security.action.GetLongAction;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class Entity extends GameObject implements Updated, Started, Rendered, Moved, KeyListener {
@@ -20,6 +23,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
     private int health;
     private int speed;
     private String im;
+    private int rotation = 0;
     /**
      * Directions of movement
      */
@@ -39,6 +43,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         this.setHealth(health);
         this.setSpeed(speed);
         this.im = image;
+        setImage(loadImage(image));
     }
 
     protected void initEvents() {
@@ -51,7 +56,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
     protected int calcRotation(Point point) {
         if(point != null) {
             double dx = point.getX() - Globals.player.getX() + (Globals.player.getWidth() / 2);
-            double dy = point.getY() - Globals.player.getY() + (Globals.player.getHealth() / 2);
+            double dy = point.getY() - Globals.player.getY() + (Globals.player.getHeight() / 2);
             return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)) + 115);
         } else {
             return 0;
@@ -149,6 +154,34 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         if (this.isMovingWest()) return Direction.WEST;
         else return Direction.NONE;
     }
+    @Override protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.rotate(Math.toRadians(getRotation()), getWidth() / 2, getHeight() / 2);
+        super.paintComponent(g);
+    }
+
+    public void rotateEnemy() {
+        Point point = new Point(Globals.player.getX(), Globals.player.getY());
+        double angle;
+        double dx = point.getX() - this.getX() + (this.getWidth() / 2);
+        double dy = point.getY() - this.getY() + (this.getHeight() / 2);
+        angle = Math.toDegrees(Math.atan2(dy, dx)) + 90;
+        angle = angle % 360;
+        while (angle < 0) {
+            angle += 360.0;
+        }
+        setRotation((int)angle);
+        this.repaint();
+    }
+
+    public void setRotation(int rotation) {
+        if(rotation > 360 || rotation < 0) throw new IllegalArgumentException("Rotation must be between 360 and 0");
+        this.rotation = rotation;
+    }
+
+    public int getRotation() {
+        return rotation;
+    }
 
     /**
      * Movement
@@ -219,7 +252,9 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         if (key == 's') {
             this.setMovingSouth(true);
         }
+        Globals.print("RUNS");
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {

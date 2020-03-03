@@ -103,7 +103,9 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      * Draws the chamber in the view
      */
     @Override public void Render(JFrame g) {
-
+        for(Entity en : this.getEntities()){
+            en.rotateEnemy();
+        }
     }
 
     @Override
@@ -130,7 +132,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         if (key == 's') {
             p.setMovingSouth(true);
         }
-
     }
 
     @Override
@@ -208,9 +209,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      */
     private void addOfficersAndGuards() {
         int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 1) + 1;
-        Globals.print("NUM of Guards:" + numOfGuards);
         int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards;
-        Globals.print("NUM of Officers:" + numOfOfficers);
         List<Entity> newArr = new ArrayList<>();
         for (int i = 0; i < numOfGuards; i++) {
             newArr.add(new BatonGuard(110,100,new Weapon(100, WeaponType.BATON)));
@@ -263,15 +262,12 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
 
     private void spawnEnemies(JFrame j) {
         int randX, randY;
-        ImageView enemyImage;
-        Globals.print("" +this.getEntities().size());
         for (Entity en : this.getEntities()){
             randX = Globals.rand.nextInt(1301) + 75;
             randY = Globals.rand.nextInt(451)+ 90;
-            enemyImage = new ImageView(en.getIm());
-            enemyImage.setLocation(randX, randY);
-            j.add(enemyImage);
-            j.getContentPane().setComponentZOrder(enemyImage, 3);
+            en.setLocation(randX, randY);
+            j.add(en);
+            j.getContentPane().setComponentZOrder(en, 3);
         }
     }
 

@@ -78,8 +78,7 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
         return "./Resources/Player/PLAYER_" + weapon.getWeaponType().toString() + ".png";
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
+    @Override protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.rotate(Math.toRadians(getRotation()), getWidth() / 2, getHeight() / 2);
         super.paintComponent(g);
