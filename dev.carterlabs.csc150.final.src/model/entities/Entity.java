@@ -19,7 +19,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
      */
     private int health;
     private int speed;
-
+    private String im;
     /**
      * Directions of movement
      */
@@ -38,6 +38,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         super(image);
         this.setHealth(health);
         this.setSpeed(speed);
+        this.im = image;
     }
 
     protected void initEvents() {
@@ -66,6 +67,9 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         return angle;
     }
 
+    public String getIm() {
+        return im;
+    }
     /**
      * @return entity health
      */

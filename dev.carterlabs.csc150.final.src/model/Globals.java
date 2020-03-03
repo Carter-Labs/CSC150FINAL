@@ -171,6 +171,11 @@ public class Globals {
         saveData();
     }
 
+    public static void print(String str){
+        System.out.println(str);
+    }
+
+
     /**
      * For testing purposes
      * @param args

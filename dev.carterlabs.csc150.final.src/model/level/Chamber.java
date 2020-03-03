@@ -159,7 +159,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+//        Globals.print("X: "+e.getX() + " Y: "+e.getY());
     }
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -193,8 +193,9 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         int num = Globals.rand.nextInt(100) + 1;
         if (num < (Globals.bossSpawnPerc + (Globals.player.getCurrentLevel() / 100)) * 100) {
             Globals.isBossInChamber = true;
-            List<Entity> newArr = new ArrayList<>(this.getEntities());
+            List<Entity> newArr = new ArrayList<>();
             newArr.add(new Boss(300,100, new Weapon(20, WeaponType.SHOTGUN)));
+            newArr.addAll(this.getEntities());
             this.setEntities(newArr);
         }
         else {
@@ -206,18 +207,21 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      * Adds random amount of armed officers and baton guards
      */
     private void addOfficersAndGuards() {
-        int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 2) + 1;
-        int numOfOfficers = (Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - numOfGuards;
-        for (int i = 1; i < numOfGuards; i++) {
-            List<Entity> newArr = new ArrayList<>(this.getEntities());
+        int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 1) + 1;
+        Globals.print("NUM of Guards:" + numOfGuards);
+        int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards;
+        Globals.print("NUM of Officers:" + numOfOfficers);
+        List<Entity> newArr = new ArrayList<>();
+        for (int i = 0; i < numOfGuards; i++) {
             newArr.add(new BatonGuard(110,100,new Weapon(100, WeaponType.BATON)));
         }
         for (int i = 0; i < numOfOfficers; i++) {
-            List<Entity> newArr = new ArrayList<>(this.getEntities());
             WeaponType randomWeapon = WeaponType.values()[Globals.rand.nextInt(WeaponType.values().length - 1)];
             if (randomWeapon == WeaponType.BATON) {randomWeapon = WeaponType.AR;}
             newArr.add(new ArmedOfficer(100,100,new Gun(20, randomWeapon)));
         }
+        newArr.addAll(this.getEntities());
+        this.setEntities(newArr);
     }
 
     /**
@@ -226,6 +230,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     private void generateFloor(JFrame g) {
         g.add(Globals.player);
         g.getContentPane().setComponentZOrder(Globals.player, 3);
+        spawnEnemies(g);
         String[] walls = new String[]{"./Resources/LevelAssets/Wall_01.png","./Resources/LevelAssets/Wall_02.png","./Resources/LevelAssets/Wall_03.png"};
         ImageView wall = new ImageView(walls[Globals.rand.nextInt(3)]);
         for (int i = 0; i <=Globals.HEIGHT / wall.getHeight() ; i++) {
@@ -255,6 +260,21 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         }
         g.repaint();
     }
+
+    private void spawnEnemies(JFrame j) {
+        int randX, randY;
+        ImageView enemyImage;
+        Globals.print("" +this.getEntities().size());
+        for (Entity en : this.getEntities()){
+            randX = Globals.rand.nextInt(1301) + 75;
+            randY = Globals.rand.nextInt(451)+ 90;
+            enemyImage = new ImageView(en.getIm());
+            enemyImage.setLocation(randX, randY);
+            j.add(enemyImage);
+            j.getContentPane().setComponentZOrder(enemyImage, 3);
+        }
+    }
+
 
     public void setjFrame(JFrame jFrame) {
         this.jFrame = jFrame;
