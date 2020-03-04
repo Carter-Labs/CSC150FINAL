@@ -129,8 +129,10 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         if (key == 's') {
             p.setMovingSouth(true);
         }
-        for(Entity en : this.getEntities()){
-            en.rotateEnemy();
+        if(key == 'w' || key == 'a' || key == 's' || key == 'd') {
+            for (Entity en : this.getEntities()) {
+                en.rotateEnemy();
+            }
         }
     }
 
