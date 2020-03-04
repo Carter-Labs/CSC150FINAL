@@ -7,6 +7,7 @@ import model.level.Level;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class GameController extends JFrame implements Runnable {
@@ -15,6 +16,7 @@ public class GameController extends JFrame implements Runnable {
     public static List<Started> startEvents = new ArrayList<>();
     public static List<Moved> moveEvents = new ArrayList<>();
     public static List<Attack> attackEvents = new ArrayList<>();
+    public static List<Collided> collisionEvents = new ArrayList<>();
     public static UIController uiController;
     private Level level;
 
@@ -55,11 +57,11 @@ public class GameController extends JFrame implements Runnable {
 
             while (delta >= 1) {
                 ticks++;
-                for (Moved me: moveEvents) {
-                    me.Move();
-                }
                 for (Updated ue: updateEvents) {
                     ue.Update();
+                }
+                for (Moved me: moveEvents) {
+                    me.Move();
                 }
                 for (Attack ae: attackEvents) {
                     ae.attack();
@@ -73,8 +75,12 @@ public class GameController extends JFrame implements Runnable {
                 e.printStackTrace();
             }
             if (shouldRender) {
-                for (Rendered re: renderEvents) {
-                    re.Render(this);
+                try {
+                    for (Rendered re: renderEvents) {
+                        re.Render(this);
+                    }
+                } catch (ConcurrentModificationException cme) {
+                    System.err.println("Skipped a frame due to a Concurrent Modification");
                 }
                 frames++;
             }

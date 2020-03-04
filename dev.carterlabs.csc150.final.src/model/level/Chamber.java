@@ -147,21 +147,24 @@ public class Chamber implements Generate, Rendered {
         g.add(Globals.player);
         g.getContentPane().setComponentZOrder(Globals.player, 3);
         String[] walls = new String[]{"./Resources/LevelAssets/Wall_01.png","./Resources/LevelAssets/Wall_02.png","./Resources/LevelAssets/Wall_03.png"};
-        ImageView wall = new ImageView(walls[Globals.rand.nextInt(3)]);
+        GameObject wall = new GameObject(walls[Globals.rand.nextInt(3)]);
         for (int i = 0; i <=Globals.HEIGHT / wall.getHeight() ; i++) {
             for (int j = 0; j <=Globals.WIDTH / wall.getWidth() ; j++) {
                 if(i == 0 || i == Globals.HEIGHT / wall.getHeight() - 1) {
-                    wall = new ImageView(walls[Globals.rand.nextInt(3)]);
+                    wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation((j * wall.getWidth()),(i * wall.getHeight()));
                     g.add(wall);
+                    Globals.player.addToCollisions(wall);
                 }
                 else  {
-                    wall = new ImageView(walls[Globals.rand.nextInt(3)]);
+                    wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation(0,wall.getHeight() * i); //
                     g.add(wall);
-                    wall = new ImageView(walls[Globals.rand.nextInt(3)]);
+                    Globals.player.addToCollisions(wall);
+                    wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation( Globals.WIDTH - wall.getWidth() - 7,wall.getHeight() * i); //
                     g.add(wall);
+                    Globals.player.addToCollisions(wall);
                 }
             }
         }

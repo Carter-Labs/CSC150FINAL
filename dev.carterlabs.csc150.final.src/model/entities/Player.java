@@ -2,6 +2,8 @@ package model.entities;
 
 import controller.GameController;
 import model.events.Attack;
+import model.events.Collided;
+import model.level.GameObject;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
@@ -11,9 +13,11 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
-public class Player extends Entity implements Attack, MouseMotionListener {
+public class Player extends Entity implements Attack, MouseMotionListener, Collided {
+    private List<Collided> collisionEvents = new ArrayList<>();
     /**
      * Array of players weapons
      */
@@ -134,6 +138,23 @@ public class Player extends Entity implements Attack, MouseMotionListener {
         this.rotation = rotation;
     }
 
+    public void addToCollisions(Collided object) {
+        collisionEvents.add(object);
+    }
+
+
+    @Override
+    public void Move() {
+        try {
+            for(Collided objs : collisionEvents) {
+                GameObject obj = objs.Collision(this);
+                if (obj != null) {
+                    this.Collision(obj);
+                }
+            }
+        } catch (ConcurrentModificationException cme){}
+        super.Move();
+    }
 
     @Override
     public void Render(JFrame g) {
@@ -159,5 +180,11 @@ public class Player extends Entity implements Attack, MouseMotionListener {
      */
     @Override public String toString() {
         return super.toString();
+    }
+
+    @Override
+    public GameObject Collision(GameObject obj) {
+
+        return this;
     }
 }
