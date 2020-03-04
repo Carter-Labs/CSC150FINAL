@@ -4,6 +4,7 @@ import controller.GameController;
 import model.events.Attack;
 import model.events.Collided;
 import model.level.GameObject;
+import model.events.Moved;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-public class Player extends Entity implements Attack, MouseMotionListener, Collided {
+public class Player extends Entity implements Attack, Moved, MouseMotionListener, Collided {
     private List<Collided> collisionEvents = new ArrayList<>();
     /**
      * Array of players weapons
@@ -60,6 +61,10 @@ public class Player extends Entity implements Attack, MouseMotionListener, Colli
     protected void initEvents() {
         super.initEvents();
         GameController.attackEvents.add(this);
+        GameController.updateEvents.add(this);
+        GameController.renderEvents.add(this);
+        GameController.startEvents.add(this);
+        GameController.moveEvents.add(this);
     }
 
     private List<Gun> initGuns() {
@@ -77,8 +82,7 @@ public class Player extends Entity implements Attack, MouseMotionListener, Colli
         return "./Resources/Player/PLAYER_" + weapon.getWeaponType().toString() + ".png";
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
+    @Override protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.rotate(Math.toRadians(getRotation()), getWidth() / 2, getHeight() / 2);
         super.paintComponent(g);

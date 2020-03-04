@@ -20,7 +20,7 @@ public class ArmedOfficer extends Entity implements Attack, Die {
      * @param weapon Armed Officer weapon
      */
     public ArmedOfficer(int health,int speed, Gun weapon) {
-        super(health, speed, null);
+        super(health, speed, "./Resources/Enemies/armedOfficer"+weapon.getWeaponType().toString()+".png");
         int numberOfCoins = Globals.rand.nextInt(5) + 1;
         currencyToDrop = new Currency[numberOfCoins];
         for (int i = 0; i < currencyToDrop.length - 1; i++) {

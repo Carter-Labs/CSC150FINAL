@@ -20,7 +20,7 @@ public class Boss extends Entity implements Attack, Die {
      * @param weapon Boss weapon
      */
     public Boss(int health,int speed, Weapon weapon){
-        super(health,speed,"./Resources/Player/PLAYER_AR.png");
+        super(health,speed,"./Resources/Enemies/BOSS.png");
         int numberOfCoins = Globals.rand.nextInt(10) + 1;
         currencyToDrop = new Currency[numberOfCoins];
         for (int i = 0; i < currencyToDrop.length - 1; i++) {

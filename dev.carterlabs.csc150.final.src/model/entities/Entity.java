@@ -7,11 +7,16 @@ import model.events.Rendered;
 import model.events.Started;
 import model.events.Updated;
 import model.level.GameObject;
+import sun.security.action.GetLongAction;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public abstract class Entity extends GameObject implements Updated, Started, Rendered, Moved, KeyListener {
     /**
@@ -19,7 +24,8 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
      */
     private int health;
     private int speed;
-
+    private String im;
+    private int rotation = 0;
     /**
      * Directions of movement
      */
@@ -38,6 +44,8 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         super(image);
         this.setHealth(health);
         this.setSpeed(speed);
+        this.im = image;
+        setImage(loadImage(image));
     }
 
     protected void initEvents() {
@@ -50,8 +58,8 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
     protected int calcRotation(Point point) {
         if(point != null) {
             double dx = point.getX() - Globals.player.getX() + (Globals.player.getWidth() / 2);
-            double dy = point.getY() - Globals.player.getY() + (Globals.player.getHealth() / 2);
-            return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)));
+            double dy = point.getY() - Globals.player.getY() + (Globals.player.getHeight() / 2);
+            return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)) + 90);
         } else {
             return 0;
         }
@@ -63,10 +71,12 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         while(angle < 0) {
             angle += 360.0;
         }
-
         return angle;
     }
 
+    public String getIm() {
+        return im;
+    }
     /**
      * @return entity health
      */
@@ -146,6 +156,46 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         if (this.isMovingWest()) return Direction.WEST;
         else return Direction.NONE;
     }
+    @Override protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.rotate(Math.toRadians(getRotation()), getWidth() / 2, getHeight() / 2);
+        super.paintComponent(g);
+    }
+
+    public void rotateEnemy() {
+        Point point = new Point(Globals.player.getX(), Globals.player.getY());
+        double angle;
+        double dx = point.getX() - this.getX() + (this.getWidth() / 2);
+        double dy = point.getY() - this.getY() + (this.getHeight() / 2);
+        angle = Math.toDegrees(Math.atan2(dy, dx)) + 90;
+        angle = angle % 360;
+        while (angle < 0) {
+            angle += 360.0;
+        }
+        setRotation((int)angle);
+        moveEnemy(point);
+        this.repaint();
+    }
+
+    public void moveEnemy(Point point) {
+        //move
+        float xDirection = (float)Math.sin((float) Math.toRadians(getRotation()))
+                * this.getSpeed();
+        float yDirection = (float)Math.cos((float) Math.toRadians(getRotation()))
+                * -this.getSpeed();
+        float newX = getX() + xDirection;
+        float newY = getY() + yDirection;
+        setLocation((int) newX, (int) newY);
+    }
+
+    public void setRotation(int rotation) {
+        if(rotation > 360 || rotation < 0) throw new IllegalArgumentException("Rotation must be between 360 and 0");
+        this.rotation = rotation;
+    }
+
+    public int getRotation() {
+        return rotation;
+    }
 
     /**
      * Movement
@@ -154,30 +204,39 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
     public void Move() {
         super.Move();
         int s = this.getSpeed();
+        int x, y;
         switch (getDirection()) {
             case NORTH:
-                this.setLocation(this.getX(), this.getY() - s);
+                if(this.getY() <= Globals.MAX_Y){y = this.getY();}else{y = this.getY() - s;}
+                this.setLocation(this.getX(), y);
                 break;
             case EAST:
-                this.setLocation(this.getX() + s, this.getY());
+                if(this.getX() >= Globals.MAX_X){x = this.getX();}else {x = this.getX() + s;}
+                this.setLocation(x, this.getY());
                 break;
             case SOUTH:
-                this.setLocation(this.getX(), this.getY() + s);
+                if(this.getY() >= Globals.MIN_Y){y = this.getY();}else {y = this.getY() + s;}
+                this.setLocation(this.getX(), y);
                 break;
             case WEST:
-                this.setLocation(this.getX() - s, this.getY());
+                if(this.getX() <= Globals.MIN_X){x = this.getX();}else {x = this.getX() - s;}
+                this.setLocation(x, this.getY());
                 break;
             case NORTH_EAST:
-                this.setLocation(this.getX() + s, this.getY() - s);
+                if(this.getY() <= Globals.MAX_Y || this.getX() >= Globals.MAX_X){x = this.getX(); y = this.getY();}else {x = this.getX() + s; y = this.getY() - s;}
+                this.setLocation(x, y);
                 break;
             case NORTH_WEST:
-                this.setLocation(this.getX() - s, this.getY() - s);
+                if(this.getY() <= Globals.MAX_Y || this.getX() <= Globals.MIN_X){x = this.getX(); y = this.getY();}else {x = this.getX() - s; y = this.getY() - s;}
+                this.setLocation(x, y);
                 break;
             case SOUTH_EAST:
-                this.setLocation(this.getX() + s, this.getY() + s);
+                if(this.getY() >= Globals.MIN_Y || this.getX() >= Globals.MAX_X){x = this.getX(); y = this.getY();}else {x = this.getX() + s; y = this.getY() + s;}
+                this.setLocation(x, y);
                 break;
             case SOUTH_WEST:
-                this.setLocation(this.getX() - s, this.getY() + s);
+                if(this.getY() >= Globals.MIN_Y || this.getX() <= Globals.MIN_X){x = this.getX(); y = this.getY();}else {x = this.getX() - s; y = this.getY() + s;}
+                this.setLocation(x, y);
                 break;
         }
         Point mouse = GameController.getFrames()[0].getMousePosition();
@@ -208,7 +267,9 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         if (key == 's') {
             this.setMovingSouth(true);
         }
+        Globals.print("RUNS");
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {

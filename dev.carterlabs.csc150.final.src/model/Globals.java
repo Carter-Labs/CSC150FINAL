@@ -27,16 +27,20 @@ public class Globals {
      */
     public static Random rand = new Random();
     public static String saveFilePath = "./save.xml";
+    /**
+     * Player used variables
+     */
+    public static Player player = new Player(100, 5);
 
     /**
      *  Window Settings
      */
     public static int WIDTH = 1286;
     public static int HEIGHT = 733;
-    /**
-     * Player used variables
-     */
-    public static Player player = new Player(100, 5);
+    public static int MAX_X = WIDTH - 120;
+    public static int MIN_X = 50;
+    public static int MAX_Y = 50;
+    public static int MIN_Y = 590;
 
     /**
      * Info for Chamber.java
@@ -166,6 +170,11 @@ public class Globals {
         //create new file and save
         saveData();
     }
+
+    public static void print(String str){
+        System.out.println(str);
+    }
+
 
     /**
      * For testing purposes
