@@ -103,9 +103,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      * Draws the chamber in the view
      */
     @Override public void Render(JFrame g) {
-        for(Entity en : this.getEntities()){
-            en.rotateEnemy();
-        }
     }
 
     @Override
@@ -131,6 +128,9 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
 
         if (key == 's') {
             p.setMovingSouth(true);
+        }
+        for(Entity en : this.getEntities()){
+            en.rotateEnemy();
         }
     }
 
@@ -195,7 +195,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         if (num < (Globals.bossSpawnPerc + (Globals.player.getCurrentLevel() / 100)) * 100) {
             Globals.isBossInChamber = true;
             List<Entity> newArr = new ArrayList<>();
-            newArr.add(new Boss(300,100, new Weapon(20, WeaponType.SHOTGUN)));
+            newArr.add(new Boss(300,10, new Weapon(20, WeaponType.SHOTGUN)));
             newArr.addAll(this.getEntities());
             this.setEntities(newArr);
         }
@@ -212,12 +212,12 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards;
         List<Entity> newArr = new ArrayList<>();
         for (int i = 0; i < numOfGuards; i++) {
-            newArr.add(new BatonGuard(110,100,new Weapon(100, WeaponType.BATON)));
+            newArr.add(new BatonGuard(110,10,new Weapon(100, WeaponType.BATON)));
         }
         for (int i = 0; i < numOfOfficers; i++) {
             WeaponType randomWeapon = WeaponType.values()[Globals.rand.nextInt(WeaponType.values().length - 1)];
             if (randomWeapon == WeaponType.BATON) {randomWeapon = WeaponType.AR;}
-            newArr.add(new ArmedOfficer(100,100,new Gun(20, randomWeapon)));
+            newArr.add(new ArmedOfficer(100,10,new Gun(20, randomWeapon)));
         }
         newArr.addAll(this.getEntities());
         this.setEntities(newArr);

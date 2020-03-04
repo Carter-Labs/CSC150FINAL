@@ -13,8 +13,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public abstract class Entity extends GameObject implements Updated, Started, Rendered, Moved, KeyListener {
     /**
@@ -57,7 +59,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         if(point != null) {
             double dx = point.getX() - Globals.player.getX() + (Globals.player.getWidth() / 2);
             double dy = point.getY() - Globals.player.getY() + (Globals.player.getHeight() / 2);
-            return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)) + 115);
+            return (int) toPositiveAngle(Math.toDegrees(Math.atan2(dy, dx)) + 90);
         } else {
             return 0;
         }
@@ -171,7 +173,19 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
             angle += 360.0;
         }
         setRotation((int)angle);
+        moveEnemy(point);
         this.repaint();
+    }
+
+    public void moveEnemy(Point point) {
+        //move
+        float xDirection = (float)Math.sin((float) Math.toRadians(getRotation()))
+                * this.getSpeed();
+        float yDirection = (float)Math.cos((float) Math.toRadians(getRotation()))
+                * -this.getSpeed();
+        float newX = getX() + xDirection;
+        float newY = getY() + yDirection;
+        setLocation((int) newX, (int) newY);
     }
 
     public void setRotation(int rotation) {
