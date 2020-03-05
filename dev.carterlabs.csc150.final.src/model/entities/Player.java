@@ -188,7 +188,6 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
 
     @Override
     public GameObject Collision(GameObject obj) {
-
         return this;
     }
 }
