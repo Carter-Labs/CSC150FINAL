@@ -62,7 +62,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 case 0:
                     if(!addDoor(ChamberDoorOptions.NORTH, i)) { --i;}
                         door = new GameObject("./Resources/LevelAssets/DOORN.png");
-                    door.setName("Door");
+                        door.setName("Door");
                         Globals.player.addToCollisions(door);
                         j.add(door);
                         door.setLocation(Globals.rand.nextInt(Globals.WIDTH - 64) + 64, 3);
@@ -71,10 +71,10 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 case 1:
                     if(!addDoor(ChamberDoorOptions.EAST, i)) { --i;}
                         door = new GameObject("./Resources/LevelAssets/DOORE.png");
-                    door.setName("Door");
+                        door.setName("Door");
                         Globals.player.addToCollisions(door);
                         j.add(door);
-                        door.setLocation(Globals.WIDTH - 64, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
+                        door.setLocation(Globals.WIDTH - 74, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
 
                     break;
                 case 2:
@@ -89,10 +89,10 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 case 3:
                     if(!addDoor(ChamberDoorOptions.WEST, i)) { --i;}
                         door = new GameObject("./Resources/LevelAssets/DOORW.png");
-                    door.setName("Door");
+                        door.setName("Door");
                         Globals.player.addToCollisions(door);
                         j.add(door);
-                        door.setLocation(3, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
+                        door.setLocation(5, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
 
                     break;
             }
@@ -276,6 +276,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 else  {
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation(0,wall.getHeight() * i); //
+                    wall.setName("Wall");
                     g.add(wall);
                     Globals.player.addToCollisions(wall);
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
