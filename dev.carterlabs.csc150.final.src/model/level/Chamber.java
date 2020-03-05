@@ -10,6 +10,7 @@ import model.events.Rendered;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
+import sun.security.action.GetLongAction;
 import view.ImageView;
 
 import javax.swing.*;
@@ -41,7 +42,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      */
     @Override public void generate() {
         //add boss if in range to list of entities
-//        generateDoors();
         isBossInChamber();
         doors = new ChamberDoorOptions[4];
         GameController.renderEvents.add(this::Render);
@@ -56,22 +56,48 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     /**
      * Generates the side location of the doors
      */
-    private void generateDoors() {
-        int doors = Globals.rand.nextInt(4);
+    private void generateDoors(JFrame j) {
+        int doors = Globals.rand.nextInt(4) + 1;
+        GameObject door;
         for (int i = 0; i < doors; i++) {
             int dir = Globals.rand.nextInt(4);
+            Globals.print("" + dir);
             switch (dir) {
                 case 0:
-                    if(!addDoor(ChamberDoorOptions.NORTH, i)) --i;
+                    if(!addDoor(ChamberDoorOptions.NORTH, i)) { --i;}
+                        door = new GameObject("./Resources/LevelAssets/DOORN.png");
+                        door.setName("Door");
+                        Globals.player.addToCollisions(door);
+                        j.add(door);
+                        door.setLocation(Globals.rand.nextInt(Globals.WIDTH - 64) + 64, 3);
+
                     break;
                 case 1:
-                    if(!addDoor(ChamberDoorOptions.EAST, i)) --i;
+                    if(!addDoor(ChamberDoorOptions.EAST, i)) { --i;}
+                        door = new GameObject("./Resources/LevelAssets/DOORE.png");
+                        door.setName("Door");
+                        Globals.player.addToCollisions(door);
+                        j.add(door);
+                        door.setLocation(Globals.WIDTH - 74, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
+
                     break;
                 case 2:
-                    if(!addDoor(ChamberDoorOptions.SOUTH, i)) --i;
+                    if(!addDoor(ChamberDoorOptions.SOUTH, i)) { --i;}
+                        door = new GameObject("./Resources/LevelAssets/DOORS.png");
+                        door.setName("Door");
+                        Globals.player.addToCollisions(door);
+                        j.add(door);
+                        door.setLocation(Globals.rand.nextInt(Globals.WIDTH - 64) + 64, Globals.HEIGHT - 95);
+
                     break;
                 case 3:
-                    if(!addDoor(ChamberDoorOptions.WEST, i)) --i;
+                    if(!addDoor(ChamberDoorOptions.WEST, i)) { --i;}
+                        door = new GameObject("./Resources/LevelAssets/DOORW.png");
+                        door.setName("Door");
+                        Globals.player.addToCollisions(door);
+                        j.add(door);
+                        door.setLocation(5, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
+
                     break;
             }
         }
@@ -98,6 +124,9 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      */
     private boolean contained(ChamberDoorOptions option, ChamberDoorOptions[] array) {
         for (ChamberDoorOptions opt: array) {
+            if(opt == null){
+                return false;
+            }
             return opt.equals(option);
         }
         return false;
@@ -209,6 +238,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         g.add(Globals.player);
         g.getContentPane().setComponentZOrder(Globals.player, 3);
         spawnEnemies(g);
+        generateDoors(g);
         String[] walls = new String[]{"./Resources/LevelAssets/Wall_01.png","./Resources/LevelAssets/Wall_02.png","./Resources/LevelAssets/Wall_03.png"};
         GameObject wall = new GameObject(walls[Globals.rand.nextInt(3)]);
         for (int i = 0; i <=Globals.HEIGHT / wall.getHeight() ; i++) {
@@ -217,16 +247,19 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation((j * wall.getWidth()),(i * wall.getHeight()));
                     g.add(wall);
+                    wall.setName("Wall");
                     Globals.player.addToCollisions(wall);
                 }
                 else  {
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation(0,wall.getHeight() * i); //
+                    wall.setName("Wall");
                     g.add(wall);
                     Globals.player.addToCollisions(wall);
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation( Globals.WIDTH - wall.getWidth() - 7,wall.getHeight() * i); //
                     g.add(wall);
+                    wall.setName("Wall");
                     Globals.player.addToCollisions(wall);
                 }
             }

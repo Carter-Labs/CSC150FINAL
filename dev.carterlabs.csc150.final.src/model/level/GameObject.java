@@ -1,5 +1,6 @@
 package model.level;
 
+import model.Globals;
 import model.events.Collided;
 import model.events.Moved;
 import view.ImageView;

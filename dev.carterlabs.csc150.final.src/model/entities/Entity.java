@@ -197,7 +197,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
     @Override
     public void Move() {
         super.Move();
-        int s = this.getSpeed();
+        int s = this.getSpeed() / 2;
         int x, y;
         switch (getDirection()) {
             case NORTH:
