@@ -54,40 +54,46 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      */
     private void generateDoors(JFrame j) {
         int doors = Globals.rand.nextInt(4) + 1;
-        Globals.print(""  + doors);
         GameObject door;
-
         for (int i = 0; i < doors; i++) {
             int dir = Globals.rand.nextInt(4);
             Globals.print("" + dir);
             switch (dir) {
                 case 0:
-                    if(!addDoor(ChamberDoorOptions.NORTH, i)) --i;
-                    door = new GameObject("./Resources/LevelAssets/DOOR.png");
-                    Globals.player.addToCollisions(door);
-                    j.add(door);
-                    door.setLocation(100,100);
+                    if(!addDoor(ChamberDoorOptions.NORTH, i)) { --i;}
+                        door = new GameObject("./Resources/LevelAssets/DOORN.png");
+                    door.setName("Door");
+                        Globals.player.addToCollisions(door);
+                        j.add(door);
+                        door.setLocation(Globals.rand.nextInt(Globals.WIDTH - 64) + 64, 3);
+
                     break;
                 case 1:
-                    if(!addDoor(ChamberDoorOptions.EAST, i)) --i;
-                    door = new GameObject("./Resources/LevelAssets/DOOR.png");
-                    Globals.player.addToCollisions(door);
-                    j.add(door);
-                    door.setLocation(200,100);
+                    if(!addDoor(ChamberDoorOptions.EAST, i)) { --i;}
+                        door = new GameObject("./Resources/LevelAssets/DOORE.png");
+                    door.setName("Door");
+                        Globals.player.addToCollisions(door);
+                        j.add(door);
+                        door.setLocation(Globals.WIDTH - 64, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
+
                     break;
                 case 2:
-                    if(!addDoor(ChamberDoorOptions.SOUTH, i)) --i;
-                    door = new GameObject("./Resources/LevelAssets/DOOR.png");
-                    Globals.player.addToCollisions(door);
-                    j.add(door);
-                    door.setLocation(300,100);
+                    if(!addDoor(ChamberDoorOptions.SOUTH, i)) { --i;}
+                        door = new GameObject("./Resources/LevelAssets/DOORS.png");
+                        door.setName("Door");
+                        Globals.player.addToCollisions(door);
+                        j.add(door);
+                        door.setLocation(Globals.rand.nextInt(Globals.WIDTH - 64) + 64, Globals.HEIGHT - 95);
+
                     break;
                 case 3:
-                    if(!addDoor(ChamberDoorOptions.WEST, i)) --i;
-                    door = new GameObject("./Resources/LevelAssets/DOOR.png");
-                    Globals.player.addToCollisions(door);
-                    j.add(door);
-                    door.setLocation(400,100);
+                    if(!addDoor(ChamberDoorOptions.WEST, i)) { --i;}
+                        door = new GameObject("./Resources/LevelAssets/DOORW.png");
+                    door.setName("Door");
+                        Globals.player.addToCollisions(door);
+                        j.add(door);
+                        door.setLocation(3, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
+
                     break;
             }
         }
@@ -264,6 +270,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation((j * wall.getWidth()),(i * wall.getHeight()));
                     g.add(wall);
+                    wall.setName("Wall");
                     Globals.player.addToCollisions(wall);
                 }
                 else  {
@@ -274,6 +281,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation( Globals.WIDTH - wall.getWidth() - 7,wall.getHeight() * i); //
                     g.add(wall);
+                    wall.setName("Wall");
                     Globals.player.addToCollisions(wall);
                 }
             }
