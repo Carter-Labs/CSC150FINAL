@@ -25,6 +25,7 @@ public class GameObject extends ImageView implements Collided, Moved {
             return this;
         }
         for (int i = 0; i < obj.previousPoints.size() - PREVIOUS_FRAMES; i++) {
+            obj.previousPoints.remove(obj.previousPoints.get(i));
         }
         return null;
     }

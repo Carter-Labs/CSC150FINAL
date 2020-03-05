@@ -2,7 +2,10 @@ package model.level;
 
 import controller.GameController;
 import model.Globals;
-import model.entities.*;
+import model.entities.ArmedOfficer;
+import model.entities.BatonGuard;
+import model.entities.Boss;
+import model.entities.Entity;
 import model.events.Rendered;
 import model.objects.Gun;
 import model.objects.Weapon;
@@ -46,7 +49,8 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         addOfficersAndGuards();
         generateFloor(this.jFrame);
         jFrame.addKeyListener(this);
-        jFrame.addMouseMotionListener(this);
+        jFrame.addKeyListener(Globals.player);
+        jFrame.addMouseMotionListener(Globals.player);
     }
 
     /**
@@ -113,22 +117,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     @Override
     public void keyPressed(KeyEvent e) {
         char key = e.getKeyChar();
-        Player p = Globals.player;
-        if (key == 'a') {
-            p.setMovingWest(true);
-        }
-
-        if (key == 'd') {
-            p.setMovingEast(true);
-        }
-
-        if (key == 'w') {
-            p.setMovingNorth(true);
-        }
-
-        if (key == 's') {
-            p.setMovingSouth(true);
-        }
         if(key == 'w' || key == 'a' || key == 's' || key == 'd') {
             for (Entity en : this.getEntities()) {
                 en.rotateEnemy();
@@ -138,23 +126,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
 
     @Override
     public void keyReleased(KeyEvent e) {
-        char key = e.getKeyChar();
-        Player p = Globals.player;
-        if (key == 'a') {
-            p.setMovingWest(false);
-        }
-
-        if (key == 'd') {
-            p.setMovingEast(false);
-        }
-
-        if (key == 'w') {
-            p.setMovingNorth(false);
-        }
-
-        if (key == 's') {
-            p.setMovingSouth(false);
-        }
     }
 
     @Override
@@ -199,6 +170,9 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
             List<Entity> newArr = new ArrayList<>();
             newArr.add(new Boss(300,10, new Weapon(20, WeaponType.SHOTGUN)));
             newArr.addAll(this.getEntities());
+            for (Entity en: newArr) {
+                Globals.player.addToCollisions(en);
+            }
             this.setEntities(newArr);
         }
         else {
@@ -222,6 +196,9 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
             newArr.add(new ArmedOfficer(100,10,new Gun(20, randomWeapon)));
         }
         newArr.addAll(this.getEntities());
+        for (Entity en: newArr) {
+            Globals.player.addToCollisions(en);
+        }
         this.setEntities(newArr);
     }
 

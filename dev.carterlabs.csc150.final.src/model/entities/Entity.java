@@ -7,18 +7,11 @@ import model.events.Rendered;
 import model.events.Started;
 import model.events.Updated;
 import model.level.GameObject;
-import sun.security.action.GetLongAction;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.geom.Point2D;
-import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
-public abstract class Entity extends GameObject implements Updated, Started, Rendered, Moved, KeyListener {
+public abstract class Entity extends GameObject implements Updated, Started, Rendered, Moved {
     /**
      * Variables
      */
@@ -53,6 +46,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         GameController.renderEvents.add(this);
         GameController.startEvents.add(this);
         GameController.moveEvents.add(this);
+        GameController.collisionEvents.add(this);
     }
 
     protected int calcRotation(Point point) {
@@ -240,55 +234,8 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
                 break;
         }
         Point mouse = GameController.getFrames()[0].getMousePosition();
-        Globals.player.setRotation(calcRotation(mouse));
-        Globals.player.repaint();
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        char key = e.getKeyChar();
-        if (key == 'a') {
-            this.setMovingWest(true);
-        }
-
-        if (key == 'd') {
-            this.setMovingEast(true);
-        }
-
-        if (key == 'w') {
-            this.setMovingNorth(true);
-        }
-
-        if (key == 's') {
-            this.setMovingSouth(true);
-        }
-        Globals.print("RUNS");
-    }
-
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        char key = e.getKeyChar();
-        if (key == 'a') {
-            this.setMovingWest(false);
-        }
-
-        if (key == 'd') {
-            this.setMovingEast(false);
-        }
-
-        if (key == 'w') {
-            this.setMovingNorth(false);
-        }
-
-        if (key == 's') {
-            this.setMovingSouth(false);
-        }
+        this.setRotation(calcRotation(mouse));
+        this.repaint();
     }
 
     /**

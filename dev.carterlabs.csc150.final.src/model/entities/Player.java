@@ -3,21 +3,23 @@ package model.entities;
 import controller.GameController;
 import model.events.Attack;
 import model.events.Collided;
-import model.level.GameObject;
 import model.events.Moved;
+import model.level.GameObject;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-public class Player extends Entity implements Attack, Moved, MouseMotionListener, Collided {
+public class Player extends Entity implements Attack, Moved, MouseMotionListener, Collided, KeyListener {
     private List<Collided> collisionEvents = new ArrayList<>();
     /**
      * Array of players weapons
@@ -166,6 +168,52 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
 
     @Override
     public void Update() {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        char key = e.getKeyChar();
+        if (key == 'a') {
+            this.setMovingWest(true);
+        }
+
+        if (key == 'd') {
+            this.setMovingEast(true);
+        }
+
+        if (key == 'w') {
+            this.setMovingNorth(true);
+        }
+
+        if (key == 's') {
+            this.setMovingSouth(true);
+        }
+    }
+
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        char key = e.getKeyChar();
+        if (key == 'a') {
+            this.setMovingWest(false);
+        }
+
+        if (key == 'd') {
+            this.setMovingEast(false);
+        }
+
+        if (key == 'w') {
+            this.setMovingNorth(false);
+        }
+
+        if (key == 's') {
+            this.setMovingSouth(false);
+        }
     }
 
     @Override
