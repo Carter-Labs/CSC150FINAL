@@ -11,6 +11,7 @@ import sun.security.action.GetLongAction;
 import view.ImageView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +27,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     private ChamberDoorOptions[] doors;
     private JFrame jFrame;
     private HashMap componentMap;
+    private List<GameObject> bullets = new ArrayList<>();
     /**
      * Default Constructor
      */
@@ -47,6 +49,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         generateFloor(this.jFrame);
         jFrame.addKeyListener(this);
         jFrame.addMouseMotionListener(this);
+        jFrame.addMouseListener(this);
     }
 
     /**
@@ -132,6 +135,18 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      * Draws the chamber in the view
      */
     @Override public void Render(JFrame g) {
+        for(GameObject bullet : this.bullets){
+            for (int i = 0; i < 10 ; i++) {
+                double angle = Math.toRadians(bullet.getRotation());
+                double newX = ((Globals.player.getSpeed() / 2) * Math.cos(angle));
+                double newY = ((Globals.player.getSpeed() / 2)* Math.sin(angle));
+                double x = bullet.getX() + newX;
+                double y = bullet.getY() + newY;
+                Globals.print("X:"+x+"Y:"+y);
+                bullet.setLocation((int)(x),(int)(y));
+                bullet.repaint();
+            }
+        }
     }
 
     @Override
@@ -196,11 +211,25 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     @Override
     public void mouseClicked(MouseEvent e) {
         //Shoot bullet
+        Point clickPoint = new Point(e.getX(), e.getY());
+        float xDirection = (float)Math.sin((float) Math.toRadians(Globals.player.getRotation()))
+                * (Globals.player.getSpeed() * 2);
+        float yDirection = (float)Math.cos((float) Math.toRadians(Globals.player.getRotation()))
+                * -(Globals.player.getSpeed() * 2);
+        float newX = clickPoint.x + xDirection;
+        float newY = clickPoint.y + yDirection;
+        GameObject bullet =  new GameObject("./Resources/Particles/BULLET.png");
+        this.jFrame.add(bullet);
+        this.jFrame.getContentPane().setComponentZOrder(bullet, 3);
+        bullet.setRotation(Globals.player.getRotation());
+        bullet.setLocation(Globals.player.getX() + 32, Globals.player.getY() + 32);
+        bullet.setName("Bullet");
+        bullets.add(bullet);
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
