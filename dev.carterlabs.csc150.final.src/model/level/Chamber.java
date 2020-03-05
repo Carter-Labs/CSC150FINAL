@@ -137,13 +137,11 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     @Override public void Render(JFrame g) {
         for(GameObject bullet : this.bullets){
             for (int i = 0; i < 10 ; i++) {
-                double angle = Math.toRadians(bullet.getRotation());
-                double newX = ((Globals.player.getSpeed() / 2) * Math.cos(angle));
-                double newY = ((Globals.player.getSpeed() / 2)* Math.sin(angle));
-                double x = bullet.getX() + newX;
-                double y = bullet.getY() + newY;
-                Globals.print("X:"+x+"Y:"+y);
-                bullet.setLocation((int)(x),(int)(y));
+                double angle = Math.toRadians(bullet.getRotation() + 90);
+                double x = bullet.getX(), y = bullet.getY();
+                x = x + Math.cos(angle) * -1 * 5;
+                y = y + Math.sin(angle) * -1 * 5;
+                bullet.setLocation((int)x,(int)y);
                 bullet.repaint();
             }
         }
