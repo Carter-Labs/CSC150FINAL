@@ -1,7 +1,7 @@
 package model.level;
 
+import controller.GameController;
 import model.Globals;
-import model.entities.Player;
 import model.events.Collided;
 import model.events.Moved;
 import view.ImageView;
@@ -13,12 +13,14 @@ import java.util.List;
 public class GameObject extends ImageView implements Collided, Moved {
     private static final int PREVIOUS_FRAMES = 4;
     private static final int FRAME_CHOICE = 1;
-    private List<Point> previousPoints = new ArrayList<Point>();
+    protected List<Point> previousPoints = new ArrayList<Point>();
     private int rotation = 0;
+    protected List<Collided> collisionEvents = new ArrayList<>();
 
     public GameObject(String imagePath) {
         super(imagePath);
         previousPoints.add(this.getLocation());
+        GameController.objects.add(this);
     }
 
     @Override protected void paintComponent(Graphics g) {
@@ -55,12 +57,15 @@ public class GameObject extends ImageView implements Collided, Moved {
         return rotation;
     }
 
+    public void addToCollisions(Collided object) {
+        collisionEvents.add(object);
+    }
 
     @Override
     public GameObject Collision(GameObject obj) {
         Rectangle bounds = obj.getBounds();
         if(this.getBounds().intersects(bounds)) {
-            Globals.print(this.getName() + "Collided with: ");
+            Globals.print(this.getClass().getSimpleName() + " Collided with: ");
             Globals.print(obj.getName());
             obj.setLocation(obj.previousPoints.get(obj.previousPoints.size() - FRAME_CHOICE));
             return this;

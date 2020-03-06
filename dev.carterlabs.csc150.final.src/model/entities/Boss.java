@@ -7,7 +7,7 @@ import model.objects.Weapon;
 
 import javax.swing.*;
 
-public class Boss extends Entity implements Attack, Die {
+public class Boss extends Enemy implements Attack, Die {
     /**
      * Variables
      */

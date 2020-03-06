@@ -7,7 +7,7 @@ import model.objects.Weapon;
 
 import javax.swing.*;
 
-public class BatonGuard  extends Entity implements Attack, Die {
+public class BatonGuard extends Enemy implements Attack, Die {
     /**
      * Variables
      */

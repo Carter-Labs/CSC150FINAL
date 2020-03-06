@@ -7,7 +7,7 @@ import model.objects.Gun;
 
 import javax.swing.*;
 
-public class ArmedOfficer extends Entity implements Attack, Die {
+public class ArmedOfficer extends Enemy implements Attack, Die {
     /**
      * Variables
      */

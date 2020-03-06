@@ -2,6 +2,7 @@ package controller;
 
 import model.Globals;
 import model.events.*;
+import model.level.GameObject;
 import model.level.Level;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class GameController extends JFrame implements Runnable {
     public static List<Started> startEvents = new ArrayList<>();
     public static List<Moved> moveEvents = new ArrayList<>();
     public static List<Attack> attackEvents = new ArrayList<>();
-    public static List<Collided> collisionEvents = new ArrayList<>();
+    public static List<GameObject> objects = new ArrayList<>();
     public static UIController uiController;
     private Level level;
 
@@ -60,9 +61,11 @@ public class GameController extends JFrame implements Runnable {
                 for (Updated ue: updateEvents) {
                     ue.Update();
                 }
-                for (Moved me: moveEvents) {
-                    me.Move();
-                }
+                try {
+                    for (Moved me: moveEvents) {
+                            me.Move();
+                    }
+                } catch (ConcurrentModificationException ignore){}
                 for (Attack ae: attackEvents) {
                     ae.attack();
                 }

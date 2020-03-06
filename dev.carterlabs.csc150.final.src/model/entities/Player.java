@@ -1,6 +1,7 @@
 package model.entities;
 
 import controller.GameController;
+import model.Globals;
 import model.events.Attack;
 import model.events.Collided;
 import model.events.Moved;
@@ -16,11 +17,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class Player extends Entity implements Attack, Moved, MouseMotionListener, Collided, KeyListener {
-    private List<Collided> collisionEvents = new ArrayList<>();
     /**
      * Array of players weapons
      */
@@ -145,22 +144,47 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
         this.rotation = rotation;
     }
 
-    public void addToCollisions(Collided object) {
-        collisionEvents.add(object);
-    }
-
-
     @Override
     public void Move() {
-        try {
-            for(Collided objs : collisionEvents) {
-                GameObject obj = objs.Collision(this);
-                if (obj != null) {
-                    this.Collision(obj);
-                }
-            }
-        } catch (ConcurrentModificationException cme){}
         super.Move();
+        int s = this.getSpeed() / 2;
+        int x, y;
+        switch (getDirection()) {
+            case NORTH:
+                if(this.getY() <= Globals.MAX_Y){y = this.getY();}else{y = this.getY() - s;}
+                this.setLocation(this.getX(), y);
+                break;
+            case EAST:
+                if(this.getX() >= Globals.MAX_X){x = this.getX();}else {x = this.getX() + s;}
+                this.setLocation(x, this.getY());
+                break;
+            case SOUTH:
+                if(this.getY() >= Globals.MIN_Y){y = this.getY();}else {y = this.getY() + s;}
+                this.setLocation(this.getX(), y);
+                break;
+            case WEST:
+                if(this.getX() <= Globals.MIN_X){x = this.getX();}else {x = this.getX() - s;}
+                this.setLocation(x, this.getY());
+                break;
+            case NORTH_EAST:
+                if(this.getY() <= Globals.MAX_Y || this.getX() >= Globals.MAX_X){x = this.getX(); y = this.getY();}else {x = this.getX() + s; y = this.getY() - s;}
+                this.setLocation(x, y);
+                break;
+            case NORTH_WEST:
+                if(this.getY() <= Globals.MAX_Y || this.getX() <= Globals.MIN_X){x = this.getX(); y = this.getY();}else {x = this.getX() - s; y = this.getY() - s;}
+                this.setLocation(x, y);
+                break;
+            case SOUTH_EAST:
+                if(this.getY() >= Globals.MIN_Y || this.getX() >= Globals.MAX_X){x = this.getX(); y = this.getY();}else {x = this.getX() + s; y = this.getY() + s;}
+                this.setLocation(x, y);
+                break;
+            case SOUTH_WEST:
+                if(this.getY() >= Globals.MIN_Y || this.getX() <= Globals.MIN_X){x = this.getX(); y = this.getY();}else {x = this.getX() - s; y = this.getY() + s;}
+                this.setLocation(x, y);
+                break;
+        }
+        Point mouse = GameController.getFrames()[0].getMousePosition();
+        this.setRotation(calcRotation(mouse));
     }
 
     @Override

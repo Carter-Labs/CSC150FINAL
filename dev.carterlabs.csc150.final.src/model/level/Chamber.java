@@ -1,6 +1,5 @@
 package model.level;
 
-import com.sun.xml.internal.bind.v2.runtime.SwaRefAdapter;
 import controller.GameController;
 import model.Globals;
 import model.entities.*;
@@ -8,7 +7,6 @@ import model.events.Rendered;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
-import sun.security.action.GetLongAction;
 import view.ImageView;
 
 import javax.swing.*;
@@ -53,6 +51,13 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         jFrame.addKeyListener(this);
         jFrame.addMouseMotionListener(this);
         jFrame.addMouseListener(this);
+        for (GameObject object: GameController.objects) {
+            for (GameObject objectc: GameController.objects) {
+                if(objectc != object) {
+                    object.addToCollisions(objectc);
+                }
+            }
+        }
     }
 
     /**
@@ -69,7 +74,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                     if(!addDoor(ChamberDoorOptions.NORTH, i)) { --i;}
                         door = new GameObject("./Resources/LevelAssets/DOORN.png");
                         door.setName("Door");
-                        Globals.player.addToCollisions(door);
                         j.add(door);
                         door.setLocation(Globals.rand.nextInt(Globals.WIDTH - 64) + 64, 3);
 
@@ -78,7 +82,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                     if(!addDoor(ChamberDoorOptions.EAST, i)) { --i;}
                         door = new GameObject("./Resources/LevelAssets/DOORE.png");
                         door.setName("Door");
-                        Globals.player.addToCollisions(door);
                         j.add(door);
                         door.setLocation(Globals.WIDTH - 74, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
 
@@ -87,7 +90,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                     if(!addDoor(ChamberDoorOptions.SOUTH, i)) { --i;}
                         door = new GameObject("./Resources/LevelAssets/DOORS.png");
                         door.setName("Door");
-                        Globals.player.addToCollisions(door);
                         j.add(door);
                         door.setLocation(Globals.rand.nextInt(Globals.WIDTH - 64) + 64, Globals.HEIGHT - 95);
 
@@ -96,7 +98,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                     if(!addDoor(ChamberDoorOptions.WEST, i)) { --i;}
                         door = new GameObject("./Resources/LevelAssets/DOORW.png");
                         door.setName("Door");
-                        Globals.player.addToCollisions(door);
                         j.add(door);
                         door.setLocation(5, Globals.rand.nextInt(Globals.WIDTH - 64) + 64);
 
@@ -176,7 +177,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         }
         if(key == 'w' || key == 'a' || key == 's' || key == 'd') {
             for (Entity en : this.getEntities()) {
-                en.rotateEnemy();
+                en.Move();
             }
         }
     }
@@ -234,7 +235,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 this.jFrame.add(bullet);
                 Globals.player.getActiveGun().setMagSize(Globals.player.getActiveGun().getMagSize() - 1);
                 this.jFrame.getContentPane().setComponentZOrder(bullet, 3);
-                Globals.player.addToCollisions(bullet);
                 bullet.setRotation(Globals.player.getRotation());
                 bullet.setLocation(Globals.player.getX() + 32 + (i * 5), Globals.player.getY() + 32 + (i * 5));
                 bullet.setName("Bullet");
@@ -277,7 +277,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         if (num < (Globals.bossSpawnPerc + (Globals.player.getCurrentLevel() / 100)) * 100) {
             Globals.isBossInChamber = true;
             List<Entity> newArr = new ArrayList<>();
-            newArr.add(new Boss(300,10, new Weapon(20, WeaponType.SHOTGUN)));
+            newArr.add(new Boss(300,2, new Weapon(20, WeaponType.SHOTGUN)));
             newArr.addAll(this.getEntities());
             this.setEntities(newArr);
         }
@@ -294,12 +294,12 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards;
         List<Entity> newArr = new ArrayList<>();
         for (int i = 0; i < numOfGuards; i++) {
-            newArr.add(new BatonGuard(110,10,new Weapon(100, WeaponType.BATON)));
+            newArr.add(new BatonGuard(110,2,new Weapon(100, WeaponType.BATON)));
         }
         for (int i = 0; i < numOfOfficers; i++) {
             WeaponType randomWeapon = WeaponType.values()[Globals.rand.nextInt(WeaponType.values().length - 1)];
             if (randomWeapon == WeaponType.BATON) {randomWeapon = WeaponType.AR;}
-            newArr.add(new ArmedOfficer(100,10,new Gun(20, randomWeapon)));
+            newArr.add(new ArmedOfficer(100,2,new Gun(20, randomWeapon)));
         }
         newArr.addAll(this.getEntities());
         this.setEntities(newArr);
@@ -322,19 +322,16 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                     wall.setLocation((j * wall.getWidth()),(i * wall.getHeight()));
                     g.add(wall);
                     wall.setName("Wall");
-                    Globals.player.addToCollisions(wall);
                 }
                 else  {
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation(0,wall.getHeight() * i); //
                     wall.setName("Wall");
                     g.add(wall);
-                    Globals.player.addToCollisions(wall);
                     wall = new GameObject(walls[Globals.rand.nextInt(3)]);
                     wall.setLocation( Globals.WIDTH - wall.getWidth() - 7,wall.getHeight() * i); //
                     g.add(wall);
                     wall.setName("Wall");
-                    Globals.player.addToCollisions(wall);
                 }
             }
         }
