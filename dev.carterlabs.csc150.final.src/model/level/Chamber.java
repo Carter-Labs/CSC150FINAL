@@ -1,5 +1,6 @@
 package model.level;
 
+import com.sun.xml.internal.bind.v2.runtime.SwaRefAdapter;
 import controller.GameController;
 import model.Globals;
 import model.entities.*;
@@ -28,6 +29,8 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     private JFrame jFrame;
     private HashMap componentMap;
     private List<GameObject> bullets = new ArrayList<>();
+    private GameObject reload = new GameObject("./Resources/Particles/reload.png");
+    private int shots = 0;
     /**
      * Default Constructor
      */
@@ -197,6 +200,14 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         if (key == 's') {
             p.setMovingSouth(false);
         }
+        if(key == 'r'){
+            if(reload.isVisible()) {
+                reload.setVisible(false);
+                reload.repaint();
+            }
+            Globals.player.getActiveGun().setMagSize(shots);
+            shots = 0;
+        }
     }
 
     @Override
@@ -216,15 +227,26 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 * -(Globals.player.getSpeed() * 2);
         float newX = clickPoint.x + xDirection;
         float newY = clickPoint.y + yDirection;
+        shots++;
         for (int i = 0; i < Globals.player.getActiveGun().getProjectTileCount(); i++) {
-            GameObject bullet =  new GameObject("./Resources/Particles/BULLET.png");
-            this.jFrame.add(bullet);
-            this.jFrame.getContentPane().setComponentZOrder(bullet, 3);
-            Globals.player.addToCollisions(bullet);
-            bullet.setRotation(Globals.player.getRotation());
-            bullet.setLocation(Globals.player.getX() + 32 + (i * 5), Globals.player.getY() + 32 + (i * 5));
-            bullet.setName("Bullet");
-            bullets.add(bullet);
+            if(Globals.player.getActiveGun().getMagSize() >= 1) {
+                GameObject bullet = new GameObject("./Resources/Particles/BULLET.png");
+                this.jFrame.add(bullet);
+                Globals.player.getActiveGun().setMagSize(Globals.player.getActiveGun().getMagSize() - 1);
+                this.jFrame.getContentPane().setComponentZOrder(bullet, 3);
+                Globals.player.addToCollisions(bullet);
+                bullet.setRotation(Globals.player.getRotation());
+                bullet.setLocation(Globals.player.getX() + 32 + (i * 5), Globals.player.getY() + 32 + (i * 5));
+                bullet.setName("Bullet");
+                bullets.add(bullet);
+            }
+            else {
+                reload.setLocation(Globals.WIDTH / 2 - (384 / 2) - 25, Globals.HEIGHT - 130);
+                reload.setVisible(true);
+                reload.setName("Reload");
+                this.jFrame.add(reload);
+                this.jFrame.getContentPane().setComponentZOrder(reload, 3);
+            }
         }
     }
 
