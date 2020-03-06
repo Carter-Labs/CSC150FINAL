@@ -38,6 +38,7 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
         guns = initGuns();
         setCurrency(0);
         setImage(loadImage(computePlayerImagePath(getActiveGun())));
+        setName("Player");
         initEvents();
     }
 

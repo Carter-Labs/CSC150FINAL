@@ -60,7 +60,8 @@ public class GameObject extends ImageView implements Collided, Moved {
     public GameObject Collision(GameObject obj) {
         Rectangle bounds = obj.getBounds();
         if(this.getBounds().intersects(bounds)) {
-            Globals.print(this.getName());
+            Globals.print(this.getName() + "Collided with: ");
+            Globals.print(obj.getName());
             obj.setLocation(obj.previousPoints.get(obj.previousPoints.size() - FRAME_CHOICE));
             return this;
         }

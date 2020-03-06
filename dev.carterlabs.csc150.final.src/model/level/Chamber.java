@@ -216,14 +216,16 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
                 * -(Globals.player.getSpeed() * 2);
         float newX = clickPoint.x + xDirection;
         float newY = clickPoint.y + yDirection;
-        GameObject bullet =  new GameObject("./Resources/Particles/BULLET.png");
-        this.jFrame.add(bullet);
-        this.jFrame.getContentPane().setComponentZOrder(bullet, 3);
-        bullet.setRotation(Globals.player.getRotation());
-        bullet.setLocation(Globals.player.getX() + 32, Globals.player.getY() + 32);
-        bullet.setName("Bullet");
-        bullets.add(bullet);
-
+        for (int i = 0; i < Globals.player.getActiveGun().getProjectTileCount(); i++) {
+            GameObject bullet =  new GameObject("./Resources/Particles/BULLET.png");
+            this.jFrame.add(bullet);
+            this.jFrame.getContentPane().setComponentZOrder(bullet, 3);
+            Globals.player.addToCollisions(bullet);
+            bullet.setRotation(Globals.player.getRotation());
+            bullet.setLocation(Globals.player.getX() + 32 + (i * 5), Globals.player.getY() + 32 + (i * 5));
+            bullet.setName("Bullet");
+            bullets.add(bullet);
+        }
     }
 
     @Override
