@@ -3,6 +3,7 @@ package controller;
 import javafx.util.Pair;
 import model.Globals;
 import model.events.Rendered;
+import model.level.GameObject;
 import model.objects.Weapon;
 import model.objects.WeaponType;
 import view.MenuItemView;
@@ -130,16 +131,25 @@ public class MenuController implements ComponentListener, Rendered, KeyListener,
     public void keyTyped(KeyEvent e) {
         //To cycle through gun selection
         char key = e.getKeyChar();
-        if(key == 'q') prevWeapon();
-        if(key == 'e') nextWeapon();
-        if(key == '1') Globals.player.setActiveGun(Globals.player.getGuns().get(0));
-        if(key == '2') Globals.player.setActiveGun(Globals.player.getGuns().get(1));
-        if(key == '3') Globals.player.setActiveGun(Globals.player.getGuns().get(2));
-        if(key == '4') Globals.player.setActiveGun(Globals.player.getGuns().get(3));
-        if(key == '5') Globals.player.setActiveGun(Globals.player.getGuns().get(4));
-        if(key == '6') Globals.player.setActiveGun(Globals.player.getGuns().get(5));
+        if(key == 'q') {prevWeapon(); checkVisibility();}
+        if(key == 'e') {nextWeapon(); checkVisibility();}
+        if(key == '1') {Globals.player.setActiveGun(Globals.player.getGuns().get(0)); checkVisibility();}
+        if(key == '2') {Globals.player.setActiveGun(Globals.player.getGuns().get(1)); checkVisibility();}
+        if(key == '3') {Globals.player.setActiveGun(Globals.player.getGuns().get(2)); checkVisibility();}
+        if(key == '4') {Globals.player.setActiveGun(Globals.player.getGuns().get(3)); checkVisibility();}
+        if(key == '5') {Globals.player.setActiveGun(Globals.player.getGuns().get(4)); checkVisibility();}
+        if(key == '6') {Globals.player.setActiveGun(Globals.player.getGuns().get(5)); checkVisibility();}
         setActiveItem(Globals.player.getActiveGun());
     }
+
+    private void checkVisibility() {
+        for(Component obj : this.getFrame().getContentPane().getComponents()){
+            if(obj.getName() != null && obj.getName().equals("Reload")){
+                obj.setVisible(false);
+            }
+        }
+    }
+
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -149,6 +159,14 @@ public class MenuController implements ComponentListener, Rendered, KeyListener,
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        int units = e.getUnitsToScroll();
+        if (units > 0) {prevWeapon(); checkVisibility();}
+        if (units < 0) {nextWeapon(); checkVisibility();}
+        setActiveItem(Globals.player.getActiveGun());
     }
 
     /**
@@ -171,13 +189,5 @@ public class MenuController implements ComponentListener, Rendered, KeyListener,
         controller.addItem(new Weapon(5, WeaponType.RAY_GUN));
         controller.setActiveItem(weapon);
         frame.setVisible(true);
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        int units = e.getUnitsToScroll();
-        if (units > 0) prevWeapon();
-        if (units < 0) nextWeapon();
-        setActiveItem(Globals.player.getActiveGun());
     }
 }
