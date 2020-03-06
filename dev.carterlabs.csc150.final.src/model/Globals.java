@@ -18,7 +18,10 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Globals {
@@ -49,6 +52,7 @@ public class Globals {
     public static boolean isBossInChamber;
     public static int maxNumOfOfficersAndGuards = 3;
     public static boolean hasExited = false;
+    public static boolean hasDied = false;
 
     /**
      * Loads all the saved variables in this file and set them directly

@@ -7,6 +7,8 @@ import model.level.Level;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -22,8 +24,10 @@ public class GameController extends JFrame implements Runnable {
     private Level level;
 
     public GameController() {
+        setLookAndFeel();
         uiController = new UIController(this);
         this.setBounds(0,0,Globals.WIDTH, Globals.HEIGHT);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Thread t = new Thread(this::buildNewLevel);
         t.start();
     }
@@ -34,6 +38,48 @@ public class GameController extends JFrame implements Runnable {
     }
 
 
+    private void setLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Exception e) {
+            Globals.print("Failed to change look and feel");
+        }
+        try
+        {
+            String[][] icons = {
+                    {"OptionPane.warningIcon",     "65581"},
+                    {"OptionPane.questionIcon",    "65583"},
+                    {"OptionPane.errorIcon",       "65585"},
+                    {"OptionPane.informationIcon", "65587"}
+            };
+            Method getIconBits = Class.forName("sun.awt.shell.Win32ShellFolder2").getDeclaredMethod("getIconBits", new Class[]{long.class, int.class});
+            getIconBits.setAccessible(true);
+            int icon32Size = 40;
+            Globals.print(""+ icon32Size);
+            Object[] arguments = {null, icon32Size};
+            for (String[] s:icons)
+            {
+                if (UIManager.get(s[0]) instanceof ImageIcon)
+                {
+                    arguments[0] = Long.valueOf(s[1]);
+                    int[] iconBits = (int[]) getIconBits.invoke(null, arguments);
+                    if (iconBits != null)
+                    {
+                        BufferedImage img = new BufferedImage(icon32Size, icon32Size, BufferedImage.TYPE_INT_ARGB);
+                        img.setRGB(0, 0, icon32Size, icon32Size, iconBits, 0, icon32Size);
+                        ImageIcon newIcon = new ImageIcon(img);
+                        UIManager.put(s[0], newIcon);
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void paint(Graphics g) {

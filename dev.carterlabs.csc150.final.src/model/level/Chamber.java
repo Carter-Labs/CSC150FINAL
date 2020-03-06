@@ -139,6 +139,14 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      * Draws the chamber in the view
      */
     @Override public void Render(JFrame g) {
+        if(Globals.hasDied) {
+            Globals.hasDied = false;
+            int input = JOptionPane.showOptionDialog(this.jFrame, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
+            if(input == JOptionPane.OK_OPTION){
+                this.jFrame.dispose();
+                new GameController();
+            }
+        }
         for(GameObject bullet : this.bullets){
             for (int i = 0; i < 10 ; i++) {
                 double angle = Math.toRadians(bullet.getRotation() + 90);
