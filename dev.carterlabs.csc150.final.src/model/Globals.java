@@ -55,6 +55,7 @@ public class Globals {
     public static boolean isBossInChamber;
     public static int maxNumOfOfficersAndGuards = 3;
     public static boolean hasExited = false;
+    public static boolean hasDied = false;
     public static List<GameObject> collidedEntities = new ArrayList<>();
     public static GameController game;
 
