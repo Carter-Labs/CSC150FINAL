@@ -25,7 +25,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
      * Variables
      */
     private GameObject[] objects;
-    private List<Entity> entities = new ArrayList<>();
+    public List<Entity> entities = new ArrayList<>();
     private ChamberDoorOptions[] doors;
     private JFrame jFrame;
     private HashMap componentMap;
@@ -213,6 +213,10 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
                 bullet.setRotation(Globals.player.getRotation());
                 bullet.setLocation(Globals.player.getX() + 32 + (i * 5), Globals.player.getY() + 32 + (i * 5));
                 bullet.setName("Bullet");
+                for (Entity en: entities) {
+                    bullet.addToCollisions(en);
+                    en.addToCollisions(bullet);
+                }
                 bullets.add(bullet);
             }
             else {
@@ -265,8 +269,8 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
      * Adds random amount of armed officers and baton guards
      */
     private void addOfficersAndGuards() {
-        int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 1) + 1;
-        int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards;
+        int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 1) + 1 + 10;
+        int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards + 10;
         List<Entity> newArr = new ArrayList<>();
         for (int i = 0; i < numOfGuards; i++) {
             newArr.add(new BatonGuard(110,2,new Weapon(100, WeaponType.BATON)));
@@ -324,8 +328,8 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
     private void spawnEnemies(JFrame j) {
         int randX, randY;
         for (Entity en : this.getEntities()){
-            randX = Globals.rand.nextInt(jFrame.getContentPane().getWidth() - 64) + 65;
-            randY = Globals.rand.nextInt(jFrame.getContentPane().getHeight() - 64) + 65;
+            randX = Globals.rand.nextInt(jFrame.getContentPane().getWidth() - 128) + 128;
+            randY = Globals.rand.nextInt(jFrame.getContentPane().getHeight() - 128) + 128;
             en.setLocation(randX, randY);
             j.add(en);
 //            j.getContentPane().setComponentZOrder(en, 3);

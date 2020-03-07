@@ -189,6 +189,7 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
                 }
             }
         } catch (ConcurrentModificationException ignored){}
+        catch (NullPointerException ignored) {}
         super.Move();
         this.repaint();
     }

@@ -23,6 +23,7 @@ public class GameController extends JFrame implements Runnable {
     public static List<Attack> attackEvents = new ArrayList<>();
     public static List<GameObject> objects = new ArrayList<>();
     public static UIController uiController;
+    public static Chamber currentChamber;
     private Level level;
 
     public GameController() {
@@ -131,10 +132,10 @@ public class GameController extends JFrame implements Runnable {
                         if(me != null){
                             try {
                                 me.Move();
-                            } catch (NullPointerException npe) {}
+                            } catch (NullPointerException npe) {npe.printStackTrace();}
                         }
                     }
-                } catch (ConcurrentModificationException ignore){}
+                } catch (ConcurrentModificationException ignore){ignore.printStackTrace();}
                 for (Attack ae: attackEvents) {
                     ae.attack();
                 }

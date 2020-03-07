@@ -40,10 +40,11 @@ public class Level implements Generate {
      * Loads the chamber at an index and loads the view
      * @param index index to load
      */
-    public void loadChamber(int index) {
+    public Chamber loadChamber(int index) {
         Chamber chamber = this.getChambers()[index];
         chamber.setjFrame(this.jFrame);
         chamber.generate();
+        return chamber;
     }
 
     /**

@@ -1,5 +1,6 @@
 package model.entities;
 
+import controller.GameController;
 import model.Globals;
 import model.events.Moved;
 import model.level.GameObject;
@@ -14,13 +15,14 @@ public abstract class Enemy extends Entity implements Moved {
      * @param speed  Speed of the entity
      * @param image  The image of the entity
      */
+    private boolean canMove = true;
     public Enemy(int health, int speed, String image) {
         super(health, speed, image);
     }
 
     @Override
     public void Move() {
-        if(Globals.canMove) {
+        if(Globals.canMove && canMove) {
             super.Move();
             //move
             float xDirection = (float)Math.sin((float) Math.toRadians(getRotation()))
@@ -37,6 +39,27 @@ public abstract class Enemy extends Entity implements Moved {
 
     @Override
     public GameObject Collision(GameObject obj) {
-        return super.Collision(obj);
+        if(this.getBounds().intersects(obj.getBounds())) {
+            if(obj.getName().equals("Bullet")){
+                Globals.print("Collided with Bullet");
+                canMove = false;
+                GameController.moveEvents.remove(this);
+                try {
+                    this.finalize();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+                Globals.game.remove(this);
+                this.setBounds(0, 0,0,0);
+                GameController.currentChamber.getEntities().remove(this);
+                for (Entity en: GameController.currentChamber.entities) {
+                    this.removeToCollision(en);
+                    en.removeToCollision(this);
+                }
+            }
+            super.Collision(obj);
+            return this;
+        }
+        return null;
     }
 }
