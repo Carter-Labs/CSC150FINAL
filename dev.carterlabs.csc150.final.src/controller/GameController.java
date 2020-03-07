@@ -8,6 +8,7 @@ import model.level.Level;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -47,9 +48,10 @@ public class GameController extends JFrame implements Runnable {
                 c.clearChamber();
             }
          this.repaint();
-         level = new Level(this);
-         level.loadChamber(0);
          Globals.collidedEntities.clear();
+         Globals.hasExited = true;
+         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+         this.dispose();
         }
     }
 

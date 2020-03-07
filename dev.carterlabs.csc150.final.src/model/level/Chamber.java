@@ -2,7 +2,10 @@ package model.level;
 
 import controller.GameController;
 import model.Globals;
-import model.entities.*;
+import model.entities.ArmedOfficer;
+import model.entities.BatonGuard;
+import model.entities.Boss;
+import model.entities.Entity;
 import model.events.Moved;
 import model.objects.Gun;
 import model.objects.Weapon;
@@ -160,22 +163,6 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
     @Override
     public void keyPressed(KeyEvent e) {
         char key = e.getKeyChar();
-        Player p = Globals.player;
-        if (key == 'a') {
-            p.setMovingWest(true);
-        }
-
-        if (key == 'd') {
-            p.setMovingEast(true);
-        }
-
-        if (key == 'w') {
-            p.setMovingNorth(true);
-        }
-
-        if (key == 's') {
-            p.setMovingSouth(true);
-        }
         if(key == 'w' || key == 'a' || key == 's' || key == 'd') {
             for (Entity en : this.getEntities()) {
                 en.Move();
@@ -186,6 +173,9 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
     @Override
     public void keyReleased(KeyEvent e) {
         char key = e.getKeyChar();
+        if(key == ' ') {
+            Globals.canMove = true;
+        }
         if(key == 'r'){
             if(reload.isVisible()) {
                 reload.setVisible(false);
