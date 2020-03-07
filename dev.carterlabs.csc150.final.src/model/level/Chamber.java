@@ -47,6 +47,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         GameController.renderEvents.add(this::Render);
         //add num of enemies to list of entities
         jFrame.addKeyListener(this);
+        jFrame.addKeyListener(Globals.player);
         jFrame.addMouseMotionListener(this);
         jFrame.addMouseListener(this);
         addOfficersAndGuards();
@@ -141,11 +142,11 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     @Override public void Render(JFrame g) {
         if(Globals.hasDied) {
             Globals.hasDied = false;
-            int input = JOptionPane.showOptionDialog(this.jFrame, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
-            if(input == JOptionPane.OK_OPTION){
-                this.jFrame.dispose();
-                new GameController();
-            }
+            Globals.hasExited = true;
+            JOptionPane.showOptionDialog(this.jFrame, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
+            this.jFrame.dispose();
+            new GameController();
+            Globals.hasExited = false;
         }
         for(GameObject bullet : this.bullets){
             for (int i = 0; i < 10 ; i++) {
@@ -193,22 +194,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     @Override
     public void keyReleased(KeyEvent e) {
         char key = e.getKeyChar();
-        Player p = Globals.player;
-        if (key == 'a') {
-            p.setMovingWest(false);
-        }
-
-        if (key == 'd') {
-            p.setMovingEast(false);
-        }
-
-        if (key == 'w') {
-            p.setMovingNorth(false);
-        }
-
-        if (key == 's') {
-            p.setMovingSouth(false);
-        }
         if(key == 'r'){
             if(reload.isVisible()) {
                 reload.setVisible(false);
