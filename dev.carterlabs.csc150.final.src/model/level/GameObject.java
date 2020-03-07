@@ -2,11 +2,13 @@ package model.level;
 
 import controller.GameController;
 import model.Globals;
+import model.entities.ArmedOfficer;
+import model.entities.BatonGuard;
+import model.entities.Boss;
 import model.events.Collided;
 import model.events.Moved;
 import view.ImageView;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,7 @@ public class GameObject extends ImageView implements Collided, Moved {
     public GameObject Collision(GameObject obj) {
         Rectangle bounds = obj.getBounds();
         if(this.getBounds().intersects(bounds)) {
-            if(this.getClass().getSimpleName().equals("BatonGuard") || this.getClass().getSimpleName().equals("ArmedOfficer")){
+            if(this instanceof BatonGuard || this instanceof ArmedOfficer|| this instanceof Boss){
                 Globals.hasDied = true;
             }
 //            Globals.print(this.getClass().getSimpleName() + " Collided with: ");
