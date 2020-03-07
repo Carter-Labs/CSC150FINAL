@@ -1,6 +1,9 @@
 package model;
 
+import controller.GameController;
+import model.entities.Entity;
 import model.entities.Player;
+import model.level.GameObject;
 import model.objects.Gun;
 import model.objects.WeaponType;
 import org.w3c.dom.Document;
@@ -52,7 +55,8 @@ public class Globals {
     public static boolean isBossInChamber;
     public static int maxNumOfOfficersAndGuards = 3;
     public static boolean hasExited = false;
-    public static boolean hasDied = false;
+    public static List<GameObject> collidedEntities = new ArrayList<>();
+    public static GameController game;
 
     /**
      * Loads all the saved variables in this file and set them directly

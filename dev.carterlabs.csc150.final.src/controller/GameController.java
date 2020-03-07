@@ -30,12 +30,25 @@ public class GameController extends JFrame implements Runnable {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Thread t = new Thread(this::buildNewLevel);
         t.start();
+        Globals.game = this;
     }
 
     public void buildNewLevel() {
         level = new Level(this);
         level.loadChamber(0);
     }
+
+    public void reset(){
+        int input = JOptionPane.showOptionDialog(this, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
+        if(input == JOptionPane.OK_OPTION){
+         this.getContentPane().removeAll();
+         this.repaint();
+         level = new Level(this);
+         level.loadChamber(0);
+         Globals.collidedEntities.clear();
+        }
+    }
+
 
 
     private void setLookAndFeel() {

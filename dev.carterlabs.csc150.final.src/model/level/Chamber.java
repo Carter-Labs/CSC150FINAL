@@ -140,14 +140,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      * Draws the chamber in the view
      */
     @Override public void Render(JFrame g) {
-        if(Globals.hasDied) {
-            Globals.hasDied = false;
-            Globals.hasExited = true;
-            JOptionPane.showOptionDialog(this.jFrame, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
-            this.jFrame.dispose();
-            new GameController();
-            Globals.hasExited = false;
-        }
         for(GameObject bullet : this.bullets){
             for (int i = 0; i < 10 ; i++) {
                 double angle = Math.toRadians(bullet.getRotation() + 90);
@@ -303,7 +295,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
      */
     private void generateFloor(JFrame g) {
         g.add(Globals.player);
-        g.getContentPane().setComponentZOrder(Globals.player, 3);
+//        g.getContentPane().setComponentZOrder(Globals.player, 3);
         spawnEnemies(g);
         generateDoors(g);
         String[] walls = new String[]{"./Resources/LevelAssets/Wall_01.png","./Resources/LevelAssets/Wall_02.png","./Resources/LevelAssets/Wall_03.png"};
@@ -346,7 +338,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
             randY = Globals.rand.nextInt(451)+ 90;
             en.setLocation(randX, randY);
             j.add(en);
-            j.getContentPane().setComponentZOrder(en, 3);
+//            j.getContentPane().setComponentZOrder(en, 3);
         }
     }
 
