@@ -3,7 +3,7 @@ package model.level;
 import controller.GameController;
 import model.Globals;
 import model.entities.*;
-import model.events.Rendered;
+import model.events.Moved;
 import model.objects.Gun;
 import model.objects.Weapon;
 import model.objects.WeaponType;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Chamber implements Generate, Rendered, KeyListener, MouseMotionListener, MouseListener {
+public class Chamber implements Generate, Moved, KeyListener, MouseMotionListener, MouseListener {
     /**
      * Variables
      */
@@ -29,6 +29,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     private List<GameObject> bullets = new ArrayList<>();
     private GameObject reload = new GameObject("./Resources/Particles/reload.png");
     private int shots = 0;
+
     /**
      * Default Constructor
      */
@@ -44,7 +45,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         //add boss if in range to list of entities
         isBossInChamber();
         doors = new ChamberDoorOptions[4];
-        GameController.renderEvents.add(this::Render);
         //add num of enemies to list of entities
         jFrame.addKeyListener(this);
         jFrame.addKeyListener(Globals.player);
@@ -52,6 +52,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         jFrame.addMouseListener(this);
         addOfficersAndGuards();
         generateFloor(this.jFrame);
+        GameController.moveEvents.add(this);
         for (GameObject object: GameController.objects) {
             for (GameObject objectc: GameController.objects) {
                 if(objectc != object) {
@@ -69,7 +70,6 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
         GameObject door;
         for (int i = 0; i < doors; i++) {
             int dir = Globals.rand.nextInt(4);
-            Globals.print("" + dir);
             switch (dir) {
                 case 0:
                     if(!addDoor(ChamberDoorOptions.NORTH, i)) { --i;}
@@ -139,7 +139,7 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     /**
      * Draws the chamber in the view
      */
-    @Override public void Render(JFrame g) {
+    @Override public void Move() {
         for(GameObject bullet : this.bullets){
             for (int i = 0; i < 10 ; i++) {
                 double angle = Math.toRadians(bullet.getRotation() + 90);
@@ -340,6 +340,20 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
             j.add(en);
 //            j.getContentPane().setComponentZOrder(en, 3);
         }
+    }
+
+    public void clearChamber() {
+        for (GameObject object: GameController.objects) {
+            for (GameObject objectc: GameController.objects) {
+                if(objectc != object) {
+                    object.removeToCollision(objectc);
+                }
+            }
+        }
+        entities.clear();
+        bullets.clear();
+        Globals.canMove = false;
+        shots = 0;
     }
 
 

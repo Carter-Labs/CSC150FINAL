@@ -2,6 +2,7 @@ package controller;
 
 import model.Globals;
 import model.events.*;
+import model.level.Chamber;
 import model.level.GameObject;
 import model.level.Level;
 
@@ -42,6 +43,9 @@ public class GameController extends JFrame implements Runnable {
         int input = JOptionPane.showOptionDialog(this, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
         if(input == JOptionPane.OK_OPTION){
          this.getContentPane().removeAll();
+            for (Chamber c: level.getChambers()) {
+                c.clearChamber();
+            }
          this.repaint();
          level = new Level(this);
          level.loadChamber(0);
@@ -67,7 +71,7 @@ public class GameController extends JFrame implements Runnable {
                     {"OptionPane.errorIcon",       "65585"},
                     {"OptionPane.informationIcon", "65587"}
             };
-            Method getIconBits = Class.forName("sun.awt.shell.Win32ShellFolder2").getDeclaredMethod("getIconBits", new Class[]{long.class, int.class});
+            Method getIconBits = Class.forName("sun.awt.shell.Win32ShellFolder2").getDeclaredMethod("getIconBits", long.class, int.class);
             getIconBits.setAccessible(true);
             int icon32Size = 40;
             Globals.print(""+ icon32Size);
@@ -122,7 +126,11 @@ public class GameController extends JFrame implements Runnable {
                 }
                 try {
                     for (Moved me: moveEvents) {
-                            me.Move();
+                        if(me != null){
+                            try {
+                                me.Move();
+                            } catch (NullPointerException npe) {}
+                        }
                     }
                 } catch (ConcurrentModificationException ignore){}
                 for (Attack ae: attackEvents) {

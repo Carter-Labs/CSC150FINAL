@@ -1,7 +1,6 @@
 package model;
 
 import controller.GameController;
-import model.entities.Entity;
 import model.entities.Player;
 import model.level.GameObject;
 import model.objects.Gun;
@@ -21,7 +20,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +52,11 @@ public class Globals {
     public static double bossSpawnPerc = 0.05;
     public static boolean isBossInChamber;
     public static int maxNumOfOfficersAndGuards = 3;
-    public static boolean hasExited = false;
     public static boolean hasDied = false;
     public static List<GameObject> collidedEntities = new ArrayList<>();
     public static GameController game;
+    public static boolean hasExited = false;
+    public static boolean canMove = false;
 
     /**
      * Loads all the saved variables in this file and set them directly
