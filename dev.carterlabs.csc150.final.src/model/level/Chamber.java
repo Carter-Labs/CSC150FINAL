@@ -334,8 +334,8 @@ public class Chamber implements Generate, Rendered, KeyListener, MouseMotionList
     private void spawnEnemies(JFrame j) {
         int randX, randY;
         for (Entity en : this.getEntities()){
-            randX = Globals.rand.nextInt(1301) + 75;
-            randY = Globals.rand.nextInt(451)+ 90;
+            randX = Globals.rand.nextInt(jFrame.getContentPane().getWidth() - 64) + 65;
+            randY = Globals.rand.nextInt(jFrame.getContentPane().getHeight() - 64) + 65;
             en.setLocation(randX, randY);
             j.add(en);
 //            j.getContentPane().setComponentZOrder(en, 3);
