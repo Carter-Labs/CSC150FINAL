@@ -29,30 +29,30 @@ public class Globals {
     /**
      * Generals
      */
-    public static Random rand = new Random();
-    public static String saveFilePath = "./save.xml";
+    public static Random rand                       = new Random();
+    public static String saveFilePath               = "./save.xml";
     /**
      * Player used variables
      */
-    public static Player player = new Player(100, 5);
+    public static Player player                     = new Player(100, 5);
 
     /**
      *  Window Settings
      */
-    public static int WIDTH = 1286;
-    public static int HEIGHT = 733;
-    public static int MAX_X = WIDTH - 120;
-    public static int MIN_X = 50;
-    public static int MAX_Y = 50;
-    public static int MIN_Y = 590;
+    public static int WIDTH                         = 1286;
+    public static int HEIGHT                        = 733;
+    public static int MAX_X                         = WIDTH - 120;
+    public static int MIN_X                         = 50;
+    public static int MAX_Y                         = 50;
+    public static int MIN_Y                         = 590;
 
     /**
      * Info for Chamber.java
      */
-    public static double bossSpawnPerc = 0.05;
+    public static double bossSpawnPerc              = 0.05;
     public static boolean isBossInChamber;
-    public static int maxNumOfOfficersAndGuards = 3;
-    public static boolean hasDied = false;
+    public static int maxNumOfOfficersAndGuards     = 3;
+    public static boolean hasDied                   = false;
     public static List<GameObject> collidedEntities = new ArrayList<>();
     public static GameController game;
     public static boolean hasExited = false;
@@ -63,11 +63,11 @@ public class Globals {
      */
     public static void loadData() {
         //load saved data
-        File file = new File(saveFilePath);
+        File file                                  = new File(saveFilePath);
         if(!file.exists()){
             firstLoadSaveData();
         }
-        player = LoadXMLObject();
+        player                                     = LoadXMLObject();
     }
 
     /**
@@ -77,19 +77,19 @@ public class Globals {
     private static Player LoadXMLObject() {
         Player player = null;
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(LoadFile(saveFilePath ));
-            Element elm = document.getDocumentElement();
-            player = new Player(
+            DocumentBuilderFactory factory        = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder               = factory.newDocumentBuilder();
+            Document document                     = builder.parse(LoadFile(saveFilePath ));
+            Element elm                           = document.getDocumentElement();
+            player                                = new Player(
                     (int)Double.parseDouble(elm.getAttribute("Health")),
                     (int)Double.parseDouble(elm.getAttribute("Speed")),
                     (int)Double.parseDouble(elm.getAttribute("Currency")),
                     (int)Double.parseDouble(elm.getAttribute("Level"))
             );
             for (int i = 0; i < elm.getChildNodes().getLength(); i++) {
-                Node node = elm.getChildNodes().item(i);
-                NamedNodeMap attr = node.getAttributes();
+                Node node                         = elm.getChildNodes().item(i);
+                NamedNodeMap attr                 = node.getAttributes();
 
                 player.getGuns().add(new Gun(
                         (int)Double.parseDouble(attr.getNamedItem("ReloadSpeed").getNodeValue()),
@@ -115,10 +115,10 @@ public class Globals {
      * @return The input source for the XML document parser
      */
     private static InputSource LoadFile(String path){
-        String data = "";
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader( new FileInputStream(new File(path))))) {
+        String data                              = "";
+        try(BufferedReader reader                = new BufferedReader(new InputStreamReader( new FileInputStream(new File(path))))) {
             while(reader.ready()) {
-                data += reader.readLine();
+                data                            += reader.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -131,18 +131,17 @@ public class Globals {
      */
     private static void SaveXMLObject(Player player) {
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.newDocument();
-
-            Element root = document.createElement("player");
+            DocumentBuilderFactory factory      = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder             = factory.newDocumentBuilder();
+            Document document                   = builder.newDocument();
+            Element root                        = document.createElement("player");
             root.setAttribute("Health", String.valueOf(player.getHealth()));
             root.setAttribute("Speed", String.valueOf(player.getSpeed()));
             root.setAttribute("Level", String.valueOf(player.getCurrentLevel()));
             root.setAttribute("Currency", String.valueOf(player.getCurrency()));
             document.appendChild(root);
             for (Gun gun : player.getGuns()) {
-                Element gunElem = document.createElement("gun");
+                Element gunElem                 = document.createElement("gun");
                 gunElem.setAttribute("Damage", String.valueOf(gun.getDamage()));
                 gunElem.setAttribute("ReloadSpeed", String.valueOf(gun.getReloadSpeed()));
                 gunElem.setAttribute("MagSize", String.valueOf(gun.getMagSize()));
@@ -150,11 +149,10 @@ public class Globals {
                 gunElem.setAttribute("Type", String.valueOf(gun.getWeaponType()));
                 root.appendChild(gunElem);
             }
-
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource domSource = new DOMSource(document);
-            StreamResult result = new StreamResult(new File(saveFilePath));
+            Transformer transformer               = transformerFactory.newTransformer();
+            DOMSource domSource                   = new DOMSource(document);
+            StreamResult result                   = new StreamResult(new File(saveFilePath));
             transformer.transform(domSource, result);
         } catch (TransformerException | ParserConfigurationException te) {
             te.printStackTrace();
@@ -173,7 +171,7 @@ public class Globals {
      * Called only once, used to set values on first load
      */
     public static void firstLoadSaveData() {
-        player = new Player(100, 1, 0, 1);
+        player                                   = new Player(100, 1, 0, 1);
         SaveXMLObject(player);
         //create new file and save
         saveData();
@@ -189,8 +187,8 @@ public class Globals {
      * @param args
      */
     public static void main(String[] args) {
-        Player p1 = new Player(100, 1, 0, 1);
+        Player p1                               = new Player(100, 1, 0, 1);
         SaveXMLObject(p1);
-        Player p = LoadXMLObject();
+        Player p                                = LoadXMLObject();
     }
 }

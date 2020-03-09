@@ -68,7 +68,10 @@ public class GameObject extends ImageView implements Collided, Moved {
         Rectangle bounds = obj.getBounds();
         if(this.getBounds().intersects(bounds)) {
             if(this instanceof BatonGuard || this instanceof ArmedOfficer){
-                Globals.print("Collided with Enemy");
+                Globals.print(""+ obj.getName()+" collided with Enemy");
+            }
+            if(obj.getName().equals("Bullet")){
+                Globals.print(""+ obj.getName()+" collided with "+ this.getName());
             }
 //            Globals.print(this.getClass().getSimpleName() + " Collided with: ");
 //            Globals.print(obj.getName());
