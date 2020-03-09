@@ -65,7 +65,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         }
         //Sets labels on scree
         updatePointsLbl(0);
-        updateWaveLbl(0);
+        updateWaveLbl(1);
     }
 
     /**
@@ -322,7 +322,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
      */
     private void generateFloor(JFrame g) {
         g.add(Globals.player);
-//        g.getContentPane().setComponentZOrder(Globals.player, 3);
+        g.getContentPane().setComponentZOrder(Globals.player, 3);
         spawnEnemies(g);
         generateDoors(g);
         String[] walls = new String[]{"./Resources/LevelAssets/Wall_01.png","./Resources/LevelAssets/Wall_02.png","./Resources/LevelAssets/Wall_03.png"};
@@ -365,7 +365,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
             randY = Globals.rand.nextInt(jFrame.getContentPane().getHeight() - 128) + 128;
             en.setLocation(randX, randY);
             j.add(en);
-//            j.getContentPane().setComponentZOrder(en, 3);
+            j.getContentPane().setComponentZOrder(en, 3);
         }
     }
 

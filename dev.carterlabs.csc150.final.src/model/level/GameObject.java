@@ -76,8 +76,6 @@ public class GameObject extends ImageView implements Collided, Moved {
             else {
                 Globals.print(obj.getName() + " collided with "+ this.getName());
             }
-//            Globals.print(this.getClass().getSimpleName() + " Collided with: ");
-//            Globals.print(obj.getName());
             obj.setLocation(obj.previousPoints.get(obj.previousPoints.size() - FRAME_CHOICE));
             return this;
         }
