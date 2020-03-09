@@ -63,6 +63,9 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
                 }
             }
         }
+        //Sets labels on scree
+        updatePointsLbl(0);
+        updateWaveLbl(0);
     }
 
     /**
@@ -154,6 +157,36 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
             }
         }
     }
+
+    private void updatePointsLbl(int points) {
+        JLabel textLabel = new JLabel("Points: "+ points,SwingConstants.CENTER);
+        this.jFrame.add(textLabel);
+        textLabel.setPreferredSize(new Dimension(250, 64));
+        textLabel.setLocation(100,0);
+        textLabel.setBackground(Color.BLACK);
+        textLabel.setForeground(Color.WHITE);
+        textLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        textLabel.setSize(textLabel.getPreferredSize());
+        textLabel.setOpaque(true);
+        this.jFrame.getContentPane().add(textLabel, BorderLayout.CENTER);
+        this.jFrame.getContentPane().setComponentZOrder(textLabel, 3);
+        textLabel.repaint();
+    }
+    private void updateWaveLbl(int wave) {
+        JLabel textLabel = new JLabel("Wave: "+ wave,SwingConstants.CENTER);
+        this.jFrame.add(textLabel);
+        textLabel.setPreferredSize(new Dimension(250, 64));
+        textLabel.setLocation(Globals.WIDTH - 350,0);
+        textLabel.setBackground(Color.BLACK);
+        textLabel.setForeground(Color.WHITE);
+        textLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        textLabel.setSize(textLabel.getPreferredSize());
+        textLabel.setOpaque(true);
+        this.jFrame.getContentPane().add(textLabel, BorderLayout.CENTER);
+        this.jFrame.getContentPane().setComponentZOrder(textLabel, 3);
+        textLabel.repaint();
+    }
+
 
     @Override
     public void keyTyped(KeyEvent e) {
