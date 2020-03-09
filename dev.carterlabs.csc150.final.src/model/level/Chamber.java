@@ -55,8 +55,14 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         jFrame.addMouseListener(this);
         addOfficersAndGuards();
         generateFloor(this.jFrame);
+        GameController.objects.addAll(entities);
         GameController.moveEvents.add(this);
         for (GameObject object: GameController.objects) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             for (GameObject objectc: GameController.objects) {
                 if(objectc != object) {
                     object.addToCollisions(objectc);
