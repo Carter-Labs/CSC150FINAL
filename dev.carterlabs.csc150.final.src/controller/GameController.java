@@ -29,7 +29,7 @@ public class GameController extends JFrame implements Runnable {
     public GameController() {
         setLookAndFeel();
         uiController = new UIController(this);
-        this.setBounds(0,0,Globals.WIDTH, Globals.HEIGHT);
+        this.setBounds(0, 0, Globals.WIDTH, Globals.HEIGHT);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Thread t = new Thread(this::buildNewLevel);
         t.start();
@@ -41,18 +41,18 @@ public class GameController extends JFrame implements Runnable {
         level.loadChamber(0);
     }
 
-    public void reset(){
+    public void reset() {
         int input = JOptionPane.showOptionDialog(this, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
         if(input == JOptionPane.OK_OPTION || input == JOptionPane.CLOSED_OPTION){
          this.getContentPane().removeAll();
             for (Chamber c: level.getChambers()) {
                 c.clearChamber();
             }
-         this.repaint();
-         Globals.collidedEntities.clear();
-         Globals.hasExited = true;
-         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-         this.dispose();
+             this.repaint();
+             Globals.collidedEntities.clear();
+             Globals.hasExited = true;
+             this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+             this.dispose();
         }
     }
 
@@ -62,12 +62,10 @@ public class GameController extends JFrame implements Runnable {
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Globals.print("Failed to change look and feel");
         }
-        try
-        {
+        try {
             String[][] icons = {
                     {"OptionPane.warningIcon",     "65581"},
                     {"OptionPane.questionIcon",    "65583"},
@@ -77,16 +75,13 @@ public class GameController extends JFrame implements Runnable {
             Method getIconBits = Class.forName("sun.awt.shell.Win32ShellFolder2").getDeclaredMethod("getIconBits", long.class, int.class);
             getIconBits.setAccessible(true);
             int icon32Size = 40;
-            Globals.print(""+ icon32Size);
+            Globals.print("" + icon32Size);
             Object[] arguments = {null, icon32Size};
-            for (String[] s:icons)
-            {
-                if (UIManager.get(s[0]) instanceof ImageIcon)
-                {
+            for (String[] s : icons) {
+                if (UIManager.get(s[0]) instanceof ImageIcon) {
                     arguments[0] = Long.valueOf(s[1]);
                     int[] iconBits = (int[]) getIconBits.invoke(null, arguments);
-                    if (iconBits != null)
-                    {
+                    if (iconBits != null) {
                         BufferedImage img = new BufferedImage(icon32Size, icon32Size, BufferedImage.TYPE_INT_ARGB);
                         img.setRGB(0, 0, icon32Size, icon32Size, iconBits, 0, icon32Size);
                         ImageIcon newIcon = new ImageIcon(img);
@@ -94,9 +89,7 @@ public class GameController extends JFrame implements Runnable {
                     }
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -124,19 +117,25 @@ public class GameController extends JFrame implements Runnable {
 
             while (delta >= 1) {
                 ticks++;
-                for (Updated ue: updateEvents) {
-                    ue.Update();
-                }
                 try {
-                    for (Moved me: moveEvents) {
-                        if(me != null){
+                    for (Updated ue : updateEvents) {
+                        ue.Update();
+                    }
+                } catch (ConcurrentModificationException ignored){}
+                try {
+                    for (Moved me : moveEvents) {
+                        if (me != null) {
                             try {
                                 me.Move();
-                            } catch (NullPointerException npe) {npe.printStackTrace();}
+                            } catch (NullPointerException npe) {
+                                npe.printStackTrace();
+                            }
                         }
                     }
-                } catch (ConcurrentModificationException ignore){ignore.printStackTrace();}
-                for (Attack ae: attackEvents) {
+                } catch (ConcurrentModificationException ignore) {
+                    ignore.printStackTrace();
+                }
+                for (Attack ae : attackEvents) {
                     ae.attack();
                 }
                 delta -= 1;
@@ -149,7 +148,7 @@ public class GameController extends JFrame implements Runnable {
             }
             if (shouldRender) {
                 try {
-                    for (Rendered re: renderEvents) {
+                    for (Rendered re : renderEvents) {
                         re.Render(this);
                     }
                 } catch (ConcurrentModificationException cme) {

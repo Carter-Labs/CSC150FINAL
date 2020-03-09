@@ -194,14 +194,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        char key = e.getKeyChar();
-        if(key == 'w' || key == 'a' || key == 's' || key == 'd') {
-            for (Entity en : this.getEntities()) {
-                en.Move();
-            }
-        }
-    }
+    public void keyPressed(KeyEvent e) { }
 
     @Override
     public void keyReleased(KeyEvent e) {
