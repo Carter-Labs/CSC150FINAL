@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>5</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>200</y>
-      <w>85</w>
-      <h>60</h>
+      <x>480</x>
+      <y>240</y>
+      <w>136</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Level
 --
@@ -23,10 +23,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>175</x>
-      <y>145</y>
-      <w>105</w>
-      <h>110</h>
+      <x>280</x>
+      <y>152</y>
+      <w>168</w>
+      <h>176</h>
     </coordinates>
     <panel_attributes>Chamber
 --
@@ -47,36 +47,57 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>390</x>
-      <y>145</y>
-      <w>105</w>
-      <h>190</h>
+      <x>624</x>
+      <y>152</y>
+      <w>192</w>
+      <h>304</h>
     </coordinates>
     <panel_attributes>GameObject
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5</x>
-      <y>145</y>
-      <w>110</w>
-      <h>35</h>
-    </coordinates>
-    <panel_attributes>GameView
 --
-- GunsView : List&lt;GunView&gt;
-- Currency : Currency</panel_attributes>
+/Fields/
+- PREVIOUS_FRAMES : int
+- FRAME_CHOICE : int
+- previousPoints : ArrayList&lt;Point&gt;
+- collisionEvents : ArrayList&lt;Collided&gt;
+--
+/Methods/
+- paintComponent() : void
+- calcRotation() : void
+- toPositiveAngle() : void
+- setRotation() : void
+- addToCollisions() : void
+- Collision() : void
+- move() : void
+-removeToCollision() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>270</y>
-      <w>85</w>
-      <h>65</h>
+      <x>8</x>
+      <y>152</y>
+      <w>232</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>ImageView
+--
+/Fields/
+- image : BufferedImage
+--
+/Methods/
+- loadImage() : void
+- scaleImage() : void
+- paintComponent() : void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>352</y>
+      <w>136</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>Entity
 --
@@ -92,10 +113,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>175</x>
-      <y>390</y>
-      <w>105</w>
-      <h>45</h>
+      <x>280</x>
+      <y>544</y>
+      <w>168</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Gun
 --
@@ -108,21 +129,25 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5</x>
-      <y>185</y>
-      <w>110</w>
-      <h>15</h>
+      <x>8</x>
+      <y>440</y>
+      <w>232</w>
+      <h>64</h>
     </coordinates>
-    <panel_attributes>GunView extends JComponent</panel_attributes>
+    <panel_attributes>PlayerView
+--
+/Methods/
+- Update() : void
+- paintComponent() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>175</x>
-      <y>270</y>
-      <w>105</w>
-      <h>55</h>
+      <x>280</x>
+      <y>352</y>
+      <w>168</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>ChamberDoorOptions
 &lt;&lt;Enum&gt;&gt;
@@ -136,10 +161,10 @@ WEST</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>415</x>
-      <y>390</y>
-      <w>50</w>
-      <h>45</h>
+      <x>664</x>
+      <y>544</y>
+      <w>80</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Attack
 --
@@ -150,9 +175,9 @@ attack() : void</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>0</x>
-      <y>130</y>
-      <w>120</w>
-      <h>115</h>
+      <y>128</y>
+      <w>248</w>
+      <h>384</h>
     </coordinates>
     <panel_attributes>Views
 --
@@ -163,10 +188,10 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>160</x>
-      <y>130</y>
-      <w>340</w>
-      <h>470</h>
+      <x>256</x>
+      <y>128</y>
+      <w>568</w>
+      <h>856</h>
     </coordinates>
     <panel_attributes>Models
 --
@@ -177,10 +202,10 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>310</x>
-      <y>150</y>
-      <w>60</w>
-      <h>50</h>
+      <x>496</x>
+      <y>160</y>
+      <w>96</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>Generate
 --
@@ -192,10 +217,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>340</x>
-      <y>155</y>
-      <w>50</w>
-      <h>55</h>
+      <x>544</x>
+      <y>168</y>
+      <w>80</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>80.0;90.0;80.0;10.0;10.0;10.0</additional_attributes>
@@ -203,10 +228,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>275</x>
-      <y>140</y>
-      <w>75</w>
-      <h>25</h>
+      <x>440</x>
+      <y>144</y>
+      <w>120</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;130.0;10.0;130.0;30.0</additional_attributes>
@@ -214,56 +239,89 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>650</x>
-      <y>510</y>
-      <w>60</w>
-      <h>15</h>
+      <x>1096</x>
+      <y>576</y>
+      <w>200</w>
+      <h>120</h>
     </coordinates>
-    <panel_attributes>PlayerController</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>510</x>
-      <y>310</y>
-      <w>105</w>
-      <h>85</h>
-    </coordinates>
-    <panel_attributes>UIController
+    <panel_attributes>PlayerController
 --
+/Fields/
+- player : Player
+- view : PlayerView
+--
+/Methods/
+- keyTyped() : void
+- keyPressed() : void
+- KeyReleased() : void
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
-      <y>455</y>
-      <w>60</w>
-      <h>15</h>
+      <x>1096</x>
+      <y>464</y>
+      <w>200</w>
+      <h>104</h>
     </coordinates>
-    <panel_attributes>ShopController</panel_attributes>
+    <panel_attributes>UIController
+--
+/Fields/
+- frame : JFrame
+- menuController : MenuController
+--
+/Methods/
+- initFrame() : void
+- initMenu() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5</x>
-      <y>205</y>
-      <w>110</w>
-      <h>15</h>
+      <x>1096</x>
+      <y>392</y>
+      <w>200</w>
+      <h>64</h>
     </coordinates>
-    <panel_attributes>MenuView</panel_attributes>
+    <panel_attributes>ShopController
+--
+/Methods/
+- upgradePlayerHealth() : void
+- upgradePlayerSpeed() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>345</y>
-      <w>85</w>
-      <h>60</h>
+      <x>8</x>
+      <y>264</y>
+      <w>232</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>MenuItemView
+--
+/Fields/
+- DefaultImage : BufferedImage
+- HoverImage : BufferedImage
+- CurrentImage : BufferedImage
+- ItemImage : BufferedImage
+- isActive : Boolean
+--
+/Methods/
+- calcImageScale() : double
+- paintComponent() : void
+- Render() : void
+- setIsActive() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>472</y>
+      <w>136</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>ArmedOfficer
 --
@@ -278,10 +336,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>410</y>
-      <w>85</w>
-      <h>60</h>
+      <x>480</x>
+      <y>576</y>
+      <w>136</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>BatonGuard
 --
@@ -296,10 +354,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>475</y>
-      <w>85</w>
-      <h>60</h>
+      <x>480</x>
+      <y>680</y>
+      <w>136</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Boss
 --
@@ -315,10 +373,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>540</y>
-      <w>85</w>
-      <h>35</h>
+      <x>480</x>
+      <y>784</y>
+      <w>136</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -330,10 +388,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>285</x>
-      <y>335</y>
-      <w>195</w>
-      <h>75</h>
+      <x>456</x>
+      <y>456</y>
+      <w>312</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>30.0;30.0;10.0;30.0;10.0;10.0;370.0;10.0;370.0;130.0;320.0;130.0</additional_attributes>
@@ -341,10 +399,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>285</x>
-      <y>410</y>
-      <w>25</w>
-      <h>15</h>
+      <x>456</x>
+      <y>576</y>
+      <w>40</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>30.0;10.0;10.0;10.0</additional_attributes>
@@ -352,10 +410,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>285</x>
-      <y>345</y>
-      <w>25</w>
-      <h>145</h>
+      <x>456</x>
+      <y>472</y>
+      <w>40</w>
+      <h>232</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>30.0;270.0;10.0;270.0;10.0;10.0</additional_attributes>
@@ -363,10 +421,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>285</x>
-      <y>385</y>
-      <w>25</w>
-      <h>170</h>
+      <x>456</x>
+      <y>536</y>
+      <w>40</w>
+      <h>272</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>30.0;320.0;10.0;320.0;10.0;10.0</additional_attributes>
@@ -374,21 +432,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5</x>
-      <y>225</y>
-      <w>110</w>
-      <h>15</h>
-    </coordinates>
-    <panel_attributes>BlurMenu</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>510</x>
-      <y>145</y>
-      <w>155</w>
-      <h>160</h>
+      <x>840</x>
+      <y>152</y>
+      <w>248</w>
+      <h>288</h>
     </coordinates>
     <panel_attributes>MenuController
 --
@@ -403,6 +450,8 @@ layer=1</panel_attributes>
 - drawMenu() : void
 - setActiveItem(weapon) : void
 - setActiveItem(index) : void
+- nextWeapon() : void
+- prevWeapon() : void
 - Render() : void
 - componentResized() : void
 - componentMoved() : void
@@ -418,10 +467,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>420</x>
-      <y>340</y>
-      <w>40</w>
-      <h>45</h>
+      <x>672</x>
+      <y>464</y>
+      <w>64</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Die
 --
@@ -431,10 +480,10 @@ die() : void</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>505</x>
-      <y>130</y>
-      <w>295</w>
-      <h>470</h>
+      <x>832</x>
+      <y>128</y>
+      <w>472</w>
+      <h>680</h>
     </coordinates>
     <panel_attributes>Controllers
 --
@@ -445,10 +494,10 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>380</x>
-      <y>345</y>
-      <w>65</w>
-      <h>15</h>
+      <x>608</x>
+      <y>472</y>
+      <w>104</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
@@ -456,10 +505,10 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>380</x>
-      <y>345</y>
-      <w>25</w>
-      <h>80</h>
+      <x>608</x>
+      <y>472</y>
+      <w>40</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;140.0;30.0;140.0;30.0;10.0</additional_attributes>
@@ -467,10 +516,10 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>380</x>
-      <y>365</y>
-      <w>25</w>
-      <h>190</h>
+      <x>608</x>
+      <y>504</y>
+      <w>40</w>
+      <h>304</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;360.0;30.0;360.0;30.0;10.0</additional_attributes>
@@ -478,10 +527,10 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>380</x>
-      <y>345</y>
-      <w>25</w>
-      <h>145</h>
+      <x>608</x>
+      <y>472</y>
+      <w>40</w>
+      <h>232</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;270.0;30.0;270.0;30.0;10.0</additional_attributes>
@@ -489,25 +538,30 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>510</x>
-      <y>405</y>
-      <w>105</w>
-      <h>190</h>
+      <x>840</x>
+      <y>448</y>
+      <w>248</w>
+      <h>352</h>
     </coordinates>
     <panel_attributes>Globals
 --
 /Fields/
-- rand : Ranom
-- amountOfCurrency : int
-- levelNumber : int
+- rand : Random
+- saveFilePath : String
 - player : Player
-- playerHealth : int
-- playerSpeed : int
-- selectedGun : Gun
-- playerGuns : Gun[]
+- WIDTH : int
+- HEIGHT : int 
+- MAX_X : int
+- MIN_X : int
+- MAX_Y : int
+- MIN_Y : int
 - bossSpawnPerc : double
 - isBossInChamber : boolean
-- maxNumOfOfficersAndGuards : int 
+- maxNumOfOfficersAndGuards : int
+- collidedEntities : ArrayList&lt;GameObject&gt;
+- game : GameController
+- hasExited : boolean
+- canMove : boolean 
 --
 /Methods/
 - loadData() : void
@@ -516,6 +570,7 @@ layer=-1</panel_attributes>
 - LoadXMLObject() : Player
 - LoadFile() : InputSource
 - SaveXMLObject() : void
+- print() : void
 
 </panel_attributes>
     <additional_attributes/>
@@ -523,10 +578,10 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>415</x>
-      <y>445</y>
-      <w>55</w>
-      <h>45</h>
+      <x>688</x>
+      <y>624</y>
+      <w>88</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Event
 --
@@ -536,10 +591,10 @@ event() : void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>175</x>
-      <y>445</y>
-      <w>105</w>
-      <h>30</h>
+      <x>280</x>
+      <y>632</y>
+      <w>168</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Currency
 --
@@ -550,10 +605,10 @@ event() : void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>175</x>
-      <y>335</y>
-      <w>105</w>
-      <h>40</h>
+      <x>280</x>
+      <y>456</y>
+      <w>168</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>Weapon
 --
@@ -567,10 +622,10 @@ event() : void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>175</x>
-      <y>480</y>
-      <w>105</w>
-      <h>80</h>
+      <x>280</x>
+      <y>688</y>
+      <w>168</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>WeaponType
 &lt;&lt;Enum&gt;&gt;
@@ -587,10 +642,10 @@ RAY_GUN</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>220</x>
-      <y>250</y>
-      <w>15</w>
-      <h>30</h>
+      <x>352</x>
+      <y>320</y>
+      <w>24</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -598,10 +653,10 @@ RAY_GUN</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>220</x>
-      <y>370</y>
-      <w>15</w>
-      <h>30</h>
+      <x>352</x>
+      <y>512</y>
+      <w>24</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -609,10 +664,10 @@ RAY_GUN</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>275</x>
-      <y>200</y>
-      <w>35</w>
-      <h>90</h>
+      <x>440</x>
+      <y>240</y>
+      <w>56</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>50.0;10.0;30.0;10.0;30.0;160.0;10.0;160.0</additional_attributes>
@@ -620,10 +675,10 @@ RAY_GUN</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>275</x>
-      <y>370</y>
-      <w>35</w>
-      <h>85</h>
+      <x>440</x>
+      <y>512</y>
+      <w>56</w>
+      <h>136</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>50.0;10.0;20.0;10.0;20.0;150.0;10.0;150.0</additional_attributes>
@@ -631,10 +686,10 @@ RAY_GUN</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>275</x>
-      <y>445</y>
-      <w>35</w>
-      <h>15</h>
+      <x>440</x>
+      <y>632</y>
+      <w>56</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
@@ -642,10 +697,10 @@ RAY_GUN</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>275</x>
-      <y>450</y>
-      <w>35</w>
-      <h>65</h>
+      <x>440</x>
+      <y>640</y>
+      <w>56</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>50.0;110.0;20.0;110.0;20.0;10.0;10.0;10.0</additional_attributes>
@@ -653,10 +708,10 @@ RAY_GUN</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>335</y>
-      <w>25</w>
-      <h>165</h>
+      <x>256</x>
+      <y>456</y>
+      <w>40</w>
+      <h>264</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>30.0;10.0;10.0;10.0;10.0;310.0;30.0;310.0</additional_attributes>
@@ -664,13 +719,14 @@ RAY_GUN</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>670</x>
-      <y>145</y>
-      <w>125</w>
-      <h>130</h>
+      <x>1096</x>
+      <y>152</y>
+      <w>200</w>
+      <h>232</h>
     </coordinates>
     <panel_attributes>GameController
 --
+/Fields/
 - renderEvents : ArrayList&lt;Rendered&gt;
 - updateEvents : ArrayList&lt;Updated&gt;
 - startEvents : ArrayLIst&lt;Started&gt;
@@ -681,11 +737,99 @@ RAY_GUN</panel_attributes>
 - currentChamber : Chamber
 - level : Level
 --
+/Methods/
 - buildNewLevel() : void
 - reset() : void
 - setLookAndFeel() : void
 - paint() : void
 - run() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>824</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Direction
+&lt;&lt;Enum&gt;&gt;
+--
+NORTH,
+NORTH_EAST,
+EAST,
+SOUTH_EAST,
+SOUTH,
+SOUTH_WEST,
+WEST,
+NORTH_WEST,
+NONE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>648</x>
+      <y>696</y>
+      <w>160</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Collided
+--
+Collision(GameObject) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>632</x>
+      <y>768</y>
+      <w>80</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Moved
+--
+Move() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>680</x>
+      <y>808</y>
+      <w>128</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Rendered
+--
+Render(Jframe): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>472</x>
+      <y>856</y>
+      <w>80</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Started
+--
+Start() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>560</x>
+      <y>856</y>
+      <w>96</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Updated
+--
+Update() : void</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
