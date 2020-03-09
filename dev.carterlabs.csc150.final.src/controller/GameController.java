@@ -43,7 +43,7 @@ public class GameController extends JFrame implements Runnable {
 
     public void reset(){
         int input = JOptionPane.showOptionDialog(this, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
-        if(input == JOptionPane.OK_OPTION){
+        if(input == JOptionPane.OK_OPTION || input == JOptionPane.CLOSED_OPTION){
          this.getContentPane().removeAll();
             for (Chamber c: level.getChambers()) {
                 c.clearChamber();

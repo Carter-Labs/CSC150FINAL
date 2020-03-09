@@ -70,8 +70,11 @@ public class GameObject extends ImageView implements Collided, Moved {
             if(this instanceof BatonGuard || this instanceof ArmedOfficer){
                 Globals.print(""+ obj.getName()+" collided with Enemy");
             }
-            if(obj.getName().equals("Bullet")){
+            else if(obj.getName().equals("Bullet")){
                 Globals.print(""+ obj.getName()+" collided with "+ this.getName());
+            }
+            else {
+                Globals.print(obj.getName() + " collided with "+ this.getName());
             }
 //            Globals.print(this.getClass().getSimpleName() + " Collided with: ");
 //            Globals.print(obj.getName());
