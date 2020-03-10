@@ -54,6 +54,8 @@ public class Globals {
     public static int maxNumOfOfficersAndGuards     = 3;
     public static List<GameObject> collidedEntities = new ArrayList<>();
     public static GameController game;
+    public static int SCORE                         = 0;
+    public static int WAVE                          = 0;
     public static boolean hasExited = false;
     public static boolean canMove = false;
 

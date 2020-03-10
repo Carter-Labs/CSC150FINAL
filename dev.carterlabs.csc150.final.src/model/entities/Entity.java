@@ -153,20 +153,6 @@ public abstract class Entity extends GameObject implements Updated, Started, Ren
         super.paintComponent(g);
     }
 
-//    public void rotateEnemy() {
-//        Point point = new Point(Globals.player.getX(), Globals.player.getY());
-//        double angle;
-//        double dx = point.getX() - this.getX() + (this.getWidth() / 2);
-//        double dy = point.getY() - this.getY() + (this.getHeight() / 2);
-//        angle = Math.toDegrees(Math.atan2(dy, dx)) + 90;
-//        angle = angle % 360;
-//        while (angle < 0) {
-//            angle += 360.0;
-//        }
-//        setRotation((int)angle);
-//        this.repaint();
-//    }
-
     public void setRotation(int rotation) {
         if(rotation > 360 || rotation < 0) throw new IllegalArgumentException("Rotation must be between 360 and 0");
         this.rotation = rotation;

@@ -42,6 +42,8 @@ public abstract class Enemy extends Entity implements Moved {
         if(this.getBounds().intersects(obj.getBounds())) {
             if(obj.getName().equals("Bullet")){
                 Globals.print("Collided with Bullet");
+                Globals.SCORE ++;
+                Globals.game.updatePointsLbl(Globals.SCORE);
                 canMove = false;
                 System.out.println(this.collisionEvents.size());
                 this.setBounds(0, 0,0,0);
