@@ -69,7 +69,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         pointLabel.setLocation(100,0);
         pointLabel.setBackground(Color.BLACK);
         pointLabel.setForeground(Color.WHITE);
-        pointLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        pointLabel.setFont(new Font("Futra", Font.BOLD, 48));
         pointLabel.setSize(pointLabel.getPreferredSize());
         pointLabel.setOpaque(true);
         pointLabel.setText("Points: "+ points);
@@ -82,7 +82,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         waveLabel.setLocation(Globals.WIDTH - 350,0);
         waveLabel.setBackground(Color.BLACK);
         waveLabel.setForeground(Color.WHITE);
-        waveLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        waveLabel.setFont(new Font("Futra", Font.BOLD, 48));
         waveLabel.setSize(waveLabel.getPreferredSize());
         waveLabel.setOpaque(true);
         waveLabel.setText("Wave: "+ wave);
