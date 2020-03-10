@@ -43,18 +43,25 @@ public abstract class Enemy extends Entity implements Moved {
             if(obj.getName().equals("Bullet")){
                 Globals.print("Collided with Bullet");
                 canMove = false;
-                System.out.println(this.collisionEvents.size());
-                this.setBounds(0, 0,0,0);
-                GameController.moveEvents.remove(this);
-                GameController.updateEvents.remove(this);
-                GameController.renderEvents.remove(this);
-                Globals.game.remove(this);
-                GameController.currentChamber.entities.remove(this);
-                for (Entity en: GameController.currentChamber.entities) {
-                    this.removeToCollision(en);
-                    en.removeToCollision(this);
+                this.setSize(0, 0);
+                while(GameController.moveEvents.contains(this)
+                    ||GameController.updateEvents.contains(this)
+                    ||GameController.renderEvents.contains(this)) {
+                    GameController.moveEvents.remove(this);
+                    GameController.updateEvents.remove(this);
+                    GameController.renderEvents.remove(this);
+                    GameController.currentChamber.entities.remove(this);
+                    for (Entity en: GameController.currentChamber.entities) {
+                        this.removeToCollision(en);
+                        en.removeToCollision(this);
+                    }
+                    Globals.player.removeToCollision(this);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                System.out.println(this.collisionEvents.size());
                 try {
                     this.finalize();
                 } catch (Throwable throwable) {

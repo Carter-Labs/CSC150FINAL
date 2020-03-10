@@ -38,7 +38,7 @@ public class GameController extends JFrame implements Runnable {
 
     public void buildNewLevel() {
         level = new Level(this);
-        level.loadChamber(0);
+        currentChamber = level.loadChamber(0);
     }
 
     public void reset() {

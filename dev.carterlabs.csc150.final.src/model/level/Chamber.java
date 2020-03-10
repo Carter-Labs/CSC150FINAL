@@ -15,10 +15,8 @@ import view.ImageView;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.*;
 
 public class Chamber implements Generate, Moved, KeyListener, MouseMotionListener, MouseListener {
     /**
@@ -57,9 +55,19 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         generateFloor(this.jFrame);
         GameController.objects.addAll(entities);
         GameController.moveEvents.add(this);
+        //Sets labels on screen
+        updatePointsLbl(0);
+        updateWaveLbl(1);
+        try {
+            addEvents();
+        } catch (ConcurrentModificationException cme) {
+        }
+    }
+
+    private void addEvents() throws ConcurrentModificationException {
         for (GameObject object: GameController.objects) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -69,9 +77,6 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
                 }
             }
         }
-        //Sets labels on scree
-        updatePointsLbl(0);
-        updateWaveLbl(1);
     }
 
     /**
