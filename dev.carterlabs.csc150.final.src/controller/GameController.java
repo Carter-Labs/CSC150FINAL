@@ -166,7 +166,6 @@ public class GameController extends JFrame implements Runnable {
                         }
                     }
                 } catch (ConcurrentModificationException ignore) {
-                    ignore.printStackTrace();
                 }
                 for (Attack ae : attackEvents) {
                     ae.attack();

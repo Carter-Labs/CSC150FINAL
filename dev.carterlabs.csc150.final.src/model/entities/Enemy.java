@@ -18,6 +18,22 @@ public abstract class Enemy extends Entity implements Moved {
     private boolean canMove = true;
     public Enemy(int health, int speed, String image) {
         super(health, speed, image);
+        int i = 0;
+        while(i <= 5) {
+            for (GameObject object: GameController.objects) {
+                for (GameObject objectc: GameController.objects) {
+                    if(objectc != object) {
+                        object.addToCollisions(objectc);
+                    }
+                }
+            }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
     }
 
     @Override
@@ -46,24 +62,15 @@ public abstract class Enemy extends Entity implements Moved {
                 Globals.game.updatePointsLbl(Globals.SCORE);
                 canMove = false;
                 this.setSize(0, 0);
-                while(GameController.moveEvents.contains(this)
-                    ||GameController.updateEvents.contains(this)
-                    ||GameController.renderEvents.contains(this)) {
-                    GameController.moveEvents.remove(this);
-                    GameController.updateEvents.remove(this);
-                    GameController.renderEvents.remove(this);
-                    GameController.currentChamber.entities.remove(this);
-                    for (Entity en: GameController.currentChamber.entities) {
-                        this.removeToCollision(en);
-                        en.removeToCollision(this);
-                    }
-                    Globals.player.removeToCollision(this);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                GameController.moveEvents.remove(this);
+                GameController.updateEvents.remove(this);
+                GameController.renderEvents.remove(this);
+                GameController.currentChamber.entities.remove(this);
+                for (Entity en: GameController.currentChamber.entities) {
+                    this.removeToCollision(en);
+                    en.removeToCollision(this);
                 }
+                Globals.player.removeToCollision(this);
                 try {
                     this.finalize();
                 } catch (Throwable throwable) {

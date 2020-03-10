@@ -29,6 +29,8 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
     private HashMap componentMap;
     private List<GameObject> bullets = new ArrayList<>();
     private GameObject reload = new GameObject("./Resources/Particles/reload.png");
+    JLabel pointLabel = new JLabel("Points: ",SwingConstants.CENTER);
+    JLabel waveLabel = new JLabel("Wave: ",SwingConstants.CENTER);
     private int shots = 0;
 
     /**
@@ -45,6 +47,8 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
     @Override public void generate() {
         //add boss if in range to list of entities
         isBossInChamber();
+        this.jFrame.add(pointLabel);
+        this.jFrame.add(waveLabel);
         doors = new ChamberDoorOptions[4];
         //add num of enemies to list of entities
         jFrame.addKeyListener(this);
@@ -58,54 +62,33 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         //Sets labels on screen
         updatePointsLbl(0);
         updateWaveLbl(1);
-        try {
-            addEvents();
-        } catch (ConcurrentModificationException cme) {
-        }
-    }
-
-    private void addEvents() throws ConcurrentModificationException {
-        for (GameObject object: GameController.objects) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            for (GameObject objectc: GameController.objects) {
-                if(objectc != object) {
-                    object.addToCollisions(objectc);
-                }
-            }
-        }
     }
 
     private void updatePointsLbl(int points) {
-        JLabel textLabel = new JLabel("Points: "+ points,SwingConstants.CENTER);
-        this.jFrame.add(textLabel);
-        textLabel.setPreferredSize(new Dimension(250, 64));
-        textLabel.setLocation(100,0);
-        textLabel.setBackground(Color.BLACK);
-        textLabel.setForeground(Color.WHITE);
-        textLabel.setFont(new Font("Serif", Font.BOLD, 48));
-        textLabel.setSize(textLabel.getPreferredSize());
-        textLabel.setOpaque(true);
-        this.jFrame.getContentPane().add(textLabel, BorderLayout.CENTER);
-        this.jFrame.getContentPane().setComponentZOrder(textLabel, 3);
-        textLabel.repaint();
+        pointLabel.setPreferredSize(new Dimension(250, 64));
+        pointLabel.setLocation(100,0);
+        pointLabel.setBackground(Color.BLACK);
+        pointLabel.setForeground(Color.WHITE);
+        pointLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        pointLabel.setSize(pointLabel.getPreferredSize());
+        pointLabel.setOpaque(true);
+        pointLabel.setText("Points: "+ points);
+        this.jFrame.getContentPane().add(pointLabel, BorderLayout.CENTER);
+        this.jFrame.getContentPane().setComponentZOrder(pointLabel, 3);
+        pointLabel.repaint();
     }
     private void updateWaveLbl(int wave) {
-        JLabel textLabel = new JLabel("Wave: "+ wave,SwingConstants.CENTER);
-        this.jFrame.add(textLabel);
-        textLabel.setPreferredSize(new Dimension(250, 64));
-        textLabel.setLocation(Globals.WIDTH - 350,0);
-        textLabel.setBackground(Color.BLACK);
-        textLabel.setForeground(Color.WHITE);
-        textLabel.setFont(new Font("Serif", Font.BOLD, 48));
-        textLabel.setSize(textLabel.getPreferredSize());
-        textLabel.setOpaque(true);
-        this.jFrame.getContentPane().add(textLabel, BorderLayout.CENTER);
-        this.jFrame.getContentPane().setComponentZOrder(textLabel, 3);
-        textLabel.repaint();
+        waveLabel.setPreferredSize(new Dimension(250, 64));
+        waveLabel.setLocation(Globals.WIDTH - 350,0);
+        waveLabel.setBackground(Color.BLACK);
+        waveLabel.setForeground(Color.WHITE);
+        waveLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        waveLabel.setSize(waveLabel.getPreferredSize());
+        waveLabel.setOpaque(true);
+        waveLabel.setText("Wave: "+ wave);
+        this.jFrame.getContentPane().add(waveLabel, BorderLayout.CENTER);
+        this.jFrame.getContentPane().setComponentZOrder(waveLabel, 3);
+        waveLabel.repaint();
     }
 
     /**
@@ -186,16 +169,18 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
      * Draws the chamber in the view
      */
     @Override public void Move() {
-        for(GameObject bullet : this.bullets){
-            for (int i = 0; i < 10 ; i++) {
-                double angle = Math.toRadians(bullet.getRotation() + 90);
-                double x = bullet.getX(), y = bullet.getY();
-                x = x + Math.cos(angle) * -1 * 5;
-                y = y + Math.sin(angle) * -1 * 5;
-                bullet.setLocation((int)x,(int)y);
-                bullet.repaint();
+        try {
+            for(GameObject bullet : this.bullets){
+                for (int i = 0; i < 10 ; i++) {
+                    double angle = Math.toRadians(bullet.getRotation() + 90);
+                    double x = bullet.getX(), y = bullet.getY();
+                    x = x + Math.cos(angle) * -1 * 5;
+                    y = y + Math.sin(angle) * -1 * 5;
+                    bullet.setLocation((int)x,(int)y);
+                    bullet.repaint();
+                }
             }
-        }
+        } catch (ConcurrentModificationException cme) {}
     }
 
     @Override
@@ -305,8 +290,8 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
      * Adds random amount of armed officers and baton guards
      */
     private void addOfficersAndGuards() {
-        int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 1) + 1 + 10;
-        int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards + 10;
+        int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 1) + 1;
+        int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards;
         List<Entity> newArr = new ArrayList<>();
         for (int i = 0; i < numOfGuards; i++) {
             newArr.add(new BatonGuard(110,2,new Weapon(100, WeaponType.BATON)));
