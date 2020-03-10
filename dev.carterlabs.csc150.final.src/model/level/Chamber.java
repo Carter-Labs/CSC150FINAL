@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
+import java.util.Timer;
 import java.util.*;
 
 public class Chamber implements Generate, Moved, KeyListener, MouseMotionListener, MouseListener {
@@ -32,6 +33,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
     JLabel pointLabel = new JLabel("Points: ",SwingConstants.CENTER);
     JLabel waveLabel = new JLabel("Wave: ",SwingConstants.CENTER);
     private int shots = 0;
+    private int wave = 1;
 
     /**
      * Default Constructor
@@ -61,7 +63,26 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         GameController.moveEvents.add(this);
         //Sets labels on screen
         updatePointsLbl(0);
-        updateWaveLbl(1);
+        updateWaveLbl(wave);
+        Timer timer = new Timer("Wave Timer");
+        TimerTask waveTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    WaveTimerTask();
+                } catch (ConcurrentModificationException cme) {}
+            }
+        };
+        timer.scheduleAtFixedRate(waveTimerTask, 5000, 5000);
+    }
+
+    private void WaveTimerTask() {
+        System.out.println("Timer");
+        addOfficersAndGuards();
+        spawnEnemies(jFrame);
+        generateFloor(jFrame);
+        wave++;
+        updateWaveLbl(wave);
     }
 
     private void updatePointsLbl(int points) {
@@ -289,7 +310,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
     /**
      * Adds random amount of armed officers and baton guards
      */
-    private void addOfficersAndGuards() {
+    public void addOfficersAndGuards() {
         int numOfGuards = Globals.rand.nextInt((Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) - 1) + 1;
         int numOfOfficers = Globals.rand.nextInt(Globals.maxNumOfOfficersAndGuards + Globals.player.getCurrentLevel()) + 1 - numOfGuards;
         List<Entity> newArr = new ArrayList<>();
@@ -346,7 +367,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         g.repaint();
     }
 
-    private void spawnEnemies(JFrame j) {
+    public void spawnEnemies(JFrame j) {
         int randX, randY;
         for (Entity en : this.getEntities()){
             randX = Globals.rand.nextInt(jFrame.getContentPane().getWidth() - 128) + 128;
@@ -414,5 +435,9 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
                 "objects=" + Arrays.toString(objects) +
                 ", entities=" + entities +
                 '}';
+    }
+
+    public JFrame getjFrame() {
+        return this.jFrame;
     }
 }
