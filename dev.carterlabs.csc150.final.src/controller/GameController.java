@@ -67,7 +67,7 @@ public class GameController extends JFrame implements Runnable {
         textLabel.setLocation(100,0);
         textLabel.setBackground(Color.BLACK);
         textLabel.setForeground(Color.WHITE);
-        textLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        textLabel.setFont(new Font("Futra", Font.BOLD, 48));
         textLabel.setSize(textLabel.getPreferredSize());
         textLabel.setOpaque(true);
         this.getContentPane().add(textLabel, BorderLayout.CENTER);
@@ -81,7 +81,7 @@ public class GameController extends JFrame implements Runnable {
         textLabel.setLocation(Globals.WIDTH - 350,0);
         textLabel.setBackground(Color.BLACK);
         textLabel.setForeground(Color.WHITE);
-        textLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        textLabel.setFont(new Font("Futra", Font.BOLD, 48));
         textLabel.setSize(textLabel.getPreferredSize());
         textLabel.setOpaque(true);
         this.getContentPane().add(textLabel, BorderLayout.CENTER);
