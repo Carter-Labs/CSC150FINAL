@@ -34,6 +34,8 @@ public class GameController extends JFrame implements Runnable {
         Thread t = new Thread(this::buildNewLevel);
         t.start();
         Globals.game = this;
+        updatePointsLbl(0);
+        updateWaveLbl(1);
     }
 
     public void buildNewLevel() {
@@ -42,6 +44,8 @@ public class GameController extends JFrame implements Runnable {
     }
 
     public void reset() {
+        Globals.SCORE = 0;
+        Globals.WAVE = 1;
         int input = JOptionPane.showOptionDialog(this, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
         if(input == JOptionPane.OK_OPTION || input == JOptionPane.CLOSED_OPTION){
          this.getContentPane().removeAll();
@@ -54,6 +58,35 @@ public class GameController extends JFrame implements Runnable {
              this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
              this.dispose();
         }
+    }
+
+    public void updatePointsLbl(int points) {
+        JLabel textLabel = new JLabel("Points: "+ points,SwingConstants.CENTER);
+        this.add(textLabel);
+        textLabel.setPreferredSize(new Dimension(250, 64));
+        textLabel.setLocation(100,0);
+        textLabel.setBackground(Color.BLACK);
+        textLabel.setForeground(Color.WHITE);
+        textLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        textLabel.setSize(textLabel.getPreferredSize());
+        textLabel.setOpaque(true);
+        this.getContentPane().add(textLabel, BorderLayout.CENTER);
+        this.getContentPane().setComponentZOrder(textLabel, 4);
+        textLabel.repaint();
+    }
+    public void updateWaveLbl(int wave) {
+        JLabel textLabel = new JLabel("Wave: "+ wave,SwingConstants.CENTER);
+        this.add(textLabel);
+        textLabel.setPreferredSize(new Dimension(250, 64));
+        textLabel.setLocation(Globals.WIDTH - 350,0);
+        textLabel.setBackground(Color.BLACK);
+        textLabel.setForeground(Color.WHITE);
+        textLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        textLabel.setSize(textLabel.getPreferredSize());
+        textLabel.setOpaque(true);
+        this.getContentPane().add(textLabel, BorderLayout.CENTER);
+        this.getContentPane().setComponentZOrder(textLabel, 4);
+        textLabel.repaint();
     }
 
 
