@@ -16,6 +16,7 @@ public abstract class Enemy extends Entity implements Moved {
      * @param image  The image of the entity
      */
     private boolean canMove = true;
+    private boolean isDead = false;
     public Enemy(int health, int speed, String image) {
         super(health, speed, image);
         int i = 0;
@@ -38,7 +39,9 @@ public abstract class Enemy extends Entity implements Moved {
 
     @Override
     public void Move() {
-        if(Globals.canMove && canMove) {
+        this.setVisible(true);
+        this.repaint();
+        if(Globals.canMove && canMove && !isDead) {
             super.Move();
             //move
             float xDirection = (float)Math.sin((float) Math.toRadians(getRotation()))
@@ -55,8 +58,12 @@ public abstract class Enemy extends Entity implements Moved {
 
     @Override
     public GameObject Collision(GameObject obj) {
+        if(isDead) {
+            this.setBounds(0, 0, 0, 0); return null;
+        }
         if(this.getBounds().intersects(obj.getBounds())) {
             if(obj.getName().equals("Bullet")){
+                isDead = true;
                 Globals.print("Collided with Bullet");
                 Globals.SCORE ++;
                 Globals.game.updatePointsLbl(Globals.SCORE);
@@ -81,5 +88,21 @@ public abstract class Enemy extends Entity implements Moved {
             return this;
         }
         return null;
+    }
+
+    public boolean isCanMove() {
+        return canMove;
+    }
+
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 }

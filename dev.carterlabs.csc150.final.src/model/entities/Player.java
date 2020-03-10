@@ -263,9 +263,16 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
     public GameObject Collision(GameObject obj) {
         if(this.getBounds().intersects(obj.getBounds())) {
             if(obj instanceof BatonGuard || obj instanceof ArmedOfficer || obj instanceof Boss){
-                Globals.print("Collided with Enemy");
-                Globals.game.remove(this);
-                Globals.game.reset();
+                if(obj instanceof Enemy) {
+                    Enemy e = (Enemy) obj;
+                    if(!e.isDead()){
+                        Globals.print("Collided with Enemy");
+                        Globals.game.remove(this);
+                        if(e.Collision(this) != null) {
+                            Globals.game.reset();
+                        }
+                    }
+                }
             }
             super.Collision(obj);
             return this;

@@ -80,7 +80,6 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         System.out.println("Timer");
         addOfficersAndGuards();
         spawnEnemies(jFrame);
-        wave++;
         updateWaveLbl(wave);
     }
 
