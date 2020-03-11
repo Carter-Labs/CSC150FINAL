@@ -108,7 +108,6 @@ public class GameController extends JFrame implements Runnable {
             Method getIconBits = Class.forName("sun.awt.shell.Win32ShellFolder2").getDeclaredMethod("getIconBits", long.class, int.class);
             getIconBits.setAccessible(true);
             int icon32Size = 40;
-            Globals.print("" + icon32Size);
             Object[] arguments = {null, icon32Size};
             for (String[] s : icons) {
                 if (UIManager.get(s[0]) instanceof ImageIcon) {

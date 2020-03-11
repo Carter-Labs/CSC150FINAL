@@ -266,7 +266,6 @@ public class Player extends Entity implements Attack, Moved, MouseMotionListener
                 if(obj instanceof Enemy) {
                     Enemy e = (Enemy) obj;
                     if(!e.isDead()){
-                        Globals.print("Collided with Enemy");
                         Globals.game.remove(this);
                         if(e.Collision(this) != null) {
                             Globals.game.reset();
