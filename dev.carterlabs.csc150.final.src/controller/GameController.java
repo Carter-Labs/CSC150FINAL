@@ -34,6 +34,7 @@ public class GameController extends JFrame implements Runnable {
         Thread t = new Thread(this::buildNewLevel);
         t.start();
         Globals.game = this;
+        Globals.WAVE = 1;
         updatePointsLbl(0);
         updateWaveLbl(1);
     }
@@ -49,14 +50,14 @@ public class GameController extends JFrame implements Runnable {
         int input = JOptionPane.showOptionDialog(this, "Task Failed Successfully", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, null, null);
         if(input == JOptionPane.OK_OPTION || input == JOptionPane.CLOSED_OPTION){
          this.getContentPane().removeAll();
-            for (Chamber c: level.getChambers()) {
-                c.clearChamber();
-            }
+            this.removeAll();
+            this.revalidate();
              this.repaint();
              Globals.collidedEntities.clear();
              Globals.hasExited = true;
              this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
              this.dispose();
+             new GameController();
         }
     }
 

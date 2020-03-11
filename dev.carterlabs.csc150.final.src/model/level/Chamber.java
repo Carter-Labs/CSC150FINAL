@@ -63,7 +63,7 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         GameController.moveEvents.add(this);
         //Sets labels on screen
         updatePointsLbl(0);
-        updateWaveLbl(wave);
+        updateWaveLbl(Globals.WAVE);
         Timer timer = new Timer("Wave Timer");
         TimerTask waveTimerTask = new TimerTask() {
             @Override
@@ -80,7 +80,8 @@ public class Chamber implements Generate, Moved, KeyListener, MouseMotionListene
         System.out.println("Timer");
         addOfficersAndGuards();
         spawnEnemies(jFrame);
-        updateWaveLbl(wave);
+        Globals.WAVE ++;
+        updateWaveLbl(Globals.WAVE);
     }
 
     private void updatePointsLbl(int points) {
